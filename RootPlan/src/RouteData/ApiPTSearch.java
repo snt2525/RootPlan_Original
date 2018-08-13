@@ -37,7 +37,6 @@ public class ApiPTSearch {
          }
       }     
     	System.out.println("대중교통끝");
-      
    }
    
    static void allApi(int i,int j){
