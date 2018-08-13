@@ -23,15 +23,5 @@ public class Route {
             return false;
         }
         return true;
-	}
-
-	public static void print(TimeMethod[][] data) {
-		for(int i =0;i<data.length;i++) {
-			for(int j =0;j<data.length;j++) {
-				System.out.print(data[i][j].getTime());
-			}
-			System.out.println();
-		}
-	}
-	
+	}	
 }
