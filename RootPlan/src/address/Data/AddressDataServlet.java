@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import MapData.Address;
 import MapData.AddressDataManager;
-import MoveData.ApiCarSearch;
-import MoveData.ApiPTSearch;
+import RouteData.ApiCarSearch;
+import RouteData.ApiPTSearch;
+import ShortestPath.copy.Route;
 import ShortestPath.copy.SetData;
 
 @WebServlet("/AddressDataServlet")
@@ -20,6 +21,7 @@ public class AddressDataServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
    AddressDataManager ad = new AddressDataManager();  
    SetData sd = new SetData();
+   Route r = new Route();
    ApiPTSearch pt;
    ApiCarSearch cs;
    boolean apiFlag= true; 
@@ -39,7 +41,6 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.print("연결");
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
-      System.out.print(optionNum);
       switch(optionNum) {
          case 1:  //정보 저장
             if(ad.listSize() == 7) {
@@ -135,20 +136,12 @@ public class AddressDataServlet extends HttpServlet {
             
          case 15:
         	 System.out.println("서블래");
-        	 System.out.println(apiFlag);
         	if(apiFlag) {
 	        	int a = Integer.parseInt(request.getParameter("a"));
 	        	int b = Integer.parseInt(request.getParameter("b"));
 	        	String car = request.getParameter("carBlock");
-	            System.out.println("서블렛에 도달");
-	            pt = new ApiPTSearch(ad.getList());
-		        pt.callTransportApi(a, b); //대중교통  API call
-		        if(car.equals("0")) {
-		        	System.out.println("자동차호출");
-		            cs = new ApiCarSearch(ad.getList());
-		            cs.carApi(); //자동차 API call      
-		            apiFlag = false;
-		        }
+	            System.out.println("서블렛에 도달");	            
+	            apiFlag = r.callApi(a, b, car,ad);		        
 	        }
             break;
       }               

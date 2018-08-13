@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import ShortestPath.copy.SetData;
 
 public class AddressDataManager {
-   LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
+   public static LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
    int size = 0;
    public AddressDataManager(){
       addressData = new LinkedList<Address>();      

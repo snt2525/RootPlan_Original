@@ -1,0 +1,37 @@
+package ShortestPath.copy;
+
+import java.util.LinkedList;
+
+import MapData.Address;
+import MapData.AddressDataManager;
+import RouteData.ApiCarSearch;
+import RouteData.ApiPTSearch;
+import RouteData.TimeMethod;
+
+public class Route {
+	static int[][] dist;
+    static ApiPTSearch pt;
+    static ApiCarSearch cs;
+    
+	public static boolean callApi(int a, int b, String car, AddressDataManager ad) {		
+        pt = new ApiPTSearch(ad.getList());
+        pt.callTransportApi(a, b); //대중교통  API call       
+        if(car.equals("0")) {
+        	System.out.println("자동차호출");
+            cs = new ApiCarSearch(ad.getList());
+            cs.carApi(); //자동차 API call 
+            return false;
+        }
+        return true;
+	}
+
+	public static void print(TimeMethod[][] data) {
+		for(int i =0;i<data.length;i++) {
+			for(int j =0;j<data.length;j++) {
+				System.out.print(data[i][j].getTime());
+			}
+			System.out.println();
+		}
+	}
+	
+}
