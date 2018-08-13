@@ -1,12 +1,8 @@
 package ShortestPath.copy;
 
-import java.util.LinkedList;
-
-import MapData.Address;
 import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
-import RouteData.TimeMethod;
 
 public class Route {
 	static int[][] dist;
