@@ -41,6 +41,7 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.print("연결");
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
+      //System.out.print(optionNum);
       switch(optionNum) {
          case 1:  //정보 저장
             if(ad.listSize() == 7) {
@@ -135,13 +136,13 @@ public class AddressDataServlet extends HttpServlet {
             break;
             
          case 15:
-        	 System.out.println("서블래");
+        	 System.out.println("서블래");       
         	if(apiFlag) {
 	        	int a = Integer.parseInt(request.getParameter("a"));
 	        	int b = Integer.parseInt(request.getParameter("b"));
 	        	String car = request.getParameter("carBlock");
-	            System.out.println("서블렛에 도달");	            
-	            apiFlag = r.callApi(a, b, car,ad);		        
+	            System.out.println("서블렛에 도달");
+	            apiFlag = r.callApi(a, b, car,ad);		
 	        }
             break;
       }               

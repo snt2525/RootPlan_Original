@@ -64,6 +64,7 @@ public class ApiCarSearch {
 	          br.close();
 	          con.disconnect();
 	          String data = sb.toString();
+	          //System.out.println(data);
 	          
 	          String[] array;
 	          array = data.split("<|>");
