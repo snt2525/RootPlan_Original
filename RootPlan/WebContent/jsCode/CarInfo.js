@@ -86,4 +86,12 @@ function inputDataServer(sn, en, sx, sy, ex, ey){
 		}
 	});
 } 
+
+function callShortpath(){
+	$.ajax({
+		   type: "POST",
+	       url:"/RootPlan/AddressDataServlet",
+	       data: $("#callDFS").serialize()
+	   });
+}
 	
