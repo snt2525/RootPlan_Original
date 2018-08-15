@@ -1,23 +1,22 @@
 package RouteData;
 
 public class TimeMethod {
-	public static int time;
-	public static boolean method;  //true가 걷기 api
+	private int time;
+	private boolean method;  //true가 걷기 api
 	public TimeMethod(int t, boolean m){
 		this.time = t;
 		this.method = m;
 	}
-	public static int getTime() {
+	public int getTime() {
 		return time;
 	}
-	public static void setTime(int time) {
-		TimeMethod.time = time;
+	public void setTime(int time) {
+		this.time = time;
 	}
-	public static boolean getMethod() {
+	public boolean getMethod() {
 		return method;
 	}
-	public static void setMethod(boolean method) {
-		TimeMethod.method = method;
+	public void setMethod(boolean method) {
+		this.method = method;
 	}
-	
 }
