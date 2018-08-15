@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=gTUR4iAk1YVJAPF0hdQ9&submodules=geocoder"></script>
-   <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-   <link rel="stylesheet" href="./css/ThirdCSS.css">
-   <link href="css/style.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=gTUR4iAk1YVJAPF0hdQ9&submodules=geocoder"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="./css/ThirdCSS.css">
+<link href="css/style.css" rel="stylesheet">
 </head>
 
- <body>
+<body>
 	<div id="container">
 		<div id="aside">
 			<div id="asideContent">
-				<!--  frameLeft --> 
-					<div id="asideTop">
-						<form name="addressList2" id="addressList2" method="post">
-							<input type="hidden" id="menuIndex" name="menuIndex" value ="12"/>
-							<div id="list2" name="list2" ></div>   <!-- 검색 결과 리스트 출력 -->
-							<input type="button" id="ByCar" name ="ByCar" value="자동차 + 도보">
-							<input type="button" id="ByTransit" name ="ByTransit" value="대중교통 + 도보">  						    												
-					    </form>  
-					    
-			  <!--	<form name="SiData" id="SiData" method="post">
+				<!--  frameLeft -->
+				<div id="asideTop">
+					<form name="addressList2" id="addressList2" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="12" />
+						<div id="list2" name="list2"></div>
+						<!-- 검색 결과 리스트 출력 -->
+						<input type="button" id="ByCar" name="ByCar" value="자동차 + 도보">
+						<input type="button" id="ByTransit" name="ByTransit"
+							value="대중교통 + 도보">
+					</form>
+
+					<!--	<form name="SiData" id="SiData" method="post">
 			                  <input type="hidden" id="menuIndex" name ="menuIndex" value="6"/>
 			                  <input type="hidden" id="Si" name="Si" value=""/>
 			                  <input type="hidden" id="clickSi" name="clickSi" value=""/>
 			                  <div id='crawlingData' name="crawlingData" ></div>   검색 결과 리스트 출력
 			                  <input type="hidden" id="addSi" name="addSi" value="미국"/>
                			</form>  -->
-               		
-					</div>
-					<div id="asideBottom">
-						<a href="Third.html" data-role="button" id = "preBtn"  >< PREV </a>	
-						  
-					</div>
-								
-			</div>			
+
+				</div>
+				<div id="asideBottom">
+					<a href="Third.html" data-role="button" id="preBtn">< PREV </a>
+
+				</div>
+
+			</div>
 		</div>
-		
+
 		<div id="content">
-			<!-- NewFile -->				 
+			<!-- NewFile -->
 			<form name="form" id="form" method="post">
 				<div class="search">
-					<input type="hidden" id="jibunAddr" value="" /> 
-					<input type="hidden" id="confmKey" name="confmKey" value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="  >									 
-			    </div>
-		    </form>				
-				        
-			<div id="wrap" class="section">
-			    <div id="map2" style="width:100%;height:100%;">
-			    </div>
-			    <code id="snippet" class="snippet"></code>
-			</div>	
-		</div>			
-	</div>		
- 	<script type="text/javascript" src="jsCode/PublicTransJs.js"></script>	
- 	 <script type="text/javascript" src="jsCode/CarInfo.js"></script>
+					<input type="hidden" id="jibunAddr" value="" /> <input
+						type="hidden" id="confmKey" name="confmKey"
+						value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ=">
+				</div>
+			</form>
 
- 	<script>
+			<div id="wrap" class="section">
+				<div id="map2" style="width: 100%; height: 100%;"></div>
+				<code id="snippet" class="snippet"></code>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="jsCode/PublicTransJs.js"></script>
+	<script type="text/javascript" src="jsCode/CarInfo.js"></script>
+
+	<script>
 	 	var map2 = new naver.maps.Map("map2", {
 	 	    center: new naver.maps.LatLng(37.3595316, 127.1052133),
 	 	    zoom: 10,
@@ -71,6 +75,6 @@
 	 	var marker = new Array(10);
 	 	var cnt = 0;
  	</script>
- 	
- </body>
+
+</body>
 </html>
