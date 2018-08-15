@@ -31,14 +31,18 @@ public class Shortpath {
                if(how==0)    ptAns[i] = tmp[i];
                else  carAns[i] = tmp[i];
             }
-            carAns[cnt] = end;
+            System.out.println("cnt"+cnt+", end: "+ end);
+            if(how == 0)
+               ptAns[cnt] = end;
+            else 
+               carAns[cnt] = end;
             min = sum;
          }
          return;
       }
       
       for(int i=0; i<listSize; i++) {
-         if(visit[i] == 1 || i == now || i==end) continue;      
+         if(visit[i] == 1 || i == now || i == end) continue;      
          visit[i] = 1;
          tmp[cnt] = i;
          if(how==0) { // 대중교통
@@ -107,6 +111,7 @@ public class Shortpath {
       carPrint(listSize);
       System.out.println("대중교통 거리 출력");
       ptPrint(listSize);
+      System.out.println(start+" "+end);
       if(equal==0) {
          // 시작점 바꾸기
             visit[start] = 1;

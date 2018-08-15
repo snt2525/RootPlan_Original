@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import ShortestPath.copy.Route;
 
 public class ApiPTSearch {
-	public StringBuilder sb;
+	StringBuilder sb;
 	String key = "5FtIuAS9YmPfOD56TV5NHqYE6EivPWAAIBCZcy6V72c";
 	LinkedList<MapData.Address> ad;
 	// 이차원 배열을 Route.java에다가 넣어주기

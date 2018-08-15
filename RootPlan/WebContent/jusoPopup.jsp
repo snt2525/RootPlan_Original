@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
- <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Insert title here</title>
 <% 
 	request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
@@ -85,10 +86,10 @@ function init(){
 </script>
 <body onload="init();">
 	<form id="form" name="form" method="post">
-		<input type="hidden" id="confmKey" name="confmKey" value=""/>
-		<input type="hidden" id="returnUrl" name="returnUrl" value=""/>
-		<input type="hidden" id="resultType" name="resultType" value="4"/>
-		<input type="hidden" id="encodingType" name="encodingType" value="EUC-KR"/>
+		<input type="hidden" id="confmKey" name="confmKey" value="" /> <input
+			type="hidden" id="returnUrl" name="returnUrl" value="" /> <input
+			type="hidden" id="resultType" name="resultType" value="4" /> <input
+			type="hidden" id="encodingType" name="encodingType" value="EUC-KR" />
 	</form>
 </body>
 </html>

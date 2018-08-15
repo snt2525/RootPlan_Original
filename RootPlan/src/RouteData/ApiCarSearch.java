@@ -10,7 +10,7 @@ import MapData.Address;
 import ShortestPath.copy.Route;
 
 public class ApiCarSearch {
-   public StringBuilder sb;
+   StringBuilder sb;
    String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
    
    LinkedList<Address> ls;
@@ -19,7 +19,7 @@ public class ApiCarSearch {
  //  static TimeMethod[][] carDist = new TimeMethod[7][7];
    
    public ApiCarSearch(LinkedList<Address> ad){
-	   adSize = ad.size();
+	   int adSize = ad.size();
 	   this.ls = ad;
 	   this.ws  = new ApiWalkSearch();
 	   
@@ -119,8 +119,7 @@ public class ApiCarSearch {
 		} catch (Exception e) {
 			System.out.println("문제발생쓰");
 		} 
-	   System.out.println("자동차 끝");
-	   carPrint(adSize);
+	   System.out.println("자동차");
    }
    void carPrint(int size) {
 		System.out.println("자동차 거리 출력");
