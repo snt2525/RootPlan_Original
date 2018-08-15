@@ -15,9 +15,10 @@ public class ApiCarSearch {
    
    static LinkedList<Address> ls;
    static  ApiWalkSearch ws;
+   static int adSize;
    
    public ApiCarSearch(LinkedList<Address> ad){
-	   int adSize = ad.size();
+	   adSize = ad.size();
 	   this.ls = ad;
 	   this.ws  = new ApiWalkSearch();
 	   for(int i=0; i<adSize; i++) {
@@ -28,7 +29,15 @@ public class ApiCarSearch {
 	   /*for(int i = 0;i<ad.size();i++)
 		   Route.carDist[i][i] = new TimeMethod(Integer.MAX_VALUE,false);*/
    }
-   
+   static void carPrint(int size) {
+		System.out.println("자동차 거리 출력");
+		for(int i=0; i<size; i++) {
+			for(int j=0; j<size; j++) {
+				System.out.print(Route.carDist[i][j].getTime() + " ");
+			}
+			System.out.println();
+		}
+	}
    public static void callApi(int sno, int eno, double sx, double sy, double ex, double ey) {
 	   double distanceMeter =  CalculateDist.distance(sx, sy, ex, ey, "meter"); // 직선거리 구하기     
        if(distanceMeter <= 800) {     	   // 직선거리 800m이하이면 걷기로 넘기기
@@ -113,7 +122,8 @@ public class ApiCarSearch {
 		} catch (Exception e) {
 			System.out.println("문제발생쓰");
 		} 
-	   System.out.println("자동차");
+	   System.out.println("자동차 끝");
+	   carPrint(adSize);
    }
 
 }

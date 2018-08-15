@@ -91,7 +91,7 @@ function possibleNext(){
 		$('#nextBtn').attr({'href':'#'});
 		alert("마지막 목적지를 선정해주세요")
 	}else{
-		$('#nextBtn').attr({'href':'PublicTransportation.html'});
+		$('#nextBtn').attr({'href':'Last_PT.html'});
 	}
 }
 

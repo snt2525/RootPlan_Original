@@ -15,32 +15,54 @@ public class ApiPTSearch {
 	// 이차원 배열을 Route.java에다가 넣어주기
 	static ApiWalkSearch ws;
 	static boolean flag = false; // 대중교통에서 걷기 api호출에 쿨타임을 주기 위해서 만들었다.
-
+	static int adSize;
+	public static TimeMethod[][] ptDist; 
 	public ApiPTSearch(LinkedList<MapData.Address> ad) {
-		int adSize = ad.size();
+		adSize = ad.size();
 		this.ad = ad;
 		this.ws = new ApiWalkSearch();
 		// 배열 초기화
+		ptDist = new TimeMethod[ad.size()][ad.size()];
 		for (int i = 0; i < adSize; i++) {
 			for (int j = 0; j < adSize; j++) {
-				Route.ptDist[i][j] = new TimeMethod(0, false);
+				ptDist[i][j] = new TimeMethod(0, false);
 			}
 		}
 	}
-
+	static void carPrint(int size) {
+		System.out.println("자동차 거리 출력");
+		for(int i=0; i<size; i++) {
+			for(int j=0; j<size; j++) {
+				System.out.print(Route.carDist[i][j].getTime() + " ");
+			}
+			System.out.println();
+		}
+	}
+	static void ptPrint(int size) {
+		System.out.println("대중교통 거리 출력");
+		for(int i=0; i<size; i++) {
+			for(int j=0; j<size; j++) {
+				System.out.print(ptDist[i][j].getTime() + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	
 	public static void callTransportApi(int a, int b) {
 		int size = ad.size();
 		for (int i = a; i < b; i++) {
 			for (int j = 0; j < size; j++) {
-				if (Route.ptDist[i][j].method)
+				if (ptDist[i][j].method)
 					continue; // 걷기데이터가 호출되었었기 때문에
 				else if (i == j)
-					Route.ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
+					ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
 				else
 					allApi(i, j);
 			}
 		}
 		System.out.println("대중교통끝");
+		ptPrint(adSize);
 	}
 
 	static void allApi(int i, int j) {
@@ -64,7 +86,7 @@ public class ApiPTSearch {
 			}
 			
 			// 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
-			Route.ptDist[i][j] = Route.ptDist[j][i] = new TimeMethod(tmpTime, true);
+			ptDist[i][j] = ptDist[j][i] = new TimeMethod(tmpTime, true);
 
 			flag = true;
 		} else {
@@ -101,7 +123,7 @@ public class ApiPTSearch {
 
 				for (int k = 0; k < array.length; k++) {
 					if (array[k].equals("totalTime")) {
-						Route.ptDist[i][j] = new TimeMethod(
+						ptDist[i][j] = new TimeMethod(
 								Integer.parseInt(array[k + 1].substring(1, array[k + 1].length() - 1)), false);
 						break;
 					}

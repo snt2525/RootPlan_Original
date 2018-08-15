@@ -145,6 +145,11 @@ public class AddressDataServlet extends HttpServlet {
 	            apiFlag = r.callApi(a, b, car,ad);		
 	        }
             break;
+            
+         case 16:
+        	int how = Integer.parseInt(request.getParameter("how"));
+        	r.callShortestPath(ad, sd, how);
+            break;
       }               
    }
 }
