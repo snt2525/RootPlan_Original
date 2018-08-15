@@ -1,40 +1,38 @@
 package RouteData;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
 
 import MapData.Address;
+import ShortestPath.copy.Route;
 
 public class ApiCarSearch {
    public static StringBuilder sb;
    static String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
    
-   static String sx="126.9850380932383";
-   static String sy="37.566567545861645";
-   static String ex="127.10331814639885";
-   static String ey = "37.403049076341794";
    static LinkedList<Address> ls;
-   static TimeMethod [][] getCarTime;  //이동 시간 데이터
    static  ApiWalkSearch ws;
+   
    public ApiCarSearch(LinkedList<Address> ad){
+	   int adSize = ad.size();
 	   this.ls = ad;
-	   this.getCarTime = new TimeMethod[ad.size()][ad.size()]; //시간
 	   this.ws  = new ApiWalkSearch();
-	   for(int i = 0;i<ad.size();i++)
-		   getCarTime[i][i] = new TimeMethod(Integer.MAX_VALUE,false);
+	   for(int i=0; i<adSize; i++) {
+		   for(int j=i; j<adSize; j++) {
+			   Route.carDist[j][i] = Route.carDist[i][j] = new TimeMethod(Integer.MAX_VALUE,false);
+		   }
+	   }
+	   /*for(int i = 0;i<ad.size();i++)
+		   Route.carDist[i][i] = new TimeMethod(Integer.MAX_VALUE,false);*/
    }
    
    public static void callApi(int sno, int eno, double sx, double sy, double ex, double ey) {
-	// 직선거리 구하기
-	   double distanceMeter =
-               CalculateDist.distance(sx, sy, ex, ey, "meter");     
-       if(distanceMeter <= 800) {
-    	   // 직선거리 1000m이하이면 걷기로 넘기기
-    	   getCarTime[sno][eno] = getCarTime[eno][sno] = new TimeMethod(ws.walkApi(sno, eno, sx, sy, ex, ey) / 60, true); // 시간 초로 넣기	       		         		      	   	   
+	   double distanceMeter =  CalculateDist.distance(sx, sy, ex, ey, "meter"); // 직선거리 구하기     
+       if(distanceMeter <= 800) {     	   // 직선거리 800m이하이면 걷기로 넘기기
+    	   Route.carDist[sno][eno] = Route.carDist[eno][sno] = new TimeMethod(ws.walkApi(sno, eno, sx, sy, ex, ey) / 60, true); // 시간 초로 넣기	       		         		      	   	   
        }else {
 	      try {
 	          String apiURL = "https://api2.sktelecom.com/tmap/routes?version=1&format=xml&startX="
@@ -64,13 +62,12 @@ public class ApiCarSearch {
 	          br.close();
 	          con.disconnect();
 	          String data = sb.toString();
-	          //System.out.println(data);
 	          
 	          String[] array;
 	          array = data.split("<|>");
 	          for(int i=0; i<array.length; i++) {
 	        	   if(array[i].equals("tmap:totalTime")) {
-	        		   getCarTime[sno][eno] = getCarTime[eno][sno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); // 시간 초로 넣기	       
+	        		   Route.carDist[sno][eno] = Route.carDist[eno][sno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); // 시간 초로 넣기	       
 	        		   break;
 	        	  }
 	          }	        	          
@@ -103,13 +100,12 @@ public class ApiCarSearch {
    
    // 리스트 매개변수로 받기, 이중포문으로 시작점, 끝점 정해서 callApi 함수로 넘기기
    public static void carApi() {
-   //public static void main(String[] args) { // 매개변수로 List 받아오기
 	   // 이차원 배열로 for문 돌린다음
 	   int len = ls.size();
 	   try {
 		   for(int i=0; i<len-1; i++) {
 			   for(int j=i+1; j<len; j++) {
-				   if(i == j) getCarTime[i][j] = new TimeMethod(Integer.MAX_VALUE,false);
+				   //if(i == j)  Route.carDist[i][j] = new TimeMethod(Integer.MAX_VALUE,false);
 				   callApi(i, j, ls.get(i).getLat(), ls.get(i).getLng(), ls.get(j).getLat(), ls.get(j).getLng()); 
 				   Thread.sleep(550);
 			   }

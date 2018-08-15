@@ -12,7 +12,6 @@ public class ApiWalkSearch{
    static String endName = "end";
 
    public static int walkApi(int sno, int eno, double sx, double sy, double ex, double ey) {
-   //public static void main(String[] args) {
       int findTime = 0;
       try {
           String apiURL = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&format=xml&startX="
@@ -47,7 +46,7 @@ public class ApiWalkSearch{
           String[] array;
           array = data.split("<|>");
           
-          InfoWalk walk = new InfoWalk();
+          //InfoWalk walk = new InfoWalk();
           for(int i=0; i<array.length; i++) {
         	  /*if(array[i].equals("tmap:totalDistance")) {
         		walk.setSno(sno);

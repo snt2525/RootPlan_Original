@@ -13,7 +13,7 @@ public class TimeMethod {
 	public static void setTime(int time) {
 		TimeMethod.time = time;
 	}
-	public static boolean isMethod() {
+	public static boolean getMethod() {
 		return method;
 	}
 	public static void setMethod(boolean method) {
