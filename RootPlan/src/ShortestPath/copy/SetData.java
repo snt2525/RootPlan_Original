@@ -21,6 +21,9 @@ public class SetData {
 	public int GetStartData() {
 		return startIndex;
 	}
+	public int GetLastData() {
+		return lastIndex;
+	}
 	
 	public int isSame() {
 		if(startIndex == lastIndex)
