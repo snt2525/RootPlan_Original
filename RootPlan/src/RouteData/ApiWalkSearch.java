@@ -6,12 +6,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ApiWalkSearch{
-   public static StringBuilder sb;
-   static String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
-   static String startName = "start";
-   static String endName = "end";
+   public StringBuilder sb;
+   String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
+   String startName = "start";
+   String endName = "end";
 
-   public static int walkApi(int sno, int eno, double sx, double sy, double ex, double ey) {
+   public int walkApi(int sno, int eno, double sx, double sy, double ex, double ey) {
       int findTime = 0;
       try {
           String apiURL = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&format=xml&startX="

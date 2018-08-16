@@ -11,13 +11,12 @@ public class TimeMethod {
 		return time;
 	}
 	public void setTime(int time) {
-		time = time;
+		this.time = time;
 	}
 	public boolean getMethod() {
 		return method;
 	}
 	public void setMethod(boolean method) {
-		method = method;
+		this.method = method;
 	}
-	
 }

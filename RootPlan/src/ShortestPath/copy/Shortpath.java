@@ -33,9 +33,9 @@ public class Shortpath {
             }
             System.out.println("cnt"+cnt+", end: "+ end);
             if(how == 0)
-            	ptAns[cnt] = end;
+               ptAns[cnt] = end;
             else 
-            	carAns[cnt] = end;
+               carAns[cnt] = end;
             min = sum;
          }
          return;
@@ -137,7 +137,7 @@ public class Shortpath {
       }
       System.out.println("대중교통 순서:");
       for(int i =0;i<listSize;i++) {
-    	  System.out.print(ptAns[i] +" ");
+         System.out.print(ptAns[i] +" ");
       }
       System.out.println();
 
