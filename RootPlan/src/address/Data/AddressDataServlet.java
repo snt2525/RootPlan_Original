@@ -125,9 +125,25 @@ public class AddressDataServlet extends HttpServlet {
             out.print(result9);
             break;
             
-         case 12:
-            apiFlag = true;
+         case 12: //api 호출 여부
+            apiFlag = true;    
+            this.r = new Route(); //다시 초기화
             break;
+            
+         case 13:  //결과 로딩이 끝났는지 
+        	 int what = Integer.parseInt(request.getParameter("what"));
+        	 if(what == 0) { //대중교통
+	        	 if(r.ptFlag == 1)  
+	        		 out.print("1");
+	        	 else
+	        		 out.print("0");
+        	 }else { //자동차
+        		 if(r.carFlag == 1)  
+	        		 out.print("1");
+	        	 else
+	        		 out.print("0");
+        	 }
+        	 break;
             
          case 14: //전체 latlng이랑 사이즈 넘기기
             String result10 = ad.callAllLatLng();
@@ -135,21 +151,23 @@ public class AddressDataServlet extends HttpServlet {
             out.print(result10);
             break;
             
-         case 15:
-            System.out.println("서블래");       
+         case 15:             
            if(apiFlag) {
               int a = Integer.parseInt(request.getParameter("a"));
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
-               System.out.println("서블렛에 도달");
-               apiFlag = r.callApi(a, b, car,ad);      
+              System.out.println("대중교통API 호출 시작"); 
+               apiFlag = r.callApi(a, b, car, ad, sd);      
            }
             break;
             
-         case 16:
+         case 16:  //여기서 순서 불러서 마크
            int how = Integer.parseInt(request.getParameter("how"));
-           r.callShortestPath(ad, sd, how);
-            break;
+           r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); //dfs , 대중교통   
+           r.ptFlag = 1;
+           break;
+           
+           
       }               
    }
 }

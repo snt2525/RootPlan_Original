@@ -87,11 +87,38 @@ function inputDataServer(sn, en, sx, sy, ex, ey){
 	});
 } 
 
-function callShortpath(){
-	$.ajax({
+function callShortpath(){		
+	$.ajax({   //dfs, 결과 순서 다시 재 호출
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
-	       data: $("#callDFS").serialize()
+	       dataType: "html",
+	       async:false,
+	       data:  "menuIndex=16",
+	       success: function(data){
+	    	   callBack();	    	   
+	       }, error:function(request,status,error){
+	    	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	       }
 	   });
 }
+
+function callBack(){
+	for(var i = 0 ;i<1000000;i++){
+		$.ajax({
+			   type: "POST",
+		       url:"/RootPlan/AddressDataServlet",
+		       dataType: "html",
+		       async:false,
+		       data: $("#finish").serialize(),
+		       success: function(data){
+		    	   if(data == String("0")){
+		  	    	 //데이터 가져올 준비 완료 되었다
+		  	    	  
+		  	    	  break;
+		  	      }  	   
+		       }
+		   });
+	}
+}
+
 	

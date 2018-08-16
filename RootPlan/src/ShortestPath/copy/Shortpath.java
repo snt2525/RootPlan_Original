@@ -151,5 +151,4 @@ public class Shortpath {
        System.out.println();
       
    }
-   
 }

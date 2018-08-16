@@ -116,7 +116,7 @@ function clean(){
 	}	
 	marker = new Array(10);
 	cnt = 0;	
-	//api호출 허가
+	//api호출 허가 & 초기화
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		data: "menuIndex=12",
