@@ -12,10 +12,10 @@ public class Shortpath {
    public void init(int size){
       min=Integer.MAX_VALUE;
       listSize = size;
-      visit = new int[size];
-      tmp = new int[size];
-      carAns = new int[size];
-      ptAns = new int[size];
+      visit = new int[10];
+      tmp = new int[10];
+      carAns = new int[10];
+      ptAns = new int[10];
    }
    
    void dfs(int cnt, int now, int sum, int end, int how) { // how : 0 대중교통, 1 자동차
@@ -69,6 +69,8 @@ public class Shortpath {
                if(how==0)    ptAns[i] = tmp[i];
                else  carAns[i] = tmp[i];
             }
+            if(how==0)    ptAns[listSize] = start;
+            else  carAns[listSize] = start;
             min = sum;
          }
          return;
@@ -135,12 +137,19 @@ public class Shortpath {
          tmp[0]=-1;
          visit[start]= 0;
       }
+      
       System.out.println("대중교통 순서:");
       for(int i =0;i<listSize;i++) {
          System.out.print(ptAns[i] +" ");
       }
       System.out.println();
 
+      System.out.println("자동차 순서:");
+      for(int i =0;i<listSize;i++) {
+          System.out.print(carAns[i] +" ");
+       }
+       System.out.println();
+      
    }
    
 }
