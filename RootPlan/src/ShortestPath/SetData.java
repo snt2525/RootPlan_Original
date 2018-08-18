@@ -1,8 +1,8 @@
 package ShortestPath;
 
 public class SetData {
-	int startIndex; 
-	int lastIndex;
+	private int startIndex; 
+	private int lastIndex;
 	
 	public SetData(){
 		this.startIndex = -1;
