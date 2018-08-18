@@ -4,7 +4,6 @@ import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
 import RouteData.TimeMethod;
-import address.Data.AddressDataServlet;
 
 public class Route {
     static ApiPTSearch pt;
@@ -38,14 +37,6 @@ public class Route {
             return false;
         }
         return true;
-	}	
-	
-	public void callShortestPath(AddressDataManager ad, SetData sd, int how) { 
-	System.out.println("start , end = " + sd.startIndex + " , " + sd.lastIndex);
-		if(how == 1)
-			sp.callDFS(sd.startIndex,sd.lastIndex,1,sd.isSame());
-		else 
-			sp.callDFS(sd.startIndex,sd.lastIndex,0,sd.isSame());
 	}	
 	
    void print(int size) {

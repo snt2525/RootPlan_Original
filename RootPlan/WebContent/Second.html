@@ -51,13 +51,15 @@
 				<!-- NewFile -->
 				<form name="form" id="form" method="post">
 					<div class="search">
-						<input type="text" id="roadAddrPart1"
-							placeholder="클릭하여서 주소를 입력해 주세요" style="width: 350px"
-							onclick="goPopup();">
-						</td> <input type="hidden" id="jibunAddr" value="" /> <input
-							type="hidden" id="confmKey" name="confmKey"
-							value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="> <input
-							type="button" id="btn" name="btn" value="장바구니" />
+						<a href="#" id="roadAddrPart1" onclick="goPopup();"> 
+							<img src="img/search_color.png" onmouseover="this.src='img/search_gray.png';"	onmouseout="this.src='img/search_color.png';" alt="goRoutePlan" />
+						</a>
+						<input type="hidden" id="roadAddrPart1">
+							
+						<input type="hidden" id="jibunAddr" value="" /> 
+						<input type="hidden" id="confmKey" name="confmKey"
+							value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="> 
+						<input type="button" id="btn" name="btn" value="장바구니" /> 
 					</div>
 				</form>
 

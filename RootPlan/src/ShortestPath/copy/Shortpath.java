@@ -6,7 +6,7 @@ public class Shortpath {
    int visit[];
    int listSize;
    int tmp[]; // 임시 경로 순서
-   public static int carAns[];
+   public static int carAns[]; 
    public static int ptAns[];
 
    public void init(int size){

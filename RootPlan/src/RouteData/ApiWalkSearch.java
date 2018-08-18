@@ -46,17 +46,7 @@ public class ApiWalkSearch{
           String[] array;
           array = data.split("<|>");
           
-          //InfoWalk walk = new InfoWalk();
           for(int i=0; i<array.length; i++) {
-        	  /*if(array[i].equals("tmap:totalDistance")) {
-        		walk.setSno(sno);
-        		walk.setEno(eno);
-        		walk.setSx(sx);
-        		walk.setSy(sy);
-        		walk.setEx(ex);
-        		walk.setEy(ey);
-        		walk.setDistance(Integer.parseInt(array[i+1]));
-        	  }else*/ 
         	  if(array[i].equals("tmap:totalTime")) {
         		  // 여기서 다른 클래스 이차원 배열에 넣어주기
         		  findTime =  Integer.parseInt(array[i+1]);

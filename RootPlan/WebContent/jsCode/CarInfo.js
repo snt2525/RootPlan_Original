@@ -1,4 +1,4 @@
-var arr = new Array();
+//var arr = new Array();
 var idx=0;
 
 //버튼을 누르면 getCarData() 호출
