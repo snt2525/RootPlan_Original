@@ -121,25 +121,3 @@ function callResult(){
 	       }
 	   });
 }
-
-function callBack(){
-	for(var i = 0 ;i<1000000;i++){
-		setTimeout(function(){
-			$.ajax({
-				   type: "POST",
-			       url:"/RootPlan/AddressDataServlet",
-			       dataType: "html",
-			       async:false,
-			       data:  $("#finishCallApi").serialize(),
-			       success: function(data){
-			    	   alert("1")
-			    	   if(data == 0){
-			    		   callBack();
-			  	    	  alert("데이터 찾았다")
-			  	    	  break;
-			    	   }  	   
-			       }
-		   });
-		}, 1000);	
-	}
-}

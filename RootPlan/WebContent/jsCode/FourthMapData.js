@@ -75,7 +75,7 @@ function possibleNext(){
 		$('#nextBtn').attr({'href':'#'});
 		alert("마지막 목적지를 선정해주세요")
 	}else{
-		$('#nextBtn').attr({'href':'LastPT.html'});
+		$('#nextBtn').attr({'href':'Loading.html'});
 	}
 }
 
