@@ -1,5 +1,6 @@
 package ShortestPath.copy;
 
+import ShortestPath.Route;
 //대중교통 관련 클래스
 public class Shortpath {
    int min;

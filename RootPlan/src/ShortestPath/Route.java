@@ -81,10 +81,10 @@ public class Route {
    System.out.println("start , end = " + start + " , " + last);
       if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
-      	 cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
+      	 //cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
       }else { 
          sp.callDFS(start, last, 0, isSame);
-         pt.resultOrderCall(sp.ptAns); //결과 순서로 api 다시 호출, 대중교통
+        // pt.resultOrderCall(sp.ptAns); //결과 순서로 api 다시 호출, 대중교통
       }
    } 
    

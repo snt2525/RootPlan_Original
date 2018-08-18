@@ -132,17 +132,20 @@ public class AddressDataServlet extends HttpServlet {
             
          case 13:  //결과 로딩이 끝났는지 
         	 int what = Integer.parseInt(request.getParameter("what"));
+        	 System.out.println("13" +what + r.ptFlag);
+        	 int result13 = 0; 
         	 if(what == 0) { //대중교통
 	        	 if(r.ptFlag == 1)  
-	        		 out.print(1);
+	        		 result13 = 1;
 	        	 else
-	        		 out.print(0);
+	        		 result13 = 0;
         	 }else { //자동차
         		 if(r.carFlag == 1)  
-	        		 out.print(1);
+        			 result13 = 1;
 	        	 else
-	        		 out.print(0);
+	        		 result13 = 0;
         	 }
+        	 out.print(result13);
         	 break;
             
          case 14: //전체 latlng이랑 사이즈 넘기기
@@ -157,19 +160,22 @@ public class AddressDataServlet extends HttpServlet {
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
               System.out.println("대중교통API 호출 시작"); 
-               apiFlag = r.callApi(a, b, car, ad, sd);      
+              apiFlag = r.callApi(a, b, car, ad, sd);      
            }
             break;
             
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
-           System.out.println("16번 연결");
-           if(how == 0)
-        	   r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); //dfs , 대중교통   
-           String result11 = r.orderResult(how, ad);         
-           out.print(result11);
+           System.out.println("16번 연결");            
+           r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); // 자동차 1, 대중교통  0 
            break;
          
+         case 17:  //마크를 위한 호출
+           int how2 = Integer.parseInt(request.getParameter("how")); 
+           System.out.println("17번 연결");  
+           String result11 = r.orderResult(how2, ad);
+           out.print(result11);
+           break;
       }               
    }
 }
