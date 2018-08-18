@@ -11,53 +11,65 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" href="./css/ThirdCSS.css">
 <link href="css/style.css" rel="stylesheet">
-
-
 </head>
 
 <body>
-	<div id="container" class="wrap">
+	<div id="container">
 		<div id="aside">
 			<div id="asideContent">
-				<div id="asideTop" class="text-center"></div>
-			</div>
-		</div>
+				<!--  frameLeft -->
+				<div id="asideTop" class="text-center">
+					<form name="addressList2" id="addressList2" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="12" />
+						<div id="list2" name="list2">
+							<!-- <div class="loadingImg">
+								<img src="img/loader.gif">
+								<img style="margin-top:7%;" src="img/loadingMsg.png">
+							</div> -->
+								<!-- <div id="asideBottom">
+										<a href="Third.html" data-role="button" id="preBtn">< PREV </a>
+		
+								</div> -->
+						</div><!-- 검색 결과 리스트 출력 -->
+					</form>
 
-		<div id="content">
-			<!-- NewFile -->
-			<form name="form" id="form" method="post">
-				<div class="search">
-
-					<input type="hidden" id="jibunAddr" value="" /> <input
-						type="hidden" id="confmKey" name="confmKey"
-						value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ=">
 				</div>
-			</form>
+				
 
-			<form name="resultLatLng" id="resultLatLng" method="post">
-				<input type="hidden" id="menuIndex" name="menuIndex" value="16" />
-				<input type="hidden" id="how" name="how" value="0" />
-			</form>
-
-			<form name="finishCallApi" id="finishCallApi" method="post">
-				<input type="hidden" id="menuIndex" name="menuIndex" value="13" />
-				<input type="hidden" id="what" name="what" value="0" />
-			</form>
-			<div id="wrap" class="section">
-				<div id="map2" style="width: 100%; height: 100%;"></div>
-				<code id="snippet" class="snippet"></code>
 			</div>
 		</div>
-		<div class="over">
-			<img src="img/loader_origin.gif">
-		</div>
-	</div>
 
-	<script type="text/javascript" src="jsCode/Init.js"></script>
-	<script type="text/javascript" src="jsCode/CarInfo.js"></script>
-	<script>
-		callResult();
-	</script>
+	<div id="content">
+         <!-- NewFile -->
+         <form name="form" id="form" method="post">
+            <div class="search">
+
+               <input type="hidden" id="jibunAddr" value="" /> 
+               <input type="hidden" id="confmKey" name="confmKey" value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="  >                            
+             </div>
+          </form>      
+
+         <form name="resultLatLng" id="resultLatLng" method="post">         
+               <input type="hidden" id="menuIndex" name ="menuIndex" value="16" /> 
+               <input type="hidden" id="how" name="how" value="0"/>                                      
+          </form>   
+                 
+          <form name="finishCallApi" id="finishCallApi" method="post">         
+            <input type="hidden" id="menuIndex" name ="menuIndex" value="13" /> 
+            <input type="hidden" id="what" name="what" value="0"/>             
+          </form>      
+         <div id="wrap" class="section">
+             <div id="map2" style="width:100%;height:100%;">
+             </div>
+             <code id="snippet" class="snippet"></code>
+         </div>   
+      </div>         
+   </div>      
+   <script type="text/javascript" src="jsCode/Init.js"></script>
+   <script type="text/javascript" src="jsCode/CarInfo.js"></script> 
+   <script>
+      callResult();
+    </script>
 
 </body>
 </html>

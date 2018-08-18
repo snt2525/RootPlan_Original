@@ -4,6 +4,8 @@ import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
 import RouteData.TimeMethod;
+import ShortestPath.SetData;
+import address.Data.AddressDataServlet;
 
 public class Route {
     static ApiPTSearch pt;
@@ -25,13 +27,14 @@ public class Route {
         System.out.println("대중교통 호출");
         pt.callTransportApi(a, b);                
         if(car.equals("0")) {      
+        
            sp.init(ad.listSize());
            //자동차 api호출
             System.out.println("자동차호출");
             cs = new ApiCarSearch(ad.getList());
             cs.carApi(); //자동차 API call 
    
-            callShortestPath(ad, sd.startIndex,sd.lastIndex, sd.isSame(), 1); //dfs 순서를 찾는다 , 자동차
+            callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), 1); //dfs 순서를 찾는다 , 자동차
             cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
             carFlag = 1; //자동차 호출 끌
             return false;
