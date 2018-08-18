@@ -1,4 +1,4 @@
-package ShortestPath.copy;
+package ShortestPath;
 
 public class SetData {
 	int startIndex; 

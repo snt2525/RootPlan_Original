@@ -2,7 +2,7 @@ package MapData;
 
 import java.util.LinkedList;
 
-import ShortestPath.copy.SetData;
+import ShortestPath.SetData;
 
 public class AddressDataManager {
    public static LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
@@ -10,7 +10,7 @@ public class AddressDataManager {
    public AddressDataManager(){
       addressData = new LinkedList<Address>();      
    }
-   public int listSize() {
+   public int listSize() {	  
       return addressData.size();
    }
    

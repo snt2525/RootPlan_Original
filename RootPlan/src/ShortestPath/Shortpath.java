@@ -1,4 +1,4 @@
-package ShortestPath.copy;
+package ShortestPath;
 
 //대중교통 관련 클래스
 public class Shortpath {
@@ -140,6 +140,5 @@ public class Shortpath {
          System.out.print(ptAns[i] +" ");
       }
       System.out.println();
-
    }
 }
