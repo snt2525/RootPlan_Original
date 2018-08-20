@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import MapData.Address;
 import MapData.AddressDataManager;
-import RouteData.ApiCarSearch;
-import RouteData.ApiPTSearch;
 import ShortestPath.Route;
 import ShortestPath.SetData;
 
@@ -22,9 +20,8 @@ public class AddressDataServlet extends HttpServlet {
    AddressDataManager ad = new AddressDataManager();  
    SetData sd = new SetData();
    Route r;
-   ApiPTSearch pt;
-   ApiCarSearch cs;
    boolean apiFlag= true; 
+   
     public AddressDataServlet() {
         super();
     }

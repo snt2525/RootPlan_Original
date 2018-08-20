@@ -11,13 +11,13 @@ import RouteData.InfoPT;
 import RouteData.TimeMethod;
 
 public class Route {
-    static ApiPTSearch pt;
-    static ApiCarSearch cs;
-    static Shortpath sp;
+	ApiPTSearch pt;
+    ApiCarSearch cs;
+    Shortpath sp;
     public static TimeMethod[][] carDist; // 자동차 최단 거리 저장
     public static TimeMethod[][] ptDist; // 대중교통 최단 거리 저장
-    public static int carFlag = 0;
-    public static int ptFlag = 0;
+    public int carFlag = 0;
+    public int ptFlag = 0;
     public int size = 0;
     public static LinkedList<InfoCar> carList;
     public static LinkedList<InfoPT> ptList;
@@ -64,7 +64,7 @@ public class Route {
       System.out.println();
    }
 
-   public static void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
+   public void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
       if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
       	 //cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차

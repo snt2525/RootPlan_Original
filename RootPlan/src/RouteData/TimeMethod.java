@@ -19,4 +19,8 @@ public class TimeMethod {
 	public void setMethod(boolean method) {
 		this.method = method;
 	}
+	public void clear() {
+		this.time=0;
+		this.method = false;
+	}
 }
