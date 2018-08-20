@@ -1,8 +1,12 @@
 package ShortestPath;
 
+import java.util.LinkedList;
+
 import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
+import RouteData.InfoCar;
+import RouteData.InfoPT;
 import RouteData.TimeMethod;
 import address.Data.AddressDataServlet;
 
@@ -15,7 +19,13 @@ public class Route {
     public static int carFlag = 0;
     public static int ptFlag = 0;
     public int size = 0;
+    public static LinkedList<InfoCar> carList;
+    public static LinkedList<InfoPT> ptList;
+    
     public Route(){
+       sp = new Shortpath();
+       carList = new LinkedList<InfoCar>();
+       ptList = new LinkedList<InfoPT>();
        sp = new Shortpath();
        carDist = new TimeMethod[7][7];
        ptDist = new TimeMethod[7][7];       
@@ -56,7 +66,6 @@ public class Route {
    }
 
    public static void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
-   System.out.println("start , end = " + start + " , " + last);
       if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
       	 //cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
@@ -92,4 +101,11 @@ public class Route {
 	   }
 	   return result;
    }
+   public String resultPoly(int how) {
+	   String result ="";
+	   
+	   
+	   return result;
+   }
+   
 }
