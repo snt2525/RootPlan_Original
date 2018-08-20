@@ -12,8 +12,8 @@ import ShortestPath.Route;
 public class ApiCarSearch {
    StringBuilder sb;
    String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
-   static LinkedList<Address> ad;
-   static  ApiWalkSearch ws;
+   LinkedList<Address> ad;
+   ApiWalkSearch ws;
    int adSize;
  
    // 생성자, 이차원 배열 초기화
