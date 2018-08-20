@@ -18,7 +18,7 @@ public class InfoCar {
 	}
 	
 	public int getLineListSize() {
-	     return lineList.size();
+		return lineList.size();
 	}
 	
 	public boolean isWalk() {

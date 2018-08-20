@@ -9,7 +9,6 @@ import RouteData.DataPair;
 import RouteData.InfoCar;
 import RouteData.InfoPT;
 import RouteData.TimeMethod;
-import address.Data.AddressDataServlet;
 
 public class Route {
     static ApiPTSearch pt;
@@ -27,7 +26,6 @@ public class Route {
        sp = new Shortpath();
        carList = new LinkedList<InfoCar>();
        ptList = new LinkedList<InfoPT>();
-       sp = new Shortpath();
        carDist = new TimeMethod[7][7];
        ptDist = new TimeMethod[7][7];       
     }
@@ -82,7 +80,6 @@ public class Route {
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
 			  result += "<Data>"; 
-		      result += "<no>"+i+"</no>";
 		      result += "<lat>"+ Double.toString(ad.addressData.get(sp.ptAns[i]).getLat()) +"</lat>";
 		      result += "<lng>"+ Double.toString(ad.addressData.get(sp.ptAns[i]).getLng()) +"</lng>";
 		      result += "</Data>"; 
@@ -93,7 +90,6 @@ public class Route {
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
 			  result += "<Data>"; 
-		      result += "<no>"+i+"</no>";
 		      result += "<lat>"+ Double.toString(ad.addressData.get(sp.carAns[i]).getLat()) +"</lat>";
 		      result += "<lng>"+ Double.toString(ad.addressData.get(sp.carAns[i]).getLng()) +"</lng>";
 		      result += "</Data>"; 
@@ -102,36 +98,36 @@ public class Route {
 	   }
 	   return result;
    }
-	   public String resultPoly(int how) { // 0:pt, 1:car
-		      String result ="";
-		      if(how==0) {
-		         result += "<ptData>";
-		         for(int i=0; i<ptList.size();i++) {
-		            int InfoPTSize = ptList.get(i).getLineListSize();
-		            for(int j=0; j<InfoPTSize; i++) {
-		               result += "<Data>";
-		               DataPair pair = ptList.get(i).getLineList(j);
-		               result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-		               result += "<lng>" + Double.toHexString(pair.getY()) + "</lng>";
-		               result += "</Data>";
-		            }
-		         }
-		         result += "</ptData>";
-		      }else if(how==1) {
-		         result += "<carData>";
-		         for(int i=0; i<carList.size(); i++) {
-		            int lineListSize = carList.get(i).getLineListSize();
-		            for(int j=0; j<lineListSize; j++) {
-		               result += "<Data>";
-		               DataPair pair = carList.get(i).getLineList(j);
-		               result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-		               result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
-		               result += "</Data>";
-		            }
-		         }
-		         result += "</carData>";
-		      }
-		      return result;
-		   }
    
+   public String resultPoly(int how) { // 0:pt, 1:car
+	   String result ="";
+	   if(how==0) {
+		   result += "<ptData>";
+		   for(int i=0; i<ptList.size();i++) {
+			   int InfoPTSize = ptList.get(i).getLineListSize();
+			   for(int j=0; j<InfoPTSize; i++) {
+				   result += "<Data>";
+				   DataPair pair = ptList.get(i).getLineList(j);
+				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+				   result += "<lng>" + Double.toHexString(pair.getY()) + "</lng>";
+				   result += "</Data>";
+			   }
+		   }
+		   result += "</ptData>";
+	   }else if(how==1) {
+		   result += "<carData>";
+		   for(int i=0; i<carList.size(); i++) {
+			   int lineListSize = carList.get(i).getLineListSize();
+			   for(int j=0; j<lineListSize; j++) {
+				   result += "<Data>";
+				   DataPair pair = carList.get(i).getLineList(j);
+				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+				   result += "</Data>";
+			   }
+		   }
+		   result += "</carData>";
+	   }
+	   return result;
+   }   
 }

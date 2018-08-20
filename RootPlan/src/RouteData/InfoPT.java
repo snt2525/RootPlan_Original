@@ -25,6 +25,7 @@ public class InfoPT {
 	public int getSectionSize() {
 		return section.size();
 	}
+	
 	public double getSx() {
 		return sx;
 	}
