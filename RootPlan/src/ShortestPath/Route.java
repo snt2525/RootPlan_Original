@@ -1,10 +1,13 @@
 package ShortestPath;
 
+import java.util.LinkedList;
+
 import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
+import RouteData.InfoCar;
+import RouteData.InfoPT;
 import RouteData.TimeMethod;
-import address.Data.AddressDataServlet;
 
 public class Route {
     static ApiPTSearch pt;
@@ -15,8 +18,13 @@ public class Route {
     public static int carFlag = 0;
     public static int ptFlag = 0;
     public int size = 0;
+    public static LinkedList<InfoCar> carList;
+    public static LinkedList<InfoPT> ptList;
+    
     public Route(){
        sp = new Shortpath();
+       carList = new LinkedList<InfoCar>();
+       ptList = new LinkedList<InfoPT>();
        carDist = new TimeMethod[7][7];
        ptDist = new TimeMethod[7][7];       
     }

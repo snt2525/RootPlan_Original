@@ -37,13 +37,7 @@
        </form>  
            
      <div id="container" class="wrap">
-      <div id="aside">
-         <div id="asideContent">
-            <div id="asideTop" class="text-center"></div>
-         </div>
-      </div>
-
-      <div id="content">
+      <div>
          <!-- NewFile -->
         <form name="form" id="form" method="post">
 				<div class="search">
@@ -51,7 +45,7 @@
 						type="hidden" id="confmKey" name="confmKey"
 						value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ=">
 				</div>
-			</form>
+		</form>
 
          <div id="wrap" class="section">
             <div id="map2" style="width: 100%; height: 100%;"></div>
@@ -63,10 +57,16 @@
          <div><img class="over_message" src="img/loadingMsg.png"></div>
       </div>
    </div> 
- 
-     <script language="JavaScript" src="Init.js?ver=1"></script>
+     
      <script language="JavaScript" src="CallDfs.js?ver=1"></script>
-     <script>    
-        start();
+     <script>
+     var map2 = new naver.maps.Map("map2", {
+         center: new naver.maps.LatLng(37.3595316, 127.1052133),
+         zoom: 10,
+         size : new  naver.maps.Size($(window).width(), $(window).height()), 
+         mapTypeControl: true
+        
+     });
+     	start();
      </script>
    </body>
