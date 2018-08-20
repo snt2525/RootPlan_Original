@@ -106,6 +106,10 @@ public class InfoPT {
 		this.fare = fare;
 	}
 	
+	public int getLineListSize() {
+	      return lineList.size();
+	}
+	
 	public InfoSectionPT getSection(int idx) {
 		return section.get(idx);
 	}

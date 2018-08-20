@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import MapData.AddressDataManager;
 import RouteData.ApiCarSearch;
 import RouteData.ApiPTSearch;
+import RouteData.DataPair;
 import RouteData.InfoCar;
 import RouteData.InfoPT;
 import RouteData.TimeMethod;
@@ -101,11 +102,36 @@ public class Route {
 	   }
 	   return result;
    }
-   public String resultPoly(int how) {
-	   String result ="";
-	   
-	   
-	   return result;
-   }
+	   public String resultPoly(int how) { // 0:pt, 1:car
+		      String result ="";
+		      if(how==0) {
+		         result += "<ptData>";
+		         for(int i=0; i<ptList.size();i++) {
+		            int InfoPTSize = ptList.get(i).getLineListSize();
+		            for(int j=0; j<InfoPTSize; i++) {
+		               result += "<Data>";
+		               DataPair pair = ptList.get(i).getLineList(j);
+		               result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+		               result += "<lng>" + Double.toHexString(pair.getY()) + "</lng>";
+		               result += "</Data>";
+		            }
+		         }
+		         result += "</ptData>";
+		      }else if(how==1) {
+		         result += "<carData>";
+		         for(int i=0; i<carList.size(); i++) {
+		            int lineListSize = carList.get(i).getLineListSize();
+		            for(int j=0; j<lineListSize; j++) {
+		               result += "<Data>";
+		               DataPair pair = carList.get(i).getLineList(j);
+		               result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+		               result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+		               result += "</Data>";
+		            }
+		         }
+		         result += "</carData>";
+		      }
+		      return result;
+		   }
    
 }

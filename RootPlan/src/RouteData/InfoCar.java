@@ -17,6 +17,10 @@ public class InfoCar {
 		lineList = new LinkedList<DataPair>();
 	}
 	
+	public int getLineListSize() {
+	     return lineList.size();
+	}
+	
 	public boolean isWalk() {
 		return walk;
 	}

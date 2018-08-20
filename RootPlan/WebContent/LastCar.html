@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=gTUR4iAk1YVJAPF0hdQ9&submodules=geocoder"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="./css/ThirdCSS.css">
+<link href="css/style.css" rel="stylesheet">
 </head>
-<body>
 
+<body>
+	<div id="container">
+		<div id="aside">
+			<div id="asideContent2">
+				<!--  frameLeft -->
+				<div id="asideTop" class="text-center">
+					
+				</div>
+			</div>
+		</div>
+
+		<div id="content">
+
+			<form name="resultLatLng" id="resultLatLng" method="post">
+				<input type="hidden" id="menuIndex" name="menuIndex" value="17" />
+				<input type="hidden" id="how" name="how" value="1" />
+			</form>
+					
+			<form name="resultPoly" id="resultPoly" method="post">
+				<input type="hidden" id="menuIndex" name="menuIndex" value="18" />
+				<input type="hidden" id="how" name="how" value="1" />
+			</form>
+			
+
+			<div id="wrap" class="section">
+				<div id="map2" style="width: 100%; height: 100%;"></div>
+				<code id="snippet" class="snippet"></code>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="jsCode/Init.js"></script>
+	<script type="text/javascript" src="jsCode/Result.js"></script>
+	<script>
+		callResult();
+		callPolyLine();
+ 	</script>
 </body>
 </html>
