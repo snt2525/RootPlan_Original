@@ -107,7 +107,7 @@ public class Shortpath {
    }
    
    void callDFS(int start, int end, int how, int equal){ // equal: 시작, 도착 같으면 1  아니면 0
-      System.out.println("자동차 거리 출력");
+      System.out.println("자동차 거리 출력"+start);
       carPrint(listSize);
       System.out.println("대중교통 거리 출력");
       ptPrint(listSize);
@@ -135,9 +135,16 @@ public class Shortpath {
          tmp[0]=-1;
          visit[start]= 0;
       }
-      System.out.println("대중교통 순서:");
-      for(int i =0;i<listSize;i++) {
-         System.out.print(ptAns[i] +" ");
+      if(how == 0) {
+	      System.out.println("대중교통 순서:");
+	      for(int i =0;i<listSize;i++) {
+	         System.out.print(ptAns[i] +" ");
+	      }
+      }else {
+	      System.out.println("자동차 순서:");
+	      for(int i =0;i<listSize;i++) {
+	         System.out.print(carAns[i] +" ");
+	      }
       }
       System.out.println();
    }

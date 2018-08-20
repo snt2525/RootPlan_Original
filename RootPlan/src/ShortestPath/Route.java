@@ -12,8 +12,8 @@ public class Route {
     static Shortpath sp;
     public static TimeMethod[][] carDist; // 자동차 최단 거리 저장
     public static TimeMethod[][] ptDist; // 대중교통 최단 거리 저장
-    public int carFlag = 0;
-    public int ptFlag = 0;
+    public static int carFlag = 0;
+    public static int ptFlag = 0;
     public int size = 0;
     public Route(){
        sp = new Shortpath();
@@ -23,21 +23,20 @@ public class Route {
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
 	   size = ad.addressData.size();
-        pt = new ApiPTSearch(ad.getList());
+       pt = new ApiPTSearch(ad.getList());
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
         System.out.println("대중교통 호출");
         pt.callTransportApi(a, b);                
         if(car.equals("0")) {      
-           ptFlag = 1;
            sp.init(ad.addressData.size());
            //자동차 api호출
             System.out.println("자동차호출");
+            ptFlag = 1; //대중됴통 호출 끌
             cs = new ApiCarSearch(ad.getList());
             cs.carApi(); //자동차 API call 
-            
+ 		    carFlag = 1; //자동차 호출 끌
            //callShortestPath(ad, sd.startIndex,sd.lastIndex, sd.isSame(), 1); //dfs 순서를 찾는다 , 자동차
-           // cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
-            carFlag = 1; //자동차 호출 끌
+           // cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차     
             return false;
         }
         return true;

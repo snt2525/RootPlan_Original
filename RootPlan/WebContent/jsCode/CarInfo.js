@@ -89,7 +89,6 @@
 //} 
 
 function callResult(){	
-	alert("aaaaaaaasdasd")
 	$.ajax({   //dfs, 결과 순서 다시 재 호출
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",

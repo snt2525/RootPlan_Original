@@ -68,6 +68,44 @@ function possibleNext(){
 		$('#nextBtn').attr({'href':'#'});
 		alert("시작 위치를 선정해주세요")
 	}else{
+		$.ajax({
+			contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
+			url:"/RootPlan/AddressDataServlet",
+			dataType: "text",
+			data: "menuIndex=8",
+			success:function(data){	
+				var size = data;
+				if(size>4){ // 대중교통 반으로 나눠서 돌리기
+					document.apiAB.a.value = "0";
+					document.apiAB.b.value = "4";
+					document.apiAB.carBlock.value = "0";
+					$.ajax({
+						url:"/RootPlan/AddressDataServlet",
+						data: $("#apiAB").serialize(),
+						type:"get"
+					});	
+					document.apiAB.a.value = "4";
+					document.apiAB.b.value = String(size);
+					document.apiAB.carBlock.value = "1";
+					$.ajax({
+						url:"/RootPlan/AddressDataServlet",
+						data: $("#apiAB").serialize(),
+						type:"get"
+					});	
+				}else{ // 자동차 
+					document.apiAB.a.value = "0";
+					document.apiAB.b.value = String(size);
+					alert(document.apiAB.b.value);
+					document.apiAB.carBlock.value = "0";
+					$.ajax({
+						url:"/RootPlan/AddressDataServlet",
+						data: $("#apiAB").serialize(),
+						type:"get"
+					});
+				}	
+			},
+			error: function(data){alert(data)}			
+		});	
 		$('#nextBtn').attr({'href':'Fourth.html'});
 	}
 }
@@ -78,7 +116,7 @@ function getDataThird(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: "menuIndex=5",
+		data: $("#getAddressData").serialize(),
 		success: function(data){
 			var htmlStr = "";
 			$(data).find("Address").each(function(){
@@ -113,19 +151,3 @@ function getDataThird(){
 	});
 }
 
-
-function startWorker(){
-	var w;
-	if(window.Worker){
-        w = new Worker("RouteApi.js");
-        w.onmessage = function(event) {
-            alert(event.data);
-        };   
-        getDataThird(); //초기화
-	}
-	else{
-	    alert('Web worker를 지원하지 않는 브라우저 입니다!');
-	}	
-   w.terminate();
-   w = undefined;	
-}

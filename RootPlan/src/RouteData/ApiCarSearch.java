@@ -77,8 +77,6 @@ public class ApiCarSearch {
 	          while ((line = br.readLine()) != null) {
 	              sb.append(line + "\n");
 	          }
-	          
-	          System.out.println("자동차 불러옴");
 	          br.close();
 	          con.disconnect();
 	          String data = sb.toString();
