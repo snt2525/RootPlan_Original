@@ -77,6 +77,11 @@ public class AddressDataServlet extends HttpServlet {
             
          case 5: //주소 리스트 호출
             String result4 = ad.callAllAddress();
+            int num = Integer.parseInt(request.getParameter("num"));
+            if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
+            	sd.SetStartData(-1);
+            	sd.SetLastData(-1);
+            }
             out.print(result4); 
             break;      
             
@@ -135,17 +140,25 @@ public class AddressDataServlet extends HttpServlet {
         	 System.out.println("13" +what + r.ptFlag);
         	 int result13 = 0; 
         	 if(what == 0) { //대중교통
-	        	 if(r.ptFlag == 1)  
-	        		 result13 = 1;
-	        	 else
-	        		 result13 = 0;
-        	 }else { //자동차
-        		 if(r.carFlag == 1)  
-        			 result13 = 1;
-	        	 else
-	        		 result13 = 0;
+	        	 while(true) {
+	        		 System.out.println("대:"+r.ptFlag);
+	        		 if(r.ptFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
+	        			 System.out.println("대:"+r.ptFlag+", "+sd.GetStartData() +", "+sd.GetLastData());
+	        			 result13 = 1;
+	        			 break;
+	        		 }
+	        	 }
+        	 }else if(what == 1){ //자동차
+        		 while(true) {   
+        			 System.out.println("자:"+r.carFlag);
+        			 if(r.carFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
+        				System.out.println("자동차While:"+r.carFlag);
+	        			 result13 = 1;
+	        			 break;
+	        		 }
+	        	 }
         	 }
-        	 System.out.println("result13 = " + result13);
+        	 System.out.println(result13);
         	 out.print(result13);
         	 break;
             

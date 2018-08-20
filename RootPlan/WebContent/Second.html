@@ -4,18 +4,15 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=gTUR4iAk1YVJAPF0hdQ9&submodules=geocoder"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" href="./css/NewFileCSS.css">
 <link href="css/style.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css" />
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"	type="text/css" />
 <link href="css/nivo-lightbox.css" rel="stylesheet" />
-<link href="css/nivo-lightbox-theme/default/default.css"
-	rel="stylesheet" type="text/css" />
+<link href="css/nivo-lightbox-theme/default/default.css"	rel="stylesheet" type="text/css" />
 <link href="css/owl.carousel.css" rel="stylesheet" media="screen" />
 <link href="css/owl.theme.css" rel="stylesheet" media="screen" />
 <link href="css/animate.css" rel="stylesheet" />
@@ -102,6 +99,12 @@
 				<form name="getLatLng" id="getLatLng" method="post">
 					<input type="hidden" id="menuIndex" name="menuIndex" value="4" /> <input
 						type="hidden" id="latLngindex" name="latLngindex" value="" />
+				</form>
+				
+				<!--  전체 주소 데이터 받기  -->
+				<form name="getAddressData" id="getAddressData" method="post">
+					<input type="hidden" id="menuIndex" name="menuIndex" value="5">
+					<input type="hidden" id="num" name="num" value="1"> 
 				</form>
 
 

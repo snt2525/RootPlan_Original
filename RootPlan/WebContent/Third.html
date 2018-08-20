@@ -29,14 +29,19 @@
 					<a href="Second.html" data-role="button" id="preBtn"
 						onClick="cleanSaveData();"><img src="img/click_left.png"
 						alt="prev >" /></a> <a href="Fourth.html" data-role="button"
-						id="nextBtn" onClick="possibleNext();"><img
-						src="img/click_right.png" alt="NEXT >" /></a>
+						id="nextBtn" onClick="possibleNext();">
+						<img src="img/click_right.png" alt="NEXT >"  /></a>
 				</div>
 
 				<form name="setIndexData" id="setIndexData" method="post">
 					<input type="hidden" id="menuIndex" name="menuIndex" value="9">
 					<input type="hidden" id="index" name="index" value="-1"> <input
 						type="hidden" id="startLast" name="startLast" value="0">
+				</form>
+				
+				<form name="getAddressData" id="getAddressData" method="post">
+					<input type="hidden" id="menuIndex" name="menuIndex" value="5">
+					<input type="hidden" id="num" name="num" value="0"> 
 				</form>
 			</div>
 		</div>
@@ -65,10 +70,10 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="jsCode/ThirdMapData.js"></script>
-	<script type="text/javascript" src="jsCode/RouteApi.js"></script>
 	<script type="text/javascript" src="jsCode/Init.js"></script>
+	<script type="text/javascript" src="jsCode/RouteApi.js"></script>
 	<script>
- 		startWorker();	
+		getDataThird(); //초기화
  	</script>
 </body>
 </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	if(typeof(Worker) == "undefined"){
+
+		alert("웹워커를 지원하지 않음");
+
+		return;
+
+	}
+
+	
+
+	var worker = new Worker("worker.js");
+
+	
+
+	$("#btnOk").click(function(){
+
+		worker.postMessage($("#guguNum").val());	// ht11worker.js로 데이터 보내줌
+
+	});
+
+	
+
+	worker.onmessage = function(event){
+
+		$("#result").html(event.data);     // 데이터 받음
+
+	}
+
+});
+
+</script>
+
+</head>
+
+<body>
+
+구구단 출력
+
+<br/>
+
+<input type="text" id="guguNum">
+
+<input type="button" id="btnOk" value="확인">
+
+<hr>
+
+<div id="result"></div>
+
+</body>
+
+</html>

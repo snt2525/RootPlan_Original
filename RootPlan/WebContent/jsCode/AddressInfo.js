@@ -52,7 +52,7 @@ function getData(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: "menuIndex=5",
+		data: $("#getAddressData").serialize(),
 		success: function(data){
 			var htmlStr = "";
 			if(data!= null){
