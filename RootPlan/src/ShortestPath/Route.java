@@ -27,7 +27,21 @@ public class Route {
        carList = new LinkedList<InfoCar>();
        ptList = new LinkedList<InfoPT>();
        carDist = new TimeMethod[7][7];
-       ptDist = new TimeMethod[7][7];       
+       ptDist = new TimeMethod[7][7];      
+    }
+    
+    public void Clear() {
+        carList.clear();
+        ptList.clear();
+        carFlag = 0;
+        ptFlag = 0;  
+        for(int i =0;i<7;i++) {
+        	for(int j=0;j<7;j++) {
+        		carDist[i][j].clear();
+        		ptDist[i][j].clear();
+        	}
+        }
+        
     }
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     

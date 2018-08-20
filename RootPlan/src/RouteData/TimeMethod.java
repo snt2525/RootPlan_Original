@@ -20,7 +20,8 @@ public class TimeMethod {
 		this.method = method;
 	}
 	public void clear() {
-		this.time=0;
-		this.method = false;
-	}
+	      this.time=0;
+	      this.method = false;
+    }
 }
+
