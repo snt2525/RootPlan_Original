@@ -1,8 +1,8 @@
 var windowHeight = $(window).height()-300;
 
 $.ajaxSetup({
-	contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
-	type:"post"
+   contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
+   type:"post"
 });
 
 var map = new naver.maps.Map("map", {
@@ -13,7 +13,7 @@ var map = new naver.maps.Map("map", {
    
 });
 
-	
+   
 var infoWindow = new naver.maps.InfoWindow({
     anchorSkew: true
 });
@@ -22,7 +22,7 @@ map.setCursor('pointer');
 
 // map을 눌렀을때 크롤링 보여줌
 function searchCoordinateToAddress(latlng) {
-	flag=1;
+   flag=1;
     var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
     infoWindow.close();
 
@@ -33,24 +33,24 @@ function searchCoordinateToAddress(latlng) {
         if (status === naver.maps.Service.Status.ERROR) {
             return alert('Something Wrong!');
         }
-		//주소를 담아 둘 배열 htmlAddresses
+      //주소를 담아 둘 배열 htmlAddresses
         var items = response.result.items,  //선택한 위도를 통해 주소를 가져온다.
             htmlAddresses = [];
         //클릭한 위치의 주소를 띄어 준다.
         for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
             item = items[i];
             addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
-			if(addrType == '[도로명 주소]')
-            	htmlAddresses.push(item.address);
+         if(addrType == '[도로명 주소]')
+               htmlAddresses.push(item.address);
         }
         if(htmlAddresses.length == 0) htmlAddresses.push(items[0].address);         
 
         var sigugun = items[0].addrdetail.sigugun;   
         var sigugunArr = sigugun.split(" ");
         if(sigugunArr.length == 1){
-        	document.SiData.clickSi.value = items[0].addrdetail.sido;
+           document.SiData.clickSi.value = items[0].addrdetail.sido;
         }else{
-        	document.SiData.clickSi.value = sigugunArr[0];
+           document.SiData.clickSi.value = sigugunArr[0];
         }
         //주소 정보창을 띄어준다.
         infoWindow.setContent([
@@ -67,7 +67,7 @@ function searchCoordinateToAddress(latlng) {
 
         getCrawlingData();
    
-    	document.SiData.Si.value = document.SiData.clickSi.value;
+       document.SiData.Si.value = document.SiData.clickSi.value;
         
     });
 }
@@ -107,60 +107,60 @@ function makeList(xmlStr){   //umtk 좌표를 latlng로 변환하고, 변환한 
 
 function initGeocoder() {  //map 초기화
     map.addListener('click', function(e) {  //지도를 클릭했을 때 이벤트
-    	document.form.roadAddrPart1.value = "";  //주소text 초기화
+       document.form.roadAddrPart1.value = "";  //주소text 초기화
         searchCoordinateToAddress(e.coord); //위도 -> 주소     
-    });	 
+    });    
 }
-		
-naver.maps.onJSContentLoaded = initGeocoder;		
+      
+naver.maps.onJSContentLoaded = initGeocoder;      
 
 
-/* 주소 입력 팝업을 호출한다*/ 		
+/* 주소 입력 팝업을 호출한다*/       
 function goPopup(){ 
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	$("#roadAddrPart1").val("");  //주소text 초기화
+   // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+   $("#roadAddrPart1").val("");  //주소text 초기화
     var pop = window.open("./jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
     flag=1;
 }
 
 /*왜 있는지 모르겠음...하지만 주소API와 연관*/
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
-						, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
-	document.form.roadAddrPart1.value = roadAddrPart1;
-	document.form.roadAddrPart2.value = roadAddrPart2;		
-	document.form.addrDetail.value = addrDetail;
-	document.form.zipNo.value = zipNo;
+                  , detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
+   document.form.roadAddrPart1.value = roadAddrPart1;
+   document.form.roadAddrPart2.value = roadAddrPart2;      
+   document.form.addrDetail.value = addrDetail;
+   document.form.zipNo.value = zipNo;
 }
 
 /*좌표 제공API에서 umtk(x,y)좌표를 받아오는 부분*/
 function getAddr(){
-	$.ajax({
-		 url :"http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
-		,type:"post"
-		,data:$("#form2").serialize()
-		,dataType:"jsonp"
-		,crossDomain:true
-		
-		,success:function(xmlStr){
-			if(navigator.appName.indexOf("Microsoft") > -1){
-				var xmlData = new ActiveXObject("Microsoft.XMLDOM");
-				xmlData.loadXML(xmlStr.returnXml)
-			}else{					
-				var xmlData = xmlStr.returnXml;
-			}
-			var errCode = $(xmlData).find("errorCode").text();
-			var errDesc = $(xmlData).find("errorMessage").text();
-			if(errCode != "0"){
-				alert("주소를 입력해 주세요.");
-			}else{
-				if(xmlStr != null){
-					makeList(xmlData);
-					
-				}
-			}
-		}
-	    ,error: function(xhr,status, error){
-	    	alert("에러발생");
-	    }
-	});		
-}	
+   $.ajax({
+       url :"http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
+      ,type:"post"
+      ,data:$("#form2").serialize()
+      ,dataType:"jsonp"
+      ,crossDomain:true
+      
+      ,success:function(xmlStr){
+         if(navigator.appName.indexOf("Microsoft") > -1){
+            var xmlData = new ActiveXObject("Microsoft.XMLDOM");
+            xmlData.loadXML(xmlStr.returnXml)
+         }else{               
+            var xmlData = xmlStr.returnXml;
+         }
+         var errCode = $(xmlData).find("errorCode").text();
+         var errDesc = $(xmlData).find("errorMessage").text();
+         if(errCode != "0"){
+            alert("주소를 입력해 주세요.");
+         }else{
+            if(xmlStr != null){
+               makeList(xmlData);
+               
+            }
+         }
+      }
+       ,error: function(xhr,status, error){
+          alert("에러발생");
+       }
+   });      
+}   

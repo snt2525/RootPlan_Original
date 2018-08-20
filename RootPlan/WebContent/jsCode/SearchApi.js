@@ -57,7 +57,9 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
            
 		    infoWindow.setContent([
 		            '<div style="padding:10px;min-width:200px;line-height:150%;">'+ title[no]
-		             +'</div>'
+		             +'<a href="#" id="btn" name="btn">' +
+					'<img src="img/add_color.png"/>'
+					 + '</a></div>'
 		        ].join('\n'));
 		
 		    var latlngTmp = new naver.maps.TransCoord.fromTM128ToLatLng(tm128);

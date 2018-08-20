@@ -54,7 +54,7 @@ public class ApiCarSearch {
     	   Route.carDist[eno][sno]  = new TimeMethod(walkTime/ 60, true);
        }else {
 	      try {
-	          String apiURL = "https://api2.sktelecom.com/tmap/routes?version=1&format=xml&startX="
+	          String apiURL = "https://api2.sktelecom.com/tmap/routes?version=1&format=xml&totalValue=2&startX="
 	        		  +Double.toString(sx)+"&startY="+Double.toString(sy)+"&endX="+Double.toString(ex)+"&endY="+Double.toString(ey);
 	          URL url = new URL(apiURL);
 	          HttpURLConnection con = (HttpURLConnection) url.openConnection();

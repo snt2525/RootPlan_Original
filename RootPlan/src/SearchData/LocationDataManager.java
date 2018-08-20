@@ -28,7 +28,7 @@ public class LocationDataManager {
          result += "<LocationMapx>" + lo.getMapx() + "</LocationMapx>";
          result += "<LocationMapy>" + lo.getMapy() + "</LocationMapy>";
          if(lo.getImgUrl() == null) {
-            result += "<LocationImage>" + "img/redhat_logo.png" + "</LocationImage>";
+            result += "<LocationImage>" + "img/logo_gray.png" + "</LocationImage>";
          }else {
             result += "<LocationImage>" + lo.getImgUrl() + "</LocationImage>";
          }

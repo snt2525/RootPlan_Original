@@ -5,7 +5,7 @@
 	  
 		var ptFlag = 0;
 		var carFlag = 0;
-	  	function tmp(){
+	  	function start(){
 			$.ajax({
 			       url:"/RootPlan/AddressDataServlet",
 			       dataType: "html",

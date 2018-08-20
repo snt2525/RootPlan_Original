@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+      overflow : hidden;
+}
+
+
+#container{
+	height:100%;
+	width:100%;
+}
+
+#aside {
+    position: absolute;    /* relative로 하는 것도 이쁘다 */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    width: 25%;
+    border-right: 1px solid #a7a7a7;
+    background-color: #fff;
+}
+
+#asideContent {
+    height:100%;
+    position: relative;
+}
+
+#asideTop{
+	position: relative;	
+    overflow: auto;
+	height:85%;	
+}
+
+#asideBottom{
+	position: relative;
+	height:10%;
+}
+
+#content {
+    height:100%;
+    position: relative;
+     overflow: hidden;
+}
+
+#top {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 25%;
+    overflow: hidden;
+}
+
+
+#bottom {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 25%;
+    height: 330px;
+    overflow : auto;
+}
+
+div {
+    display: block;
+}
+
+#resetBtn{
+	float: right;
+	margin: 5px;
+	padding: 5px;
+}
+
+#nextBtn1{
+	float: right;
+	margin: 5px;
+	padding: 5px;
+}
+
+#list{
+	margin: 5px;
+	padding: 5px;
+}
+
+.search { 
+	position:absolute;
+	z-index:1000;
+	top:20px;
+	left:20px;
+}
+.search #address { width:350px;height:20px;line-height:20px;border:solid 1px #555;padding:5px;font-size:12px;box-sizing:content-box; }
+.search #submit { height:30px;line-height:30px;padding:0 10px;font-size:12px;border:solid 1px #555;border-radius:3px;cursor:pointer;box-sizing:content-box; }
