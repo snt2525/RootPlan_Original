@@ -68,9 +68,12 @@ public class ApiCarSearch {
 	          BufferedReader br;
 	          if (responseCode == 200) {
 	              br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	          } else {
+	          } else { //경로 찾기 실패시 도보로 대체
 	              br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-	              System.out.println("d실패");
+	              int walkTime = ws.walkApi(sno, eno, sx, sy, ex, ey);
+	       	   		Route.carDist[sno][eno]  = new TimeMethod(walkTime/ 60, true);
+	       	   		Route.carDist[eno][sno]  = new TimeMethod(walkTime/ 60, true);
+	       	   	return;
 	          }
 	          sb = new StringBuilder();
 	          String line;

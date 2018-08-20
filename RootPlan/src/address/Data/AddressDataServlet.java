@@ -79,6 +79,7 @@ public class AddressDataServlet extends HttpServlet {
             String result4 = ad.callAllAddress();
             int num = Integer.parseInt(request.getParameter("num"));
             if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
+                this.r = new Route(); //다시 초기화
             	sd.SetStartData(-1);
             	sd.SetLastData(-1);
             }
@@ -131,8 +132,7 @@ public class AddressDataServlet extends HttpServlet {
             break;
             
          case 12: //api 호출 여부
-            apiFlag = true;    
-            this.r = new Route(); //다시 초기화
+            apiFlag = true;   
             break;
             
          case 13:  //결과 로딩이 끝났는지 

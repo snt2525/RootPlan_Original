@@ -92,7 +92,23 @@ public class ApiPTSearch {
 					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				} else {
 					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-					System.out.println("대중교통 실패");
+					//에러가 발생하면 걷기로 대체
+					int tmpTime = 0;
+					if (flag == true) {
+						try {
+							Thread.sleep(550);
+							tmpTime = ws.walkApi(i, j, sx, sy, ex, ey)/60;  // 60 없애고 분으로 해야할듯
+						} catch (Exception e) {}
+					} else {
+						tmpTime = ws.walkApi(i, j, sx, sy, ex, ey) / 60;
+					}
+					
+					// 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
+					Route.ptDist[i][j] = new TimeMethod(tmpTime, true);
+					Route.ptDist[j][i] = new TimeMethod(tmpTime, true);
+					flag = true;
+
+					return ;
 				}
 				sb = new StringBuilder();
 				String line;
@@ -161,6 +177,7 @@ public class ApiPTSearch {
 					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				} else {
 					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+					
 					System.out.println("대중교통 실패");
 				}
 				sb = new StringBuilder();

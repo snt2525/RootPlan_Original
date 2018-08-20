@@ -41,27 +41,6 @@ public class Route {
         }
         return true;
 	}	
-/*	
-	// 알고리즘 구현
-=======
-   }   
-   
-   // 알고리즘 구현
->>>>>>> branch 'master' of https://github.com/snt2525/RootPlan.git
-
-<<<<<<< HEAD
-	void print(int size) {
-		System.out.print("자동차 : ");
-		for(int i=0; i<size; i++) {
-			System.out.print(Shortpath.carAns[i]+" ");
-		}
-		System.out.println();
-		System.out.print("대중교통 : ");
-		for(int i=0; i<size; i++) {
-			System.out.print(Shortpath.ptAns[i]+" ");
-		}
-		System.out.println();
-	}*/
    
    void print(int size) {
       System.out.print("자동차 : ");
