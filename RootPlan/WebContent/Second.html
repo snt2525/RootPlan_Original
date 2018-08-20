@@ -54,8 +54,9 @@
 						<a href="#" id="roadAddrPart1" onclick="goPopup();"> 
 							<img src="img/search_color.png" onmouseover="this.src='img/search_gray.png';"	onmouseout="this.src='img/search_color.png';" alt="goRoutePlan" />
 						</a>
+						
 						<input type="hidden" id="roadAddrPart1">
-							
+						<!-- <input type="hidden" id="autocompleteUseYn" name="autocompleteUseYn" value="Y" /> -->
 						<input type="hidden" id="jibunAddr" value="" /> 
 						<input type="hidden" id="confmKey" name="confmKey"
 							value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="> 
@@ -68,11 +69,11 @@
 					<input type="hidden" id="confmKey" name="confmKey"
 						value="U01TX0FVVEgyMDE4MDcxMjAzNDUwNTEwODAwMzU=" />
 					<!-- 요청 변수 설정 (승인키) -->
-					<input type="hidden" id="admCd" name="admCd" value="" /> <input
-						type="hidden" id="rnMgtSn" name="rnMgtSn" value="" /> <input
-						type="hidden" id="udrtYn" name="udrtYn" value="" /> <input
-						type="hidden" id="buldMnnm" name="buldMnnm" value="" /> <input
-						type="hidden" id="buldSlno" name="buldSlno" value="" />
+					<input type="hidden" id="admCd" name="admCd" value="" /> 
+					<input type="hidden" id="rnMgtSn" name="rnMgtSn" value="" /> 
+					<input type="hidden" id="udrtYn" name="udrtYn" value="" /> 
+					<input type="hidden" id="buldMnnm" name="buldMnnm" value="" /> 
+					<input type="hidden" id="buldSlno" name="buldSlno" value="" />
 				</form>
 
 				<!--주소 데이터 저장 -->
@@ -126,7 +127,7 @@
 	<script type="text/javascript" src="jsCode/SearchApi.js"></script>
 	<script>
        getData(); //초기화init()
-       getCrawlingData();
+    //   getCrawlingData();
     </script>
 </body>
 </html>

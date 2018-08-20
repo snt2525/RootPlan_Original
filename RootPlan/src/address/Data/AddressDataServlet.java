@@ -145,6 +145,7 @@ public class AddressDataServlet extends HttpServlet {
 	        	 else
 	        		 result13 = 0;
         	 }
+        	 System.out.println("result13 = " + result13);
         	 out.print(result13);
         	 break;
             

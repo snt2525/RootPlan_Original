@@ -98,3 +98,13 @@ tr {
 	height:100%; 
 	text-align:center; 
 }
+.over_loading{
+	width:8%;
+	height:8%;
+	margin-top: 15%;
+	margin-bottom: 40px;
+}
+.over_message{
+	width:23%;
+	
+}

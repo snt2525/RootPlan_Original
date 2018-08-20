@@ -1,4 +1,4 @@
-package ShortestPath.copy;
+package RouteData;
 
 public class DataPair {
 	private double x;

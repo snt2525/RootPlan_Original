@@ -1,4 +1,4 @@
-package ShortestPath.copy;
+package RouteData;
 
 import java.util.LinkedList;
 
@@ -8,6 +8,7 @@ public class InfoCar {
 	private double ex;
 	private double ey;
 	private int distance;
+	private boolean walk; // 걷기면 true
 	private int time;
 	private int fare;
 	private LinkedList<DataPair> lineList; // line에 x,y 정보
@@ -16,6 +17,14 @@ public class InfoCar {
 		lineList = new LinkedList<DataPair>();
 	}
 	
+	public boolean isWalk() {
+		return walk;
+	}
+
+	public void setWalk(boolean walk) {
+		this.walk = walk;
+	}
+
 	public double getSx() {
 		return sx;
 	}

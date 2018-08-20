@@ -2,7 +2,8 @@ $.ajaxSetup({
 	contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
 	type:"post"
 });
-function callResultCar(){
+
+function callCheck(){
 	for(var i = 0 ;i<1000000;i++){
 		setTimeout(function(){
 			$.ajax({
@@ -33,8 +34,9 @@ function callResultCar(){	 //자동차
 	       }
 	   });
 }
-
+/*
 function startWorker(){
+	alert("시작");
 	var w;
 	if(window.Worker){
         w = new Worker("CallDfs.js");
@@ -48,4 +50,4 @@ function startWorker(){
 	}	
    w.terminate();
    w = undefined;	
-}
+}*/
