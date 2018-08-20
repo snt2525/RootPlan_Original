@@ -141,22 +141,32 @@ public class AddressDataServlet extends HttpServlet {
         	 System.out.println("13" +what + r.ptFlag);
         	 int result13 = 0; 
         	 if(what == 0) { //대중교통
-	        	 while(true) {
-	        		 System.out.println("대:"+r.ptFlag);
-	        		 if(r.ptFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
-	        			 System.out.println("대:"+r.ptFlag+", "+sd.GetStartData() +", "+sd.GetLastData());
-	        			 result13 = 1;
-	        			 break;
-	        		 }
-	        	 }
-        	 }else if(what == 1){ //자동차
-        		 while(true) {   
-        			 System.out.println("자:"+r.carFlag);
-        			 if(r.carFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
-        				System.out.println("자동차While:"+r.carFlag);
-	        			 result13 = 1;
-	        			 break;
-	        		 }
+	        		 try {
+	        			 while(true) {
+	        				 Thread.sleep(500);
+	        				 if(r.ptFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
+	    	        			 System.out.println("대:"+r.ptFlag+", "+sd.GetStartData() +", "+sd.GetLastData());
+	    	        			 result13 = 1;
+	    	        			 break;
+	    	        		 }
+	        			 }
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        	 }else if(what == 1){ //자동차        		  			 
+        			try {
+        				while(true) {         
+						Thread.sleep(500);
+						if(r.carFlag == 1 && sd.GetStartData() != -1 && sd.GetLastData() != -1) {
+	        				System.out.println("자동차While:"+r.carFlag);
+		        			 result13 = 1;
+		        			 break;
+		        		 }
+        				}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();    			 
 	        	 }
         	 }
         	 System.out.println(result13);
@@ -191,6 +201,14 @@ public class AddressDataServlet extends HttpServlet {
            String result11 = r.orderResult(how2, ad);
            out.print(result11);
            break;
+         
+         case 18: //폴리라인 그리기 위한 latlng 데이터 호출
+        	 int how3 =  Integer.parseInt(request.getParameter("how"));
+        	 out.print(r.resultPoly(how3));
+        	 break;
+        	 
+         case 19: // aside 결과를 보여주는 xml 호출
+        	 break;
       }               
    }
 }

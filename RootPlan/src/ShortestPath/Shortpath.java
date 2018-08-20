@@ -111,7 +111,6 @@ public class Shortpath {
       carPrint(listSize);
       System.out.println("대중교통 거리 출력");
       ptPrint(listSize);
-      System.out.println(start+" "+end);
       if(equal==0) {
          // 시작점 바꾸기
             visit[start] = 1;
