@@ -21,7 +21,7 @@ public class AddressDataServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
    AddressDataManager ad = new AddressDataManager();  
    SetData sd = new SetData();
-   Route r = new Route();
+   Route r;
    ApiPTSearch pt;
    ApiCarSearch cs;
    boolean apiFlag= true; 
@@ -80,6 +80,7 @@ public class AddressDataServlet extends HttpServlet {
             int num = Integer.parseInt(request.getParameter("num"));
             if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
                 this.r = new Route(); //다시 초기화
+                System.out.println("자동차 flag ="+ r.carFlag+", 대중교통 flag="+ r.ptFlag);
             	sd.SetStartData(-1);
             	sd.SetLastData(-1);
             }

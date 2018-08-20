@@ -26,7 +26,6 @@ function start(){
 			}else{ // 자동차 
 				document.apiAB.a.value = "0";
 				document.apiAB.b.value = String(size);
-				alert(document.apiAB.b.value);
 				document.apiAB.carBlock.value = "0";
 				$.ajax({
 					url:"/RootPlan/AddressDataServlet",
