@@ -136,15 +136,16 @@ public class ApiPTSearch {
 
   // 여기 다시 물어보기 
   public void resultOrderCall(int[] result) {  //결과대로 호출
+	  System.out.println("결과 api호출"+result.length);
       for(int i =0; i < result.length - 1; i++) {
-         callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
+    	  InfoPT infoptTmp  = callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng());
       }
   }
   
   // 대중교통 재호출할 때, 마지막에 결과 한노드에서 한 노드로 총 정보 가져오기 
   public InfoPT callResultPT(double sx, double sy, double ex, double ey) {
-        InfoPT infopt = new InfoPT(); // 1-2 지점 이동시
+      InfoPT infopt = new InfoPT(); // 1-2 지점 이동시
       InfoSectionPT infoSec = new InfoSectionPT();
       
       double distanceMeter = CalculateDist.distance(sx, sy, ex, ey, "meter");

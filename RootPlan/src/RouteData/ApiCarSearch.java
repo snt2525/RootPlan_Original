@@ -168,7 +168,6 @@ public class ApiCarSearch {
 						}
 					}
 				}
-
 				//carData.print();
 			} catch (Exception e) {}
 		}

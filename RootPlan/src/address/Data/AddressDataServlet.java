@@ -77,6 +77,8 @@ public class AddressDataServlet extends HttpServlet {
             String result4 = ad.callAllAddress();
             int num = Integer.parseInt(request.getParameter("num"));
             if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
+            	this.r = new Route();
+            	apiFlag = true;   
                 r.Clear();
                 System.out.println("자동차 flag ="+ r.carFlag+", 대중교통 flag="+ r.ptFlag);
             	sd.SetStartData(-1);
@@ -131,9 +133,15 @@ public class AddressDataServlet extends HttpServlet {
             break;
             
          case 12: //api 호출 여부
-            apiFlag = true;   
-            break;
-            
+        	 System.out.println("19번 연결");       
+             String result14 = "";
+          		  result14 += "<Data>";
+          		  result14 += "<lat>" + Double.toString(ad.addressData.get(0).getLat()) + "</lat>";
+          		  result14 += "<lng>" + Double.toString(ad.addressData.get(0).getLng()) + "</lng>"; 
+          		  result14 += "</Data>";
+             out.print(result14);	  
+             break;
+             
          case 13:  //결과 로딩이 끝났는지 
         	 int what = Integer.parseInt(request.getParameter("what"));
         	 System.out.println("13" +what + r.ptFlag);
@@ -190,12 +198,12 @@ public class AddressDataServlet extends HttpServlet {
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
            System.out.println("16번 연결");            
-           r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); // 자동차 1, 대중교통  0 
+           r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); // 자동차 1, 대중교통  0           
            break;
          
          case 17:  //마크를 위한 호출
            int how2 = Integer.parseInt(request.getParameter("how")); 
-           System.out.println("17번 연결");  
+           System.out.println("17번 연결");           
            String result11 = r.orderResult(how2, ad);
            out.print(result11);
            break;
@@ -205,8 +213,8 @@ public class AddressDataServlet extends HttpServlet {
            out.print(r.resultPoly(how3));
            break;
         	 
-         case 19: // aside 결과를 보여주는 xml 호출
-        	 break;
+         case 19: 
+           break;
       }               
    }
 }
