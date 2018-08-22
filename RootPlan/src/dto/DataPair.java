@@ -1,4 +1,4 @@
-package RouteData;
+package dto;
 
 public class DataPair {
 	private double x;

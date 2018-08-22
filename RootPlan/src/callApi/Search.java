@@ -1,10 +1,12 @@
-package SearchData;
+package callApi;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedList;
+
+import dto.Location;
  
 public class Search {
     public static StringBuilder sb;//
@@ -14,7 +16,7 @@ public class Search {
     public static  String findLocation;
     static LinkedList<Location> ld = new LinkedList<Location>();
     
-    Search(String si){ 
+    public Search(String si){ 
        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
     }
    

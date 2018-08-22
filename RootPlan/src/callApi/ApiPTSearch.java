@@ -1,4 +1,4 @@
-package RouteData;
+package callApi;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,19 +6,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
 
-import ShortestPath.Route;
+import dao.CalculateDist;
+import dao.Route;
+import dto.DataPair;
+import dto.InfoPT;
+import dto.InfoSectionPT;
+import dto.TimeMethod;
 
 public class ApiPTSearch {
    StringBuilder sb;
    String key = "5FtIuAS9YmPfOD56TV5NHqYE6EivPWAAIBCZcy6V72c";
-   LinkedList<MapData.Address> ad;
+   LinkedList<dto.Address> ad;
    // 이차원 배열을 Route.java에다가 넣어주기
    ApiWalkSearch ws;
    boolean flag = false; // 대중교통에서 걷기 api호출에 쿨타임을 주기 위해서 만들었다.
    int adSize;
    
    // 생성자, 이차원 배열 초기화
-   public ApiPTSearch(LinkedList<MapData.Address> ad) {
+   public ApiPTSearch(LinkedList<dto.Address> ad) {
       adSize = ad.size();
       this.ad = ad;
       this.ws = new ApiWalkSearch();

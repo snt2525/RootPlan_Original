@@ -1,4 +1,4 @@
-package SearchData;
+package dto;
 
 public class Location {
 	private String title;

@@ -1,4 +1,4 @@
-package RouteData;
+package dto;
 
 public class TimeMethod {
 	private int time;

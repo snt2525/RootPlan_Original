@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import MapData.Address;
-import MapData.AddressDataManager;
-import ShortestPath.Route;
-import ShortestPath.SetData;
+import dao.AddressDataManager;
+import dao.Route;
+import dto.Address;
+import dto.SetData;
 
 @WebServlet("/AddressDataServlet")
 public class AddressDataServlet extends HttpServlet {
@@ -90,7 +90,7 @@ public class AddressDataServlet extends HttpServlet {
             String Si = request.getParameter("Si");
             String clickSi = request.getParameter("clickSi");
                if(!Si.equals(clickSi)) {
-                  SearchData.LocationDataManager location = new SearchData.LocationDataManager();
+                  dao.LocationDataManager location = new dao.LocationDataManager();
                   
                   String  result5 = location.getLocation(clickSi);
                   out.print(result5);

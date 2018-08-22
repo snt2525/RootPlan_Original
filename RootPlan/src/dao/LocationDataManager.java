@@ -1,6 +1,9 @@
-package SearchData;
+package dao;
 
 import java.util.LinkedList;
+
+import callApi.Search;
+import dto.Location;
 
 
 public class LocationDataManager {

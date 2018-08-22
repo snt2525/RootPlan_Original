@@ -1,8 +1,9 @@
-package MapData;
+package dao;
 
 import java.util.LinkedList;
 
-import ShortestPath.SetData;
+import dto.Address;
+import dto.SetData;
 
 public class AddressDataManager {
    public static LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   

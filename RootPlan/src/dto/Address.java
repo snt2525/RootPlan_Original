@@ -1,4 +1,4 @@
-package MapData;
+package dto;
 
 public class Address {
    //����, �浵, ���ּ�, ��

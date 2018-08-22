@@ -1,4 +1,4 @@
-package ShortestPath;
+package dto;
 
 public class SetData {
 	private int startIndex; 

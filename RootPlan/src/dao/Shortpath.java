@@ -1,4 +1,4 @@
-package ShortestPath;
+package dao;
 
 //대중교통 관련 클래스
 public class Shortpath {
