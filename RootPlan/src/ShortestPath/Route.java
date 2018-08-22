@@ -34,14 +34,7 @@ public class Route {
         carList.clear();
         ptList.clear();
         carFlag = 0;
-        ptFlag = 0;  
-        for(int i =0;i<7;i++) {
-        	for(int j=0;j<7;j++) {
-        		carDist[i][j].clear();
-        		ptDist[i][j].clear();
-        	}
-        }
-        
+        ptFlag = 0;        
     }
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
@@ -54,12 +47,12 @@ public class Route {
            sp.init(ad.addressData.size());
            //자동차 api호출
             System.out.println("자동차호출");
+            recallApiData(0);  // 대중교통 재호출
             ptFlag = 1; //대중됴통 호출 끌
             cs = new ApiCarSearch(ad.getList());
             cs.carApi(); //자동차 API call 
- 		    carFlag = 1; //자동차 호출 끌
-           //callShortestPath(ad, sd.startIndex,sd.lastIndex, sd.isSame(), 1); //dfs 순서를 찾는다 , 자동차
-           // cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차     
+            recallApiData(1); //대중교통 재호출
+ 		    carFlag = 1; //자동차 호출 끌 
             return false;
         }
         return true;
@@ -78,6 +71,14 @@ public class Route {
       System.out.println();
    }
 
+   public void recallApiData(int how) {
+	   if(how == 0)
+		   pt.resultOrderCall(sp.ptAns);
+	   else
+		  cs.resultOrderCall(sp.carAns);
+	   
+   }
+   
    public void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
       if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
@@ -114,6 +115,7 @@ public class Route {
    }
    
    public String resultPoly(int how) { // 0:pt, 1:car
+	   
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
@@ -123,7 +125,7 @@ public class Route {
 				   result += "<Data>";
 				   DataPair pair = ptList.get(i).getLineList(j);
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-				   result += "<lng>" + Double.toHexString(pair.getY()) + "</lng>";
+				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
 				   result += "</Data>";
 			   }
 		   }
@@ -142,6 +144,7 @@ public class Route {
 		   }
 		   result += "</carData>";
 	   }
+	   System.out.println(result);
 	   return result;
    }   
 }

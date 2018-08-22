@@ -1,11 +1,34 @@
+$.ajaxSetup({
+	contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+	type : "post"
+});
+var latlngPoint;
+var map2;
+$.ajax({
+		contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+		type : "post",
+		url:"/RootPlan/AddressDataServlet",
+		dataType: "xml",
+		data: "menuIndex=12",
+		success: function(data){
+			$(data).find("Data").each(function(){
+				latlngPoint = new naver.maps.Point($(this).find('lat').text(),$(this).find('lng').text());	
+				map2 = new naver.maps.Map("map2", {
+			           center: new naver.maps.LatLng(latlngPoint.y, latlngPoint.x),
+			           zoom: 8,
+			           size : new  naver.maps.Size($(window).width() - $("#aside").width(), $(window).height()), 
+			           mapTypeControl: true,
+			          
+			       });
+				
+			})
+		}, error: function(data){
+				alert("실패");
+		}
+});
+
 //3번째 4번째 페이지 초기화 
-var map2 = new naver.maps.Map("map2", {
-           center: new naver.maps.LatLng(37.3595316, 127.1052133),
-           zoom: 10,
-           size : new  naver.maps.Size($(window).width() - $("#aside").width(), $(window).height()), 
-           mapTypeControl: true,
-          
-       });
+
 var marker = new Array(10);
 var cnt = 0;
 

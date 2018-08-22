@@ -1,4 +1,3 @@
-
 var marker = new Array(10);
 var cnt = 0;
 var flag = 0;
@@ -116,13 +115,7 @@ function clean(){
 		marker[i].setMap(null); 
 	}	
 	marker = new Array(10);
-	cnt = 0;	
-	//api호출 허가 & 초기화
-	$.ajax({
-		url:"/RootPlan/AddressDataServlet",
-		data: "menuIndex=12",
-		type: "post"
-	});	
+	cnt = 0;		
 }
 
 

@@ -15,7 +15,8 @@ function callPolyLine(){
 	    	   lineArray = new Array();
 	    	   $(data).find("Data").each(function(){
 	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
-	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
+	    		   alert(Point);
+	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.	    		 
 	    	   })
 	    	   var polyline = new naver.maps.Polyline({
 				    map: map2,
