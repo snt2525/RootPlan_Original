@@ -46,12 +46,10 @@ public class Route {
         if(car.equals("0")) {      
            sp.init(ad.addressData.size());
            //자동차 api호출
-            System.out.println("자동차호출");
-            recallApiData(0);  // 대중교통 재호출
+            System.out.println("자동차호출");           
             ptFlag = 1; //대중됴통 호출 끌
             cs = new ApiCarSearch(ad.getList());
             cs.carApi(); //자동차 API call 
-            recallApiData(1); //대중교통 재호출
  		    carFlag = 1; //자동차 호출 끌 
             return false;
         }
@@ -82,9 +80,11 @@ public class Route {
    public void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
       if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
+         recallApiData(1);  // 자동차 재호출
       	 //cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
       }else { 
          sp.callDFS(start, last, 0, isSame);
+         recallApiData(0);  // 대중교통 재호출
         // pt.resultOrderCall(sp.ptAns); //결과 순서로 api 다시 호출, 대중교통
       }
    } 
