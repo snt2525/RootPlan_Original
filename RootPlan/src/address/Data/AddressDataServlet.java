@@ -208,7 +208,9 @@ public class AddressDataServlet extends HttpServlet {
            break;
          
          case 18: //폴리라인 그리기 위한 latlng 데이터 호출
-    	   int how3 =  Integer.parseInt(request.getParameter("how"));
+    	   //int how3 =  Integer.parseInt(request.getParameter("how"));
+        	 int how3=0;
+    	   System.out.println("how3 : " + how3);
            out.print(r.resultPoly(how3));
            break;
         	 

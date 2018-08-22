@@ -139,6 +139,8 @@ public class ApiPTSearch {
 	  for(int i =0;i<result.length;i++)
 		  System.out.print(result[i]+" ");
       for(int i =0; i < result.length - 1; i++) {
+    	  System.out.println("좌표보기 : " +  ad.get(result[i]).getLat() + " " + ad.get(result[i]).getLng()
+               + " " + ad.get(result[i+1]).getLat()+ " " + ad.get(result[i+1]).getLng());
          Route.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
       }
@@ -146,11 +148,14 @@ public class ApiPTSearch {
   
   // 대중교통 재호출할 때, 마지막에 결과 한노드에서 한 노드로 총 정보 가져오기 
   public InfoPT callResultPT(double sx, double sy, double ex, double ey) {
+	  System.out.println("callResultPT 들어옴");
       InfoPT infopt = new InfoPT(); // 1-2 지점 이동시
       InfoSectionPT infoSec = new InfoSectionPT();
       
       double distanceMeter = CalculateDist.distance(sx, sy, ex, ey, "meter");
+      System.out.println("거리 : " + distanceMeter);
       if (distanceMeter <= 800) {
+    	  System.out.println("걷기 호출");
          // 이전에 있던 애가 걷기 호출을 했었는지
          if (flag == true) {
             try {
@@ -189,6 +194,7 @@ public class ApiPTSearch {
                sb.append(line + "\n");
             }
 
+            System.out.println("대중교통 : " + sb);
             br.close();
             con.disconnect();
 
