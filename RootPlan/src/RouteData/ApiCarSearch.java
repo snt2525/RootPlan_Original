@@ -101,10 +101,16 @@ public class ApiCarSearch {
 
     // 이거 뭔지 다시 물어보기, 왠지 같은거인거 같음 
    public void resultOrderCall(int[] result) { //결과 순서로 api 호출
-	   for(int i =0; i < result.length - 1; i++) {
-		   Route.carList.add(callResultCar( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
-				   ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
-	   }
+	   try {		   
+		   for(int i =0; i < result.length - 1; i++) {
+			   Route.carList.add(callResultCar( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
+					   ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
+			   Thread.sleep(500);
+		   }
+		} catch (Exception e) {
+			System.out.println("문제발생쓰");
+		} 
+
    }
 
    // 마지막에 결과 재호출해서 한노드에서 한 노드로 총 정보 가져오기 
@@ -172,6 +178,5 @@ public class ApiCarSearch {
 			} catch (Exception e) {}
 		}
 		return carData;
-	}
-   
+	}  
 }
