@@ -187,6 +187,7 @@ public class ApiPTSearch {
                sb.append(line + "\n");
             }
 
+            System.out.println("대중교통 : " + sb);
             br.close();
             con.disconnect();
 
