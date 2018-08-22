@@ -90,6 +90,7 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
 						if (status === naver.maps.Service.Status.ERROR) {
 							return alert('Something Wrong!');
 						}
+						// 검색한 위치를 보여준다. 
 						infoWindow
 								.setContent([ '<div style="padding:10px;min-width:100px;line-height:150%;">'
 										+ document.form.jibunAddr.value

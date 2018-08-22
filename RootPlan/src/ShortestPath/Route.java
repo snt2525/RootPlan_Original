@@ -120,7 +120,7 @@ public class Route {
 		   result += "<ptData>";
 	   for(int i=0; i<ptList.size();i++) {
 		   int InfoPTSize = ptList.get(i).getLineListSize();
-		   for(int j=0; j<InfoPTSize; i++) {
+		   for(int j=0; j<InfoPTSize; j++) {
 			   result += "<Data>";
 			   DataPair pair = ptList.get(i).getLineList(j);
 			   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";

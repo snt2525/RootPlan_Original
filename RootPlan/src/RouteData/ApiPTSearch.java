@@ -135,12 +135,9 @@ public class ApiPTSearch {
    }
 
   public void resultOrderCall(int[] result) {  //결과대로 호출
-	  System.out.println("대중교통 결과 api호출");
-	  for(int i =0;i<result.length;i++)
-		  System.out.print(result[i]+" ");
       for(int i =0; i < result.length - 1; i++) {
-    	  System.out.println("좌표보기 : " +  ad.get(result[i]).getLat() + " " + ad.get(result[i]).getLng()
-               + " " + ad.get(result[i+1]).getLat()+ " " + ad.get(result[i+1]).getLng());
+    	  //System.out.println("좌표보기 : " +  ad.get(result[i]).getLat() + " " + ad.get(result[i]).getLng()
+          //     + " " + ad.get(result[i+1]).getLat()+ " " + ad.get(result[i+1]).getLng());
          Route.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
       }
@@ -194,7 +191,6 @@ public class ApiPTSearch {
                sb.append(line + "\n");
             }
 
-            System.out.println("대중교통 : " + sb);
             br.close();
             con.disconnect();
 
