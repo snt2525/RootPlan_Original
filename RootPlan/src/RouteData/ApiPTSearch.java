@@ -135,7 +135,7 @@ public class ApiPTSearch {
    }
 
   public void resultOrderCall(int[] result) {  //결과대로 호출
-	  System.out.println("결과 api호출");
+	  System.out.println("대중교통 결과 api호출");
 	  for(int i =0;i<result.length;i++)
 		  System.out.print(result[i]+" ");
       for(int i =0; i < result.length - 1; i++) {

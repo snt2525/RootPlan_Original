@@ -119,30 +119,30 @@ public class Route {
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
-		   for(int i=0; i<ptList.size();i++) {
-			   int InfoPTSize = ptList.get(i).getLineListSize();
-			   for(int j=0; j<InfoPTSize; i++) {
-				   result += "<Data>";
-				   DataPair pair = ptList.get(i).getLineList(j);
-				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
-				   result += "</Data>";
-			   }
+	   for(int i=0; i<ptList.size();i++) {
+		   int InfoPTSize = ptList.get(i).getLineListSize();
+		   for(int j=0; j<InfoPTSize; i++) {
+			   result += "<Data>";
+			   DataPair pair = ptList.get(i).getLineList(j);
+			   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+			   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+			   result += "</Data>";
 		   }
-		   result += "</ptData>";
+	   }
+	   result += "</ptData>";
 	   }else if(how==1) {
 		   result += "<carData>";
-		   for(int i=0; i<carList.size(); i++) {
-			   int lineListSize = carList.get(i).getLineListSize();
-			   for(int j=0; j<lineListSize; j++) {
-				   result += "<Data>";
-				   DataPair pair = carList.get(i).getLineList(j);
-				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
-				   result += "</Data>";
-			   }
+	   for(int i=0; i<carList.size(); i++) {
+		   int lineListSize = carList.get(i).getLineListSize();
+		   for(int j=0; j<lineListSize; j++) {
+			   result += "<Data>";
+			   DataPair pair = carList.get(i).getLineList(j);
+			   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+			   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+			   result += "</Data>";
 		   }
-		   result += "</carData>";
+	   }
+	   result += "</carData>";
 	   }
 	   System.out.println(result);
 	   return result;
