@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import ShortestPath.SetData;
 
 public class AddressDataManager {
-   public static LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
+   public static LinkedList<Address> addressData;    
    int size = 0;
    public AddressDataManager(){
       addressData = new LinkedList<Address>();      
@@ -14,7 +14,7 @@ public class AddressDataManager {
       return addressData.size();
    }
    
-   public String addData(Address data) { //�����͸� �����Ѵ�
+   public String addData(Address data) { 
 	  for(Address item : addressData) {
 		  if(data.getAddress().equals(item.getAddress())) {
 			  return "-1";
@@ -37,7 +37,7 @@ public class AddressDataManager {
       String result = "";
       result += "<AddressData>";
       result += "<address>"+addressData.get(index).getAddress()+"</address>";   
-      result += "</AddressData>";
+      result += "</AddressData>";  
       return result;
    }
    

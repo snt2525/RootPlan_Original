@@ -114,8 +114,7 @@ public class Route {
 	   return result;
    }
    
-   public String resultPoly(int how) { // 0:pt, 1:car
-	   
+   public String resultPoly(int how) { // 0:pt, 1:car	   
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
