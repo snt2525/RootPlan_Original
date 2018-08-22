@@ -101,6 +101,11 @@ public class ApiCarSearch {
 
     // 이거 뭔지 다시 물어보기, 왠지 같은거인거 같음 
    public void resultOrderCall(int[] result) { //결과 순서로 api 호출
+	   System.out.println("result 보기");
+	   for(int i=0; i<result.length; i++) {
+		   System.out.print(result[i]+ " ");
+	   }
+	   System.out.println();
 	   try {		   
 		   for(int i =0; i < result.length - 1; i++) {
 			   Route.carList.add(callResultCar( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
