@@ -37,4 +37,3 @@ function start(){
 		error: function(data){alert(data)}			
 	});	
 }
-

@@ -7,6 +7,7 @@ import callApi.ApiPTSearch;
 import dto.DataPair;
 import dto.InfoCar;
 import dto.InfoPT;
+import dto.InfoSectionPT;
 import dto.SetData;
 import dto.TimeMethod;
 
@@ -42,7 +43,8 @@ public class Route {
        pt = new ApiPTSearch(ad.getList());
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
         System.out.println("대중교통 호출");
-        pt.callTransportApi(a, b);                
+        pt.callTransportApi(a, b);    
+        System.out.println("car : " + car);
         if(car.equals("0")) {      
            sp.init(ad.addressData.size());
            //자동차 api호출
@@ -147,4 +149,66 @@ public class Route {
 	   System.out.println(result);
 	   return result;
    }   
+   
+   public String resultList(int how) { // 0:pt, 1:car
+	   String result="";
+	   
+	   if(how==0) {
+		   result += "<resultPTList>";
+		   for(int i=0; i<ptList.size(); i++) {
+			   result += "<Data>";
+			   InfoPT info = ptList.get(i);
+			   result += "<walk>" +info.isWalk() + "</walk>";
+			   result += "<totalDistance>" + Integer.toString(info.getTotalDistance()) + "</totalDistance>";
+			   result += "<totalTime>" +Integer.toString(info.getTotalTime()) + "</totalTime>"; 
+			   if(info.isWalk()) {
+				   result += "</Data>";
+				   break;
+			   }
+			   
+			   result += "<firstStartStation>" +info.getFirstStartStation() +"</firstStartStation>";
+			   result += "<lastEndStation>" + info.getLastEndStation() +"</lastEndStation>";
+			   result += "<fare>" +Integer.toString(info.getFare()) + "</fare>";
+			   int sectionSize = info.getSectionSize();
+			   result += "<sectionSize>"+Integer.toString(info.getSectionSize()) + "</sectionSize>"; 
+			   for(int j=0; j<sectionSize; j++) {
+				   InfoSectionPT sec = info.getSection(j);
+				   result += "<section>";
+				   if(sec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
+				   else result += "<trafficType>버스</trafficType>";
+				   result += "<startStation>"+sec.getStartStation() + "</startStation>";
+				   result += "<endStation>" + sec.getEndStation() + "</endStation>";
+				   result += "<sectionDistance>" +Integer.toString(sec.getSectionDistance()) + "</sectionDistance>";
+				   result += "<sectionTime>" + Integer.toString(sec.getSectionTime()) +"</sectionTime>";
+				   if(sec.getTrafficType()==1) {
+					   result += "<line>" +sec.getSubwayLine() + "</line>";
+				   }else {
+					   result += "<line>";
+					   int busSize = sec.getBusNoListSize();
+					   for(int a=0; a<busSize; a++) {
+						   result += sec.getBusNoList(a) + ", ";
+					   }
+					   result += "</line>";
+				   }
+				   
+				   result += "</section>";
+			   }
+			   result += "</Data>";
+		   }
+		   result += "</resultPTList>";
+	   }else {
+		   result += "<resultCarList>";
+		   for(int i=0; i<carList.size(); i++) {
+			   result += "<Data>";
+			   InfoCar info = carList.get(i);
+			   result += "<distance>" + Integer.toString(info.getDistance())+"</distance>";
+			   result += "<walk>" + info.isWalk() + "</walk>";
+			   result += "<time>" + Integer.toString(info.getTime()) + "</time>";
+			   if(!info.isWalk()) result += "<fare>" + Integer.toString(info.getFare()) + "</fare>";
+			   result += "</Data>";
+		   }
+		   result += "</resultCarList>";
+	   }
+	   return result;
+   }
 }

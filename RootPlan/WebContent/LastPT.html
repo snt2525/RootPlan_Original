@@ -17,7 +17,32 @@
 			<div id="asideContent2">
 				<!--  frameLeft -->
 				<div id="asideTop" class="text-center">
+					<!-- tab으로 구성 -->
+					<ul class="tab">
+						<li class="current" data-tab="tab1"><a href="#">대중교통+도보</a></li>
+						<li data-tab="tab2"><a href="#">자동차+도보</a></li>
+					</ul>			
 					
+					<form id="showPT" name="showPT" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+						<input type="hidden" id="how" name="how" value="0">
+						<div id="tab1" class="tabcontent current">
+							<h3>대중교통+도보</h3>
+							<div id="resultPTList" name="resultPTList"></div>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
+					</form>
+					
+					<form id="showCar" name="showCar" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+						<input type="hidden" id="how" name="how" value="1">
+						<div id="tab2" class="tabcontent">
+							<h3>자동차+도보</h3>
+							<div id="resultCarList" name="resultPTList"></div>
+							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+						</div>
+					</form>
+							
 				</div>
 			</div>
 		</div>
@@ -46,6 +71,22 @@
 	<script>
 		callResult();
 		callPolyLine();
- 	</script>
+
+		$(function() {
+			$('ul.tab li').click(function() {
+				var title = $(this).text();
+				var activeTab = $(this).attr('data-tab');
+				$('ul.tab li').removeClass('current');
+				$('.tabcontent').removeClass('current');
+				$(this).addClass('current');
+				$('#' + activeTab).addClass('current');
+				if(title=="대중교통+도보"){ 
+					showResultPT();
+				}else{
+					showResultCar();
+				}
+			})
+		});
+	</script>
 </body>
 </html>

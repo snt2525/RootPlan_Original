@@ -10,7 +10,7 @@ public class InfoSectionPT {
 	private int sectionTime; // sectionTime
 	private String subwayLine; // name, 지하철 노선명(지하철만)
 	private LinkedList<String> busNoList; //버스 여러개 여러개
-	
+	 
 	public InfoSectionPT() {
 		busNoList = new LinkedList<String>();
 	}
@@ -71,14 +71,5 @@ public class InfoSectionPT {
 	public void setSubwayLine(String subwayLine) {
 		this.subwayLine = subwayLine;
 	}
-
-	public LinkedList<String> getBusNoList() {
-		return busNoList;
-	}
-
-	public void setBusNoList(LinkedList<String> busNoList) {
-		this.busNoList = busNoList;
-	}
-	
 	
 }

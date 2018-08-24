@@ -12,7 +12,7 @@ public class InfoPT {
 	private int totalDistance; // // 응답 : totalDistance
 	private boolean walk; // 걷기면 true, 버스나 지하철이면 false
 	private int totalTime; // 응답 : totalTime
-	private int fare; // 응답 : payment , 좀 생각해봐야할듯
+	private int fare; // 응답 : payment
 	//private int stationCount; // stationCount로  DataPair 정보 가짐
 	private LinkedList<InfoSectionPT> section; // 환승 정보, cntTransfer만큼 만들기
 	private LinkedList<DataPair> lineList; // 환승에 상관없이 좌표는 연속적으로 저장
