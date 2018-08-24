@@ -19,7 +19,8 @@ $.ajaxSetup({
 	type:"post"
 });
 
-$("form").on("click", '#btn' , function(){
+//$("infoBtn").on("click", '#btn' , function(){
+function clickADDBtn(){
 	if(flag == 1){
 		$.ajax({
 			url:"/RootPlan/AddressDataServlet",
@@ -40,8 +41,8 @@ $("form").on("click", '#btn' , function(){
 		    error: function (data) {alert("목적지를 지정해 주세요")}				
 		});
 	}else
-		alert("목적지를 지정해 주세요")
-})
+		alert("목적지를 지정해 주세요");
+}
 
 
 //모든 데이터 호출 
