@@ -53,7 +53,9 @@ function searchCoordinateToAddress(latlng) {
 		//주소 정보창을 띄어준다.
 		infoWindow.setContent([
 				'<div style="padding:10px;min-width:100px;line-height:150%;">',
-				htmlAddresses.join('<br />'), '</div>' ].join('\n'));
+				htmlAddresses.join('<br />'), '</div>',
+				'<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',	            
+				].join('\n'));
 
 		document.saveAddress.lat.value = latlng.x;
 		document.saveAddress.lng.value = latlng.y;
@@ -92,18 +94,23 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
 						}
 						// 검색한 위치를 보여준다. 
 						infoWindow
-								.setContent([ '<div style="padding:10px;min-width:100px;line-height:150%;">'
-										+ document.form.jibunAddr.value
-										+ '<br />'
-										+ document.form.roadAddrPart1.value
-										+ '</div>' ].join('\n'));
+								.setContent([ 
+									    '<div style="position:relative;padding:20px;width:280px;height:50px;font-color:black">',
+										'<h6>'+ document.form.jibunAddr.value + '</h6>',
+										'<p>' + document.form.roadAddrPart1.value + '</p>',
+										'<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/>',
+										'</div></br>', 
+										].join('\n'));
 
 						map.setCenter(latlngTmp);
 						infoWindow.open(map, latlngTmp);
 						//form에 위도 경도를 저장해둔다.
 						document.saveAddress.lat.value = latlngTmp.x;
 						document.saveAddress.lng.value = latlngTmp.y;
-						document.saveAddress.address.value = document.form.roadAddrPart1.value;
+						if(document.form.jibunAddr.value == "")
+							document.saveAddress.address.value = document.form.roadAddrPart1.value;
+						else
+							document.saveAddress.address.value = document.form.jibunAddr.value;
 					});
 
 }

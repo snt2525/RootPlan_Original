@@ -28,6 +28,12 @@ public class LocationDataManager {
          result += "<Data>";
          result += "<no>" + Integer.toString(i) + " </no>";
          result += "<LocationTitle>" + lo.getTitle() + " </LocationTitle>";
+         result += "<LocationLink>" + lo.getLink() + "</LocationLink>";
+         result += "<LocationDescription>" + lo.getDescription() + "</LocationDescription>";
+         result += "<LocationTP>" + lo.getTp() + "</LocationTP>";
+         result += "<LocationCategory >" + lo.getCategory() + "</LocationCategory>";
+         result += "<LocationRoadaddress>" + lo.getRoadaddress () + "</LocationRoadaddress>";        
+         result += "<LocationAddress>" + lo.getAddress() + "</LocationAddress>";
          result += "<LocationMapx>" + lo.getMapx() + "</LocationMapx>";
          result += "<LocationMapy>" + lo.getMapy() + "</LocationMapy>";
          if(lo.getImgUrl() == null) {

@@ -25,7 +25,7 @@ public class Search {
       try {
          String text = URLEncoder.encode(imgTitle, "utf-8");
          // 여기에 있는 display 값을 조정함에 따라 사진을 긁어오는게 달라진다. 
-         String apiURL = "https://openapi.naver.com/v1/search/image?query=" + text + "&display=" + 20 + "&";
+         String apiURL = "https://openapi.naver.com/v1/search/image?query=" + text + "&display=" + 100 + "&";
          URL url = new URL(apiURL);
          HttpURLConnection con = (HttpURLConnection) url.openConnection();
          con.setRequestMethod("GET");
@@ -93,7 +93,7 @@ public class Search {
  
             br.close();
             con.disconnect();
-           // System.out.println(sb); 
+            //System.out.println(sb); 
             String data = sb.toString();
             String[] array;
             array = data.split("\"");
@@ -105,6 +105,18 @@ public class Search {
                    location.setTitle(array[i+2]);
                    location.setImgUrl(getImage(array[i+2])); // title로 이미지 검색해서 넣어주기
                 }
+                if(array[i].equals("link")) 
+                	location.setLink(array[i+2]);
+                if(array[i].equals("category")) 
+                	location.setCategory(array[i+2]);
+                if(array[i].equals("description")) 
+                	location.setDescription(array[i+2]);
+                if(array[i].equals("telephone")) 
+                	location.setTp(array[i+2]);
+                if(array[i].equals("address")) 
+                	location.setAddress(array[i+2]);
+                if(array[i].equals("roadAddress")) 
+                	location.setRoadaddress(array[i+2]);
                 if (array[i].equals("mapx"))
                    location.setMapx(array[i+2]);
                 if (array[i].equals("mapy")) {
