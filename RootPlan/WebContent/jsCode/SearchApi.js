@@ -1,3 +1,4 @@
+//여행지 데이터 배열
 var title = new Array(100);
 var LocationImg = new Array(100);
 var address = new Array(100);
@@ -26,10 +27,7 @@ function getCrawlingData(){
           $(data).find("CityData").each(function(){
              htmlStr += "<h2 class='h2-style'>"+ $(this).find('LocationCity').text()+ " 대표 여행지" +"</h2>";    
           })
-          $(data).find("Data").each(function(){
-        	  
-        	  
-        	  
+          $(data).find("Data").each(function(){	  
              htmlStr += "<div class='item1'>";
              htmlStr += "<div class='wow fadeInLeft' data-wow-delay='0.2s'>";
              htmlStr += "<img class='image_container' src='"
@@ -52,9 +50,7 @@ function getCrawlingData(){
              title[num] = $(this).find('LocationTitle').text();
              description[num] = $(this).find('LocationDescription').text();
              if( description[num] != "" )
-            	 description[num] += "</br>";
-             
-             
+            	 description[num] += "</br>";                       
              if($(this).find('LocationRoadaddress').text() == "")
             	 roadaddress[num] = $(this).find('LocationRoadaddress').text();
              else
@@ -91,9 +87,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
            
 		    infoWindow.setContent([
 		             '<div style="position:relative;padding:20px;width:280px;height:70px;font-color:black">', 	
-		    //         '<div style="position:relative;"',
 		             '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
-		       //      '</div>',
 		             '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
 		             '<p style="color:black;">' + address[no] + roadaddress[no],
 		               tp[no] + category[no] +'</p>',				                      
@@ -114,4 +108,84 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
 		    document.saveAddress.address.value = title[no];
 		    document.saveAddress.si.value =  document.SiData.Si.value;
 		 });
+}
+
+function init(num){
+	title2 = "";
+	LocationImg2 = "";
+	address2 = "";
+	tp2 = "";
+	category2 = "";
+    link3 = "";
+    link4 = "";
+    description2 = "";  
+    document.searchApi.num.value = num;
+}
+
+function callSearchApi(num){	
+		//초기화
+		init(num);   
+       if(num == 0){
+       	document.searchApi.findLocation.value = document.form.jibunAddr.value;
+       	document.searchApi.address.value = document.form.roadAddrPart1.value;
+       	roadAddress2 = document.form.roadAddrPart1.value + "</br>";	
+       }
+      
+		if(document.searchApi.findLocation.value == ""){
+		   makeInfo();
+		}else{	    
+			$.ajax({
+				url:"/RootPlan/CallSearchLocalApi",
+				type : "post",
+				dataType: "xml",
+				data: $("#searchApi").serialize(),
+				success: function(data){					
+					$(data).find("ResultData").each(function(){	
+						if($(this).find('title').text() == "l.l"){
+							roadAddress2 = "<h5>"+roadAddress2+"</h5>";
+						}else{											
+							title2 = $(this).find('title').text();	
+							address2 = $(this).find('address').text();
+							tp2 = $(this).find('telephone').text();
+							category2 = $(this).find('category').text();
+							link3 = $(this).find('link').text();
+							description2 = $(this).find('description').text();	
+							//주소
+							if(address2 != "")
+								address2 += "</br>";
+							//전화번호
+							if( tp2 != "" )
+				            	tp2 += " | ";		
+							//링크
+							if( link3 != "" )
+				            	link4 =  $(this).find('link').text()+" </a></br>";
+				            else
+				            	link4 = "";					 
+							//설명
+							if(description2 != "" )
+				            	description2 += "</br>"		
+						}
+					})								
+					 makeInfo();
+				}, error: function(data){
+						alert("실패");
+				}
+			});
+		}
+	}
+function makeInfo(flag){
+	infoWindow.setContent([ 
+	    '<div style="position:relative;padding:20px;width:300px;height:50px;font-color:black">',
+	    '<h6 style="font-weight:bold; color:black; float:left;">' + title2 +'</h6>',
+	    '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
+	    '<p style="color:black;">' + address2 + roadAddress2,
+        tp2 + category2 +'</p>',				                                 			           
+       '<p>' + description2,		   
+       '<a href="'+ link3 +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link4,
+       '</br> </p>',
+		'</div>'
+	].join('\n'));
+
+	map.setCenter(latlngTmp);
+	infoWindow.open(map, latlngTmp);
 }

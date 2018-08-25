@@ -1,3 +1,13 @@
+//지도 데이터 배열
+var title2 = "";
+var address2 = "";
+var roadAddress2 = "";
+var tp2 = "";
+var category2 = "";
+var link3 = "";
+var link4 = "";
+var description2 = "";
+var latlngTmp;
 $.ajaxSetup({
 	contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
 	type : "post"
@@ -19,6 +29,7 @@ map.setCursor('pointer');
 
 // map을 눌렀을때 크롤링 보여줌
 function searchCoordinateToAddress(latlng) {
+	latlngTmp = latlng;
 	flag = 1;
 	var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
 	infoWindow.close();
@@ -34,15 +45,24 @@ function searchCoordinateToAddress(latlng) {
 		var items = response.result.items, //선택한 위도를 통해 주소를 가져온다.
 		htmlAddresses = [];
 		//클릭한 위치의 주소를 띄어 준다.
+		
 		for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
 			item = items[i];
 			addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
 			if (addrType == '[도로명 주소]')
 				htmlAddresses.push(item.address);
 		}
+		//console.log(items)
 		if (htmlAddresses.length == 0)
 			htmlAddresses.push(items[0].address);
-
+		
+		//search api를 호출한다.
+		document.searchApi.findLocation.value = items[1].addrdetail.rest;
+    	document.searchApi.address.value = items[1].address;
+    	roadAddress2 = items[1].address + "</br>";	
+    	callSearchApi(1);
+    	
+		//여행지 추천을 위한 시군구 분리
 		var sigugun = items[0].addrdetail.sigugun;
 		var sigugunArr = sigugun.split(" ");
 		if (sigugunArr.length == 1) {
@@ -50,29 +70,19 @@ function searchCoordinateToAddress(latlng) {
 		} else {
 			document.SiData.clickSi.value = sigugunArr[0];
 		}
-		//주소 정보창을 띄어준다.
-		infoWindow.setContent([
-				'<div style="padding:10px;min-width:100px;line-height:150%;">',
-				htmlAddresses.join('<br />'), '</div>',
-				'<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',	            
-				].join('\n'));
-
+		
 		document.saveAddress.lat.value = latlng.x;
 		document.saveAddress.lng.value = latlng.y;
 		document.saveAddress.address.value = htmlAddresses;
 		document.saveAddress.si.value = items[0].addrdetail.sido;
-		infoWindow.open(map, latlng);
 
 		getCrawlingData();
-
 		document.SiData.Si.value = document.SiData.clickSi.value;
-
 	});
 }
 
 function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 infoWindow를 띄어준다
 	flag = 1;
-	var latlngTmp;
 	$(xmlStr).find("juso").each(
 			function() {
 				// alert($(this).find('entX').text());
@@ -83,35 +93,24 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
 			});
 	var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlngTmp);
 	naver.maps.Service
-			.reverseGeocode(
-					{
-						location : tm128,
-						coordType : naver.maps.Service.CoordType.TM128
-					},
-					function(status, response) {
-						if (status === naver.maps.Service.Status.ERROR) {
-							return alert('Something Wrong!');
-						}
-						// 검색한 위치를 보여준다. 
-						infoWindow
-								.setContent([ 
-									    '<div style="position:relative;padding:20px;width:280px;height:50px;font-color:black">',
-										'<h6>'+ document.form.jibunAddr.value + '</h6>',
-										'<p>' + document.form.roadAddrPart1.value + '</p>',
-										'<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/>',
-										'</div></br>', 
-										].join('\n'));
-
-						map.setCenter(latlngTmp);
-						infoWindow.open(map, latlngTmp);
-						//form에 위도 경도를 저장해둔다.
-						document.saveAddress.lat.value = latlngTmp.x;
-						document.saveAddress.lng.value = latlngTmp.y;
-						if(document.form.jibunAddr.value == "")
-							document.saveAddress.address.value = document.form.roadAddrPart1.value;
-						else
-							document.saveAddress.address.value = document.form.jibunAddr.value;
-					});
+		.reverseGeocode(
+				{
+					location : tm128,
+					coordType : naver.maps.Service.CoordType.TM128
+				},
+				function(status, response) {
+					if (status === naver.maps.Service.Status.ERROR) {
+						return alert('Something Wrong!');
+			}
+		    //alert(address2)
+			//form에 위도 경도를 저장해둔다.
+			document.saveAddress.lat.value = latlngTmp.x;
+			document.saveAddress.lng.value = latlngTmp.y;
+			if(document.form.jibunAddr.value == "")
+				document.saveAddress.address.value = document.form.roadAddrPart1.value;
+			else
+				document.saveAddress.address.value = document.form.jibunAddr.value;
+		});
 
 }
 
@@ -150,9 +149,7 @@ function getAddr() {
 		type : "post",
 		data : $("#form2").serialize(),
 		dataType : "jsonp",
-		crossDomain : true
-
-		,
+		crossDomain : true,
 		success : function(xmlStr) {
 			if (navigator.appName.indexOf("Microsoft") > -1) {
 				var xmlData = new ActiveXObject("Microsoft.XMLDOM");
@@ -167,7 +164,7 @@ function getAddr() {
 			} else {
 				if (xmlStr != null) {
 					makeList(xmlData);
-
+					callSearchApi(0);
 				}
 			}
 		},
