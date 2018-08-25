@@ -17,7 +17,32 @@
 			<div id="asideContent2">
 				<!--  frameLeft -->
 				<div id="asideTop" class="text-center">
+					<div class="title">
+						<h3>최적 경로</h3>
+					</div>
 					
+					<!-- tab으로 구성 -->
+					<ul class="tab">
+						<li class="current" data-tab="tab1"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대중교통+도보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li data-tab="tab2"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자동차+도보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+					</ul>			
+					
+					<form id="showPT" name="showPT" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+						<input type="hidden" id="how" name="how" value="0">
+						<div id="tab1" class="tabcontent current">
+							<div id="resultPTList" name="resultPTList"></div><!-- 대중교통 정보 뿌려주기 -->
+						</div>
+					</form>
+					
+					<form id="showCar" name="showCar" method="post">
+						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+						<input type="hidden" id="how" name="how" value="1">
+						<div id="tab2" class="tabcontent">
+							<div id="resultCarList" name="resultPTList"></div> <!-- 자동차 정보 뿌려주기 -->
+						</div>
+					</form>
+							
 				</div>
 			</div>
 		</div>
@@ -46,6 +71,32 @@
 	<script>
 		callResult();
 		callPolyLine();
- 	</script>
+		showResultPT();
+		
+		function toggleLayer(layer)
+		{
+		    var l = document.getElementById(layer);
+		    if(l.style.display == "")
+		        l.style.display = "none";
+		    else if(l.style.display == "none")
+		        l.style.display = "";
+		}
+		
+		$(function() {
+			$('ul.tab li').click(function() {
+				var title = $(this).text();
+				var activeTab = $(this).attr('data-tab');
+				$('ul.tab li').removeClass('current');
+				$('.tabcontent').removeClass('current');
+				$(this).addClass('current');
+				$('#' + activeTab).addClass('current');
+				if(title=="대중교통+도보"){ 
+					showResultPT();
+				}else{
+					showResultCar();
+				}
+			})
+		});
+	</script>
 </body>
 </html>

@@ -9,11 +9,43 @@ public class InfoSectionPT {
 	private int sectionDistance; // distance
 	private int sectionTime; // sectionTime
 	private String subwayLine; // name, 지하철 노선명(지하철만)
+	private String subwayCode; // 지하철 노선번호
+	private int sectionStationCount;
 	private LinkedList<String> busNoList; //버스 여러개 여러개
-	
+	 
 	public InfoSectionPT() {
 		busNoList = new LinkedList<String>();
 	}
+
+	public void print(int idx) {
+		System.out.println(idx+"번쨰 데이터 출력");
+		System.out.println("trafficType : " + trafficType);
+		System.out.println("startStation : " + startStation);
+		System.out.println("endStation : " + endStation);
+		System.out.println("sectionDistance : " + sectionDistance);
+		System.out.println("sectionTime : " + sectionTime);
+		System.out.println("subwayLine : " + subwayLine);
+		System.out.println("sectionStationCount : " + sectionStationCount);
+	}
+	public String getSubwayCode() {
+		return subwayCode;
+	}
+
+
+	public void setSubwayCode(String subwayCode) {
+		this.subwayCode = subwayCode;
+	}
+
+
+	public int getSectionStationCount() {
+		return sectionStationCount;
+	}
+
+
+	public void setSectionStationCount(int sectionStationCount) {
+		this.sectionStationCount = sectionStationCount;
+	}
+
 
 	public int getBusNoListSize() {
 		return busNoList.size();
@@ -71,14 +103,5 @@ public class InfoSectionPT {
 	public void setSubwayLine(String subwayLine) {
 		this.subwayLine = subwayLine;
 	}
-
-	public LinkedList<String> getBusNoList() {
-		return busNoList;
-	}
-
-	public void setBusNoList(LinkedList<String> busNoList) {
-		this.busNoList = busNoList;
-	}
-	
 	
 }

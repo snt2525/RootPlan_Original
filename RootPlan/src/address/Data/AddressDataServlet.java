@@ -189,7 +189,6 @@ public class AddressDataServlet extends HttpServlet {
               int a = Integer.parseInt(request.getParameter("a"));
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
-              System.out.println("대중교통API 호출 시작"); 
               apiFlag = r.callApi(a, b, car, ad, sd);      
            }
             break;
@@ -213,7 +212,14 @@ public class AddressDataServlet extends HttpServlet {
            break;
         	 
          case 19: 
+        	 
            break;
+         case 20: // 대중교통 left 에 뿌려줌
+        	 int how4 = Integer.parseInt(request.getParameter("how"));
+        	 System.out.println("서블렛 20번 들어옴");
+         	out.print(r.resultList(how4));
+         	break;
+         	
       }               
    }
 }
