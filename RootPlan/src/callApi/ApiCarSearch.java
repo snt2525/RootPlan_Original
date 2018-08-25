@@ -160,7 +160,7 @@ public class ApiCarSearch {
 					sb.append(line + "\n");
 				}
 
-				System.out.println("자동차 불러옴");
+				//System.out.println("자동차 불러옴");
 				br.close();
 				con.disconnect();
 				String data = sb.toString();
@@ -177,7 +177,7 @@ public class ApiCarSearch {
 						carData.setDistance(Integer.parseInt(array[i + 1]));
 					} else if (array[i].equals("tmap:totalTime")) {
 						carData.setTime(Integer.parseInt(array[i + 1]));
-					} else if (array[i].equals("tmap:totalFare")) {
+					} else if (array[i].equals("tmap:taxiFare")) {
 						carData.setFare(Integer.parseInt(array[i + 1]));
 					} else if (array[i].equals("coordinates")) {
 						if (array[i - 2].equals("Point"))

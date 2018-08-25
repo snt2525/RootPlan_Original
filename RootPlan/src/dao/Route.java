@@ -155,45 +155,74 @@ public class Route {
 	   
 	   if(how==0) {
 		   result += "<resultPTList>";
+		   int sectionSize=0;
+		   
 		   for(int i=0; i<ptList.size(); i++) {
-			   result += "<Data>";
 			   InfoPT info = ptList.get(i);
-			   result += "<walk>" +info.isWalk() + "</walk>";
-			   result += "<totalDistance>" + Integer.toString(info.getTotalDistance()) + "</totalDistance>";
-			   result += "<totalTime>" +Integer.toString(info.getTotalTime()) + "</totalTime>"; 
-			   if(info.isWalk()) {
+			   // 처음에 버스번호 여러개(시작 역이름)->지하철 번호(시작 역이름) -> 버스번호 여러개(시작 역이름)
+			   
+			   // 1번 지점에서 보일 내용 : 경로 1->2 지점에서 띄어줄 내용 
+			   result += "<Data>";
+			   result += "<check>1</check>";
+			   result += "<totalTime>" + info.getTotalTime() + "</totalTime>";
+			   result += "<totalDistance>" + info.getTotalDistance() + "</totalDistance>";
+			   result += "<totalFare>" + info.getFare() + "</totalFare>";
+			   result += "<totalStationCount>" + info.getStationCount() + "</totalStationCount>";
+			   // 각 세부의 정보 
+			   sectionSize = info.getSectionSize();
+			   result += "<sectionSize>"+Integer.toString(info.getSectionSize()) + "</sectionSize>";
+			   result += "</Data>";
+			   
+			   // 2번 지점에서 보일 내용
+			   for(int j=0; j<info.getSectionSize(); j++) {
+				   InfoSectionPT tmpSec = info.getSection(j);
+				   result += "<Data>";
+				   result += "<check>2</check>";
+				   if(tmpSec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
+				   else result += "<trafficType>버스</trafficType>";
+				   result += "<bus>";
+				   for(int k=0; k<tmpSec.getBusNoListSize(); k++) {
+					   result += tmpSec.getBusNoList(k);
+					   if(k!=tmpSec.getBusNoListSize()-1) result += ", ";
+				   }
+				   result += "</bus>";
+				   result += "<subwayLine>" + tmpSec.getSubwayLine()+"</subwayLine>";
+				   result +="<stationName>"+tmpSec.getStartStation()+"</stationName>"; // 처음 역 이름
 				   result += "</Data>";
-				   break;
 			   }
 			   
-			   result += "<firstStartStation>" +info.getFirstStartStation() +"</firstStartStation>";
-			   result += "<lastEndStation>" + info.getLastEndStation() +"</lastEndStation>";
-			   result += "<fare>" +Integer.toString(info.getFare()) + "</fare>";
-			   int sectionSize = info.getSectionSize();
-			   result += "<sectionSize>"+Integer.toString(info.getSectionSize()) + "</sectionSize>"; 
-			   for(int j=0; j<sectionSize; j++) {
-				   InfoSectionPT sec = info.getSection(j);
-				   result += "<section>";
-				   if(sec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
-				   else result += "<trafficType>버스</trafficType>";
-				   result += "<startStation>"+sec.getStartStation() + "</startStation>";
-				   result += "<endStation>" + sec.getEndStation() + "</endStation>";
-				   result += "<sectionDistance>" +Integer.toString(sec.getSectionDistance()) + "</sectionDistance>";
-				   result += "<sectionTime>" + Integer.toString(sec.getSectionTime()) +"</sectionTime>";
-				   if(sec.getTrafficType()==1) {
-					   result += "<line>" +sec.getSubwayLine() + "</line>";
-				   }else {
-					   result += "<line>";
-					   int busSize = sec.getBusNoListSize();
-					   for(int a=0; a<busSize; a++) {
-						   result += sec.getBusNoList(a) + ", ";
+			   if(info.isWalk()) {
+				   result += "<Data>";
+				   result += "<check>3</check>";
+				   result += "<walk>true</walk>";
+				   result += "</Data>";
+			   }else {
+				   for(int j=0; j<sectionSize; j++) {
+					   result += "<Data>";
+					   result += "<check>3</check>";
+					   result += "<walk>false</walk>";
+					   InfoSectionPT sec = info.getSection(j);
+					   if(sec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
+					   else result += "<trafficType>버스</trafficType>";
+					   result += "<startStation>"+sec.getStartStation() + "</startStation>";
+					   result += "<endStation>" + sec.getEndStation() + "</endStation>";
+					   result += "<sectionDistance>" +Integer.toString(sec.getSectionDistance()) + "</sectionDistance>";
+					   result += "<sectionTime>" + Integer.toString(sec.getSectionTime()) +"</sectionTime>";
+					   if(sec.getTrafficType()==1) {
+						   result += "<line>" +sec.getSubwayLine() + "</line>";
+					   }else {
+						   result += "<line>";
+						   int busSize = sec.getBusNoListSize();
+						   for(int a=0; a<busSize; a++) {
+							   result += sec.getBusNoList(a);
+							   if(a!=busSize-1) result += ", ";
+						   }
+						   result += "</line>";
 					   }
-					   result += "</line>";
+					   
+					   result += "</Data>";
 				   }
-				   
-				   result += "</section>";
 			   }
-			   result += "</Data>";
 		   }
 		   result += "</resultPTList>";
 	   }else {

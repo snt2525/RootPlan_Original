@@ -9,6 +9,7 @@ public class InfoPT {
 	private double ey; // 요청시
 	private String firstStartStation; 
 	private String lastEndStation;
+	private int stationCount;
 	private int totalDistance; // // 응답 : totalDistance
 	private boolean walk; // 걷기면 true, 버스나 지하철이면 false
 	private int totalTime; // 응답 : totalTime
@@ -21,6 +22,17 @@ public class InfoPT {
 		section = new LinkedList<InfoSectionPT>(); // 환승 없을 수도 있음
 		lineList = new LinkedList<DataPair>();
 	}
+
+	
+	public int getStationCount() {
+		return stationCount;
+	}
+
+
+	public void setStationCount(int stationCount) {
+		this.stationCount = stationCount;
+	}
+
 
 	public int getSectionSize() {
 		return section.size();
@@ -115,6 +127,7 @@ public class InfoPT {
 		return section.get(idx);
 	}
 	public void addSection(InfoSectionPT item) {
+		System.out.println("section에 아이템 더하기");
 		section.add(item);
 	}
 	public DataPair getLineList(int idx) {

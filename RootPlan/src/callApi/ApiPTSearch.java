@@ -141,8 +141,6 @@ public class ApiPTSearch {
 
   public void resultOrderCall(int[] result) {  //결과대로 호출
       for(int i =0; i < result.length - 1; i++) {
-    	  //System.out.println("좌표보기 : " +  ad.get(result[i]).getLat() + " " + ad.get(result[i]).getLng()
-          //     + " " + ad.get(result[i+1]).getLat()+ " " + ad.get(result[i+1]).getLng());
          Route.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
       }
@@ -196,6 +194,7 @@ public class ApiPTSearch {
                sb.append(line + "\n");
             }
 
+            System.out.println(sb);
             br.close();
             con.disconnect();
 
@@ -205,7 +204,7 @@ public class ApiPTSearch {
 
             int trafficType = 0;
             double x = 0, y = 0;
-            boolean flag = false;
+            int cnt=0;
             for (int i = 0; i < array.length; i++) {
                if (array[i].equals("result")) {
                   infopt.setSx(sx);
@@ -216,27 +215,28 @@ public class ApiPTSearch {
                } else if (array[i].equals("trafficType")) {
                   trafficType = Integer.parseInt(array[i + 2]);
                } else if (array[i].equals("lane")) {
-                  if (flag)
-                     infopt.addSection(infoSec); // 처음이 아니면 넣어주기
-                  flag = true;
+                  if(cnt!=0) infopt.addSection(infoSec); // 처음이 아니면 넣어주기
+                  cnt++;
                   infoSec = new InfoSectionPT();
                   infoSec.setTrafficType(trafficType); // lane이 trafficType보다 나중에 나오니까
                } else if (array[i].equals("busNo")) { // 버스일 경우
-                  if (trafficType != 2)
-                     continue;
+                  if (trafficType != 2)   continue;
                   infoSec.addBusNoList(array[i + 3]);
                } else if (array[i].equals("name")) { // 지하철일 경우
-                  if (trafficType != 1)
-                     continue;
+                  if (trafficType != 1)   continue;
                   infoSec.setSubwayLine(array[i + 3]);
-               } else if (array[i].equals("x")) {
+               } else if(array[i].equals("stationCount")){ // section별 정류장 개수
+            	   infoSec.setSectionStationCount(Integer.parseInt(array[i + 2]));
+               }else if (array[i].equals("x")) {
                   x = Double.parseDouble(array[i + 3]);
                } else if (array[i].equals("y")) {
                   y = Double.parseDouble(array[i + 3]);
                   infopt.addLineList(new DataPair(x, y));
                } else if (array[i].equals("distance")) {
+            	   if(trafficType==3) continue;
                   infoSec.setSectionDistance(Integer.parseInt(array[i + 2]));
                } else if (array[i].equals("sectionTime")) {
+            	   if(trafficType==3) continue;
                   infoSec.setSectionTime(Integer.parseInt(array[i + 2]));
                } else if (array[i].equals("startName")) {
                   infoSec.setStartStation(array[i + 3]);
@@ -246,6 +246,8 @@ public class ApiPTSearch {
                   infopt.setFare(Integer.parseInt(array[i + 2]));
                } else if (array[i].equals("totalTime")) {
                   infopt.setTotalTime(Integer.parseInt(array[i + 2]));
+               }else if(array[i].equals("totalStationCount")) { // 총 정류장 개수
+            	   infopt.setStationCount(Integer.parseInt(array[i + 2]));
                } else if (array[i].equals("totalDistance")) {
                   infopt.setTotalDistance(Integer.parseInt(array[i + 2]));
                } else if (array[i].equals("firstStartStation")) {
@@ -255,7 +257,7 @@ public class ApiPTSearch {
                   break; // 하나 다 불러온 거니 for문 나감
                }
             }
-            // infopt.print();
+            infopt.addSection(infoSec); 
          } catch (Exception e) {}
       }
       return infopt;

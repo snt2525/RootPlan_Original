@@ -1,3 +1,4 @@
+/*
 function start(){
 	$.ajax({
 		contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
@@ -36,4 +37,4 @@ function start(){
 		},
 		error: function(data){alert(data)}			
 	});	
-}
+}*/

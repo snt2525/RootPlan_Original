@@ -189,7 +189,6 @@ public class AddressDataServlet extends HttpServlet {
               int a = Integer.parseInt(request.getParameter("a"));
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
-              System.out.println("대중교통API 호출 시작"); 
               apiFlag = r.callApi(a, b, car, ad, sd);      
            }
             break;

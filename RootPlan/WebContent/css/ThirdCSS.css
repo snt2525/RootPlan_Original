@@ -117,7 +117,7 @@ tr {
 
 <!--LastPT.html 왼쪽 tab -->
 #container {
-	width: 960px;
+	max-width: 100%;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -126,7 +126,10 @@ tr {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	width:100%;
 	overflow: hidden;
+	font-weight: 700;
+	font-family: sans-serif;
 }
 /* Float the list items side by side */
 .tab li {
@@ -150,11 +153,37 @@ tr {
 	color: black;
 }
 
-ul.tab li.current {
-	background-color: rgb(0, 154, 200);
+ul.tab li.current { 
+ 	background-color: rgb(255, 229, 204); 
+ 	/* border-left:1px solid gray;
+ 	border-right:1px solid gray; */
+	border-top:3px solid red;
 	color: #222;
 }
 
 .tabcontent.current {
 	display: block;
+}
+
+.title{
+	margin:5%;
+}
+
+.iconImg{
+	margin-left:10px;
+	margin-right:10px;
+	vertical-align:middle;
+}
+hr.one{
+	border: 1px double rgb(64, 64, 64);
+}
+hr.two{
+	border: 1px solid rgb(197, 197, 197);
+}
+hr.three{
+	width:90%;
+	border: 1px dashed rgb(197, 197, 197);
+}
+hr.lastHr{
+	border:  3px double gray;
 }
