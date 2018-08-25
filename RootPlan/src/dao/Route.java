@@ -102,7 +102,6 @@ public class Route {
 		      result += "</Data>"; 
 		   }
 		   result += "</ResultData>";
-		   System.out.println(result);
 	   }else if(how == 1) {
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
@@ -146,7 +145,6 @@ public class Route {
 	   }
 	   result += "</carData>";
 	   }
-	   System.out.println(result);
 	   return result;
    }   
    
@@ -164,6 +162,8 @@ public class Route {
 			   // 1번 지점에서 보일 내용 : 경로 1->2 지점에서 띄어줄 내용 
 			   result += "<Data>";
 			   result += "<check>1</check>";
+			   if(info.isWalk()) result += "<walk>true</walk>";
+			   else result += "<walk>false</walk>";
 			   result += "<totalTime>" + info.getTotalTime() + "</totalTime>";
 			   result += "<totalDistance>" + info.getTotalDistance() + "</totalDistance>";
 			   result += "<totalFare>" + info.getFare() + "</totalFare>";
@@ -201,6 +201,7 @@ public class Route {
 					   result += "<Data>";
 					   result += "<check>3</check>";
 					   result += "<walk>false</walk>";
+					   
 					   InfoSectionPT sec = info.getSection(j);
 					   if(sec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
 					   else result += "<trafficType>버스</trafficType>";

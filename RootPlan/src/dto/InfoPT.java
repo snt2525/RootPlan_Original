@@ -127,7 +127,6 @@ public class InfoPT {
 		return section.get(idx);
 	}
 	public void addSection(InfoSectionPT item) {
-		System.out.println("section에 아이템 더하기");
 		section.add(item);
 	}
 	public DataPair getLineList(int idx) {

@@ -22,6 +22,7 @@ html, body {
 	width: 25%;
 	border-right: 1px solid #a7a7a7;
 	background-color: #fff;
+	overflow: auto;
 }
 
 #asideContent {

@@ -26,27 +26,37 @@ function showResultPT(){
 	    	   var totalDistance=0, totalTime=0, totalFare=0;
 	    	   var now=-1;
 	    	   var sectionSize =0, cnt=0, tmpId=0, cnt1=0;
+	    	   htmlStr += "<div>대중교통으로 800m 이하를 이동하면 도보로 제공됩니다.</div>";
+	    	   htmlStr += "<div>대중교통 이용시 걷는 시간과 거리는 포함되지 않습니다.</div>";
+	    	   htmlStr += "<div><img class='iconImg' src='img/bus.png'/> : 버스 | <img class='iconImg' src='img/subway.png'/> : 지하철 | <img class='iconImg' src='img/walk.png'/> : 도보</div>";
 	    	   $(data).find("Data").each(function(){
 	    		   if($(this).find('check').text()=='1'){	   // 1번 지점
-	    			   console.log("1번");
+	    			   //console.log("1번");
 	    			   now = now+1;
 	    			   cnt=0; 
 	    			   cnt1=0;
 	    			   // 엔터 하려면 나중에 보고나서 
 	    			   htmlStr += "<div><hr class='one'>";
 	    			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
-	    			   htmlStr += $(this).find('totalTime').text() +"분  |  요금 "; // totalTime 값 이상하게 나오므로 고쳐야할듯
+	    			   if($(this).find('walk').text()=="true"){
+	    				   htmlStr += (Number($(this).find('totalTime').text())/60).toFixed(0) +"분  |  요금 "; 
+	    				   totalTime += Number($(this).find('totalTime').text())/60;
+	    			   }
+		   				else{
+		   					htmlStr += Number($(this).find('totalTime').text()) +"분  |  요금 "; 
+		   					totalTime += Number($(this).find('totalTime').text());
+		   				}
+	    			  
 	    			   htmlStr += $(this).find('totalFare').text() + "원  | ";
 	    			   htmlStr += (Number($(this).find('totalDistance').text()/1000)).toFixed(2) + "km | ";
 	    			   htmlStr += $(this).find('totalStationCount').text() + "개 정류장 및 역";
 	    			   sectionSize = Number($(this).find('sectionSize').text());
 	    			   htmlStr += "</div><div class='iconImg'><hr class='two'>";
 	    			   totalDistance += Number($(this) .find('totalDistance').text());
-		   				totalTime += Number($(this).find('totalTime').text());
 	    		   		totalFare += Number($(this).find('totalFare').text());
 	    		   }else if($(this).find('check').text() == '2'){
 	    			   cnt = cnt+1;
-	    			   console.log("2번");
+	    			  // console.log("2번");
 	    			   if($(this).find('trafficType').text()== "버스"){
 	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/>"+$(this).find('bus').text();
 	    				   htmlStr += "("+$(this).find('stationName').text()+")";
@@ -64,11 +74,11 @@ function showResultPT(){
 		    			   htmlStr += "<div id='"+tmpId+"' style='display:none'>";  
 	    			   }
 	    		   }else if($(this).find('check').text() == '3'){ // 섹션 정보 
-	    			   console.log("3번");
+	    			   //console.log("3번");
 	    			   cnt1=cnt1+1;
-	    			   console.log("cnt1의 값 : " + cnt1);
+	    			  // console.log("cnt1의 값 : " + cnt1);
 		    		   if($(this).find('walk').text()=="true"){ // 도보
-		    			   htmlStr += "<div>도보 이용입니다. 100m 이하이므로 경로를 제공하지 않습니다.<hr class='three'></div>";	
+		    			   htmlStr += "<div><img src='img/walk.png'/>도보 이용입니다.</div>";	
 		    		   }else{ // 도보 이용 아닌 경우 환승 정보 있으므로 
     		   				htmlStr += "<div>";
     		   				// 몇번째인지 보여주기
@@ -78,14 +88,14 @@ function showResultPT(){
     		   							+ "km | 시간 : " + $(this).find('sectionTime').text() + "분</div>";
     		   				htmlStr += "<div>탑승 : " + $(this).find('startStation').text() + " | 하차 : " + $(this).find('endStation').text() + "</div>";
     		   				htmlStr += "</div>";
+    		   				if(cnt1==sectionSize) htmlStr +="</div>";
+			    		   else htmlStr += "<hr class='three'>";
 		    		   	}
-		    		   if(cnt1==sectionSize) htmlStr +="</div>";
-		    		   else htmlStr += "<hr class='three'>";
+		    		   
 	    		   }
 	    	   })
 	    	   // 여기있는 ht 두껍게 
-	    	   htmlStr += "<div><hr class='lastHr'>총 거리 : " + (totalDistance/1000).toFixed(2) + "km | 총 시간 : " +totalTime + "분 | 총 교통요금 : " + totalFare + "원</div>";
-	    	   console.log(htmlStr);
+	    	   htmlStr += "<div><hr class='lastHr'>총 거리 : " + (totalDistance/1000).toFixed(2) + "km | 총 시간 : " +(totalTime).toFixed(2) + "분 | 총 교통요금 : " + totalFare + "원</div><br><br>";
 	    	   $("#resultPTList").html(htmlStr);
 	       }, error:function(request,status,error){
 	    	  console.log("대중교통 List 불러오기 실패");
@@ -102,24 +112,26 @@ function showResultCar(){
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0;
+	    	   htmlStr += "<div>자동차로 800m 이하를 이동하면 도보로 제공됩니다.</div>";
+	    	   htmlStr += "<div><img class='iconImg' src='img/bus.png'/> : 버스 | <img class='iconImg' src='img/subway.png'/> : 지하철 | <img class='iconImg' src='img/walk.png'/> : 도보</div>";
 	    	   $(data).find("Data").each(function(){
-	    		   htmlStr += "<hr><div>";
+	    		   htmlStr += "<hr class='one'><div>";
     			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
     			   htmlStr += (Number($(this).find('time').text())/60).toFixed(2).toString() +"분 | ";
     			   if($(this).find('walk').text()=="false"){
     				   totalFare += Number($(this).find('fare').text());
     				   htmlStr += "택시요금 " + $(this).find('fare').text() + "원  | ";
     			   }else{
-    				   htmlStr += "도보이용";
+    				   htmlStr += "<img src='img/walk.png'/>도보 이용 | ";	
     			   }
-    			   htmlStr += (Number($(this).find('distance').text())/1000).toFixed(2) + "km";
+    			   htmlStr += "거리 : " + (Number($(this).find('distance').text())/1000).toFixed(2) + "km";
     			   htmlStr += "</div>";
     			
 	    		   	totalDistance += Number($(this).find('distance').text());
 	    		   	totalTime += Number($(this).find('time').text())/60;
 	    		   	now = now+1;
 	    	   })
-	    	   htmlStr += "<hr><div>총 거리 : " + (Number(totalDistance)/1000).toFixed(2) + "km | 총 시간 : " 
+	    	   htmlStr += "<hr class='lastHr'><div>총 거리 : " + (Number(totalDistance)/1000).toFixed(2) + "km | 총 시간 : " 
 	    	   			+totalTime.toFixed(2) + "분 | 총 택시요금 : " + totalFare + "원</div>";
 	    	   $("#resultCarList").html(htmlStr);
 	       }, error:function(request,status,error){
