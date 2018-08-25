@@ -143,8 +143,9 @@ function callSearchApi(num){
 					$(data).find("ResultData").each(function(){	
 						if($(this).find('title').text() == "l.l"){
 							roadAddress2 = "<h5>"+roadAddress2+"</h5>";
-						}else{											
-							title2 = $(this).find('title').text();	
+						}else{	
+							title2 = $(this).find('title').text();		
+							document.saveAddress.address.value = title2;
 							address2 = $(this).find('address').text();
 							tp2 = $(this).find('telephone').text();
 							category2 = $(this).find('category').text();
@@ -167,6 +168,7 @@ function callSearchApi(num){
 						}
 					})								
 					 makeInfo();
+						
 				}, error: function(data){
 						alert("실패");
 				}

@@ -135,10 +135,13 @@ public class CallSearchLocalApi extends HttpServlet {
 	}
    
    protected static Boolean checkResult(Location location, String[] tmp, String findLocation) {
+	   //System.out.println("왜니:"+ location.getTitle());
 	   String addTmp = location.getRoadaddress(); //주소가 같은지
 	   String[] addressTmp = addTmp.trim().split(" ");
 	   	for(int j=0;j<tmp.length;j++) {
-	   		if(j>=addressTmp.length||!tmp[j].equals(addressTmp[j])) { 
+	   		//System.out.println("왜니1:"+ tmp[j]+", "+ addressTmp[j] +",tmp:" +tmp.length+"addressTmp.length: "+addressTmp.length);
+	   		if(j>=addressTmp.length) break;
+	   		if(!tmp[j].equals(addressTmp[j])) { 
 	   			return false;
 	   		}
 	   	}
@@ -159,7 +162,7 @@ public class CallSearchLocalApi extends HttpServlet {
 	   			break;
 	   		}
 	   	}
-	   	
+	    //System.out.println("왜니2:"+ location.getTitle());
 	   	if(!flag) 
 	   		return false;
 	   	else
