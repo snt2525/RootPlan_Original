@@ -89,10 +89,10 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
                    '<div style="position:relative;padding:20px;width:280px;height:70px;font-color:black">',    
                    '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
                    '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
-                   '<p style="color:black;">' + address[no] + roadaddress[no],
+                   '<p style="font-size:15px;color:black;">' + address[no] + roadaddress[no],
                      tp[no] + category[no] +'</p>',                                  
                   // '<img src="'+ LocationImg[no] +'" width="250px" height="180px"/> <br />',                                       
-                    '<p>' + description[no],         
+                    '<p style="font-size:15px;">' + description[no],         
                     '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
                    '</br> </p>',
                 '</div>'
@@ -180,10 +180,10 @@ function makeInfo(flag){
        '<div style="position:relative;padding:20px;width:300px;height:50px;font-color:black">',
        '<h6 style="font-weight:bold; color:black; float:left;">' + title2 +'</h6>',
        '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
-       '<p style="color:black;">' + address2 + roadAddress2,
+       '<p style="font-size:15px;color:black;">' + address2 + roadAddress2,
         tp2 + category2 +'</p>',                                                                 
-       '<p>' + description2,         
-       '<a href="'+ link3 +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link4,
+       '<p style="font-size:12px;">' + description2,         
+       '<a href="'+ link3 +'" style="font-size:14px;color:blue;text-decoration:none;"  target="_blank">'+ link4,
        '</br> </p>',
       '</div>'
    ].join('\n'));
