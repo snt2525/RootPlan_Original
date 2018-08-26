@@ -142,7 +142,7 @@ function callSearchApi(num){
 				success: function(data){					
 					$(data).find("ResultData").each(function(){	
 						if($(this).find('title').text() == "l.l"){
-							//roadAddress2 = "<h5>"+roadAddress2+"</h5>";
+							roadAddress2 = "<h5>"+roadAddress2+"</h5>";
 						}else{	
 							title2 = $(this).find('title').text();		
 							document.saveAddress.address.value = title2;
@@ -164,9 +164,9 @@ function callSearchApi(num){
 				            	link4 = "";					 
 							//설명
 							if(description2 != "" )
-				            	description2 += "</br>"		
-				            makeInfo();
+				            	description2 += "</br>"				          
 						}
+						  makeInfo();
 					})				
 						
 				}, error: function(data){

@@ -55,7 +55,7 @@ function searchCoordinateToAddress(latlng) {
 		//console.log(items)
 		if (htmlAddresses.length == 0)
 			htmlAddresses.push(items[0].address);
-		
+		console.log(items);
 		//search api를 호출한다.
 		document.searchApi.findLocation.value = items[1].addrdetail.rest;
     	document.searchApi.address.value = items[1].address;

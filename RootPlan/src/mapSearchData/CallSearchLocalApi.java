@@ -46,8 +46,9 @@ public class CallSearchLocalApi extends HttpServlet {
 	      if(num == 1) {
 	    	  String[] splitRest = findLocation.split(" ");
 	    	  int size = splitRest.length;
+	    	  //System.out.println(findLocation);
 	    	  findLocation = "";
-	    	  if(size == 1) {
+	    	  if(size == 1) {    		 
 	    		  String result = "";
 	    			result+= "<ResultData>";		
 	    			result+= "<title>l.l</title>";  	
