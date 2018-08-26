@@ -164,10 +164,10 @@ function callSearchApi(num){
                            link4 = "";                
                      //설명
                      if(description2 != "" )
-                           description2 += "</br>"      
+                           description2 += "</br>"                      
                   }
-               })                        
-                makeInfo();
+                    makeInfo();
+               })            
                   
             }, error: function(data){
                   alert("실패");
