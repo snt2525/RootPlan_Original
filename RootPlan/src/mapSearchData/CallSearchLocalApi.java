@@ -35,33 +35,34 @@ public class CallSearchLocalApi extends HttpServlet {
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");         
-         PrintWriter out = response.getWriter();
-         //System.out.print("api서블렛 연결");
-         int num = Integer.parseInt(request.getParameter("num")); //0: 검색, 1: 클릭
-         String findLocation = request.getParameter("findLocation"); //타이틀
-         String address = request.getParameter("address"); // 도로명 주소
-         String[] tmp = address.trim().split(" "); //도로명 주소 분리
-         
-         if(num == 1) {
-            String[] splitRest = findLocation.split(" ");
-            int size = splitRest.length;
-            findLocation = "";
-            if(size == 1) {
-               String result = "";
-                result+= "<ResultData>";      
-                result+= "<title>l.l</title>";     
-                  result+= "</ResultData>";
-               out.print(result);
-               return;
-            }
-            for(int i = 1;i < size;i++) {
-               findLocation += splitRest[i];
-               if( i + 1 <size)
-                  findLocation += " ";
-            }          
-         }
-         
+	      response.setContentType("text/html;charset=UTF-8");	      
+	      PrintWriter out = response.getWriter();
+	      //System.out.print("api서블렛 연결");
+	      int num = Integer.parseInt(request.getParameter("num")); //0: 검색, 1: 클릭
+	      String findLocation = request.getParameter("findLocation"); //타이틀
+	      String address = request.getParameter("address"); // 도로명 주소
+	      String[] tmp = address.trim().split(" "); //도로명 주소 분리
+	      
+	      if(num == 1) {
+	    	  String[] splitRest = findLocation.split(" ");
+	    	  int size = splitRest.length;
+	    	  //System.out.println(findLocation);
+	    	  findLocation = "";
+	    	  if(size == 1) {    		 
+	    		  String result = "";
+	    			result+= "<ResultData>";		
+	    			result+= "<title>l.l</title>";  	
+	    	        result+= "</ResultData>";
+	    		  out.print(result);
+	    		  return;
+	    	  }
+	    	  for(int i = 1;i < size;i++) {
+	    		  findLocation += splitRest[i];
+	    		  if( i + 1 <size)
+	    			  findLocation += " ";
+	    	  }	    	
+	      }
+
             try {
                //System.out.println("검색 호출");
                 String text = URLEncoder.encode(findLocation, "utf-8");

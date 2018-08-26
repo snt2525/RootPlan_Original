@@ -34,47 +34,47 @@ function searchCoordinateToAddress(latlng) {
    var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
    infoWindow.close();
 
-   naver.maps.Service.reverseGeocode({
-      location : tm128,
-      coordType : naver.maps.Service.CoordType.TM128
-   }, function(status, response) {
-      if (status === naver.maps.Service.Status.ERROR) {
-         return alert('Something Wrong!');
-      }
-      //주소를 담아 둘 배열 htmlAddresses
-      var items = response.result.items, //선택한 위도를 통해 주소를 가져온다.
-      htmlAddresses = [];
-      //클릭한 위치의 주소를 띄어 준다.
-      
-      for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
-         item = items[i];
-         addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
-         if (addrType == '[도로명 주소]')
-            htmlAddresses.push(item.address);
-      }
-      //console.log(items)
-      if (htmlAddresses.length == 0)
-         htmlAddresses.push(items[0].address);
-      
-      //search api를 호출한다.
-      document.searchApi.findLocation.value = items[1].addrdetail.rest;
-       document.searchApi.address.value = items[1].address;
-       roadAddress2 = items[1].address + "</br>";   
-       callSearchApi(1);
-       
-      //여행지 추천을 위한 시군구 분리
-      var sigugun = items[0].addrdetail.sigugun;
-      var sigugunArr = sigugun.split(" ");
-      if (sigugunArr.length == 1) {
-         document.SiData.clickSi.value = items[0].addrdetail.sido;
-      } else {
-         document.SiData.clickSi.value = sigugunArr[0];
-      }
-      
-      document.saveAddress.lat.value = latlng.x;
-      document.saveAddress.lng.value = latlng.y;
-      document.saveAddress.address.value = htmlAddresses;
-      document.saveAddress.si.value = items[0].addrdetail.sido;
+	naver.maps.Service.reverseGeocode({
+		location : tm128,
+		coordType : naver.maps.Service.CoordType.TM128
+	}, function(status, response) {
+		if (status === naver.maps.Service.Status.ERROR) {
+			return alert('Something Wrong!');
+		}
+		//주소를 담아 둘 배열 htmlAddresses
+		var items = response.result.items, //선택한 위도를 통해 주소를 가져온다.
+		htmlAddresses = [];
+		//클릭한 위치의 주소를 띄어 준다.
+		
+		for (var i = 0, ii = items.length, item, addrType; i < ii; i++) {
+			item = items[i];
+			addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
+			if (addrType == '[도로명 주소]')
+				htmlAddresses.push(item.address);
+		}
+		//console.log(items)
+		if (htmlAddresses.length == 0)
+			htmlAddresses.push(items[0].address);
+		console.log(items);
+		//search api를 호출한다.
+		document.searchApi.findLocation.value = items[1].addrdetail.rest;
+    	document.searchApi.address.value = items[1].address;
+    	roadAddress2 = items[1].address + "</br>";	
+    	callSearchApi(1);
+    	
+		//여행지 추천을 위한 시군구 분리
+		var sigugun = items[0].addrdetail.sigugun;
+		var sigugunArr = sigugun.split(" ");
+		if (sigugunArr.length == 1) {
+			document.SiData.clickSi.value = items[0].addrdetail.sido;
+		} else {
+			document.SiData.clickSi.value = sigugunArr[0];
+		}
+		
+		document.saveAddress.lat.value = latlng.x;
+		document.saveAddress.lng.value = latlng.y;
+		document.saveAddress.address.value = htmlAddresses;
+		document.saveAddress.si.value = items[0].addrdetail.sido;
 
       getCrawlingData();
       document.SiData.Si.value = document.SiData.clickSi.value;
