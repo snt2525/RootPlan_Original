@@ -26,10 +26,10 @@ function click(title){
 	}else{
 		document.resultPoly.how.value = "1";
 		document.resultLatLng.how.value="1";
-		showMapAgain();
-		callResult();
-		callPolyLine();
-		showResultCar();
+		showMapAgain(); // 지도 다시 그리기
+		callResult(); // 결과 부르기
+		callPolyLine(); // 그리기
+		showResultCar(); // 옆에 결과 보여주기 
 	}
 }
 
@@ -141,7 +141,7 @@ function showResultCar(){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0;
 	    	   htmlStr += "<div>직선거리 800m 이하는 도보로 제공됩니다.</div>";
-	    	   htmlStr += "<div><img class='iconImg' src='img/bus.png'/> : 버스 | <img class='iconImg' src='img/subway.png'/> : 지하철 | <img class='iconImg' src='img/walk.png'/> : 도보</div>";
+	    	   htmlStr += "<div><img class='iconImg' src='img/bus.png'/> : 자동차 | <img class='iconImg' src='img/walk.png'/> : 도보</div>";
 	    	   $(data).find("Data").each(function(){
 	    		   htmlStr += "<hr class='one'><div>";
     			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
@@ -152,7 +152,7 @@ function showResultCar(){
     			   }else{
     				   htmlStr += "<img src='img/walk.png'/>도보 이용 | ";	
     			   }
-    			   htmlStr += "거리 : " + (Number($(this).find('distance').text())/1000).toFixed(0) + "km";
+    			   htmlStr += "거리 : " + (Number($(this).find('distance').text())/1000).toFixed(2) + "km";
     			   htmlStr += "</div>";
     			
 	    		   	totalDistance += Number($(this).find('distance').text());
@@ -161,7 +161,7 @@ function showResultCar(){
 	    	   })
 	    	   htmlStr += "<hr class='lastHr'><div>총 거리 : " + (Number(totalDistance)/1000).toFixed(2) + "km | 총 시간 : " 
 	    	   			+totalTime.toFixed(0) + "분 | 총 택시요금 : " + totalFare + "원</div>";
-	    	   //console.log(htmlStr);
+	    	   console.log(htmlStr);
 	    	   $("#resultCarList").html(htmlStr);
 	       }, error:function(request,status,error){
 	    	  console.log("자동차 List 불러오기 실패");
@@ -179,14 +179,25 @@ function callPolyLine(){
 	    	   lineArray = new Array();
 	    	   $(data).find("Data").each(function(){
 	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
-	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.	    		 
+	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
+	    		   
+	    		   if($(this).find('walk').text()=="0"){ // 도보
+	    			   var polyline = new naver.maps.Polyline({
+						    map: map2,
+						    path: lineArray,
+						    strokeWeight: 3,
+						    strokeColor: '#003499' //색상 바꾸기
+						});   
+	    		   }else{ // 이외
+	    			   var polyline = new naver.maps.Polyline({
+						    map: map2,
+						    path: lineArray,
+						    strokeWeight: 3,
+						    strokeColor: '#37b42d' 
+						});
+	    		   }
 	    	   })
-	    	   var polyline = new naver.maps.Polyline({
-				    map: map2,
-				    path: lineArray,
-				    strokeWeight: 3,
-				    strokeColor: '#003499' //색상 바꾸기
-				});
+	    	  
 	    	   
 	       }, error:function(request,status,error){
 	    	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

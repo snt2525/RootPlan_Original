@@ -117,6 +117,7 @@ public class Route {
    
    public String resultPoly(int how) { // 0:pt, 1:car
 	   
+	   // 그릴떄 0:도보, 1:그외
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
@@ -124,6 +125,11 @@ public class Route {
 			   int InfoPTSize = ptList.get(i).getLineListSize();
 			   for(int j=0; j<InfoPTSize; j++) {
 				   result += "<Data>";
+				   if(ptList.get(i).isWalk()) { // 도보
+					   result += "<walk>0</walk>";
+				   }else {
+					   result += "<walk>1</walk>";
+				   }
 				   DataPair pair = ptList.get(i).getLineList(j);
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
@@ -137,6 +143,11 @@ public class Route {
 			   int lineListSize = carList.get(i).getLineListSize();
 			   for(int j=0; j<lineListSize; j++) {
 				   result += "<Data>";
+				   if(carList.get(i).isWalk()) { // 도보
+					   result += "<walk>0</walk>";
+				   }else {
+					   result += "<walk>1</walk>";
+				   }
 				   DataPair pair = carList.get(i).getLineList(j);
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
@@ -178,7 +189,7 @@ public class Route {
 				   InfoSectionPT tmpSec = info.getSection(j);
 				   result += "<Data>";
 				   result += "<check>2</check>";
-				   System.out.println("trafficType은 뭐지 : " + tmpSec.getTrafficType());
+				   //System.out.println("trafficType은 뭐지 : " + tmpSec.getTrafficType());
 				   if(tmpSec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
 				   else result += "<trafficType>버스</trafficType>";
 				   result += "<bus>";
