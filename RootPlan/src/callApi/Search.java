@@ -12,7 +12,7 @@ public class Search {
     public static StringBuilder sb;//
     public static int display;
     public static String clientId = "QUyHkL9SA1c0aTQjz197";
-   public static String clientSecret = "d4nYetPHwT";
+    public static String clientSecret = "d4nYetPHwT";
     public static  String findLocation;
     static LinkedList<Location> ld = new LinkedList<Location>();
     
@@ -48,7 +48,7 @@ public class Search {
 
          br.close();
          con.disconnect();
-      //   System.out.println(sb);
+         //System.out.println(sb);
          String data = sb.toString();
          String[] array;
          array = data.split("\"");
@@ -93,7 +93,7 @@ public class Search {
  
             br.close();
             con.disconnect();
-            //System.out.println(sb); 
+           // System.out.println(sb); 
             String data = sb.toString();
             String[] array;
             array = data.split("\"");
