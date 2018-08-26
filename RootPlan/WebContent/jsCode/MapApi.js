@@ -22,7 +22,7 @@ var map = new naver.maps.Map("map", {
 });
 
 var infoWindow = new naver.maps.InfoWindow({
-	anchorSkew : true
+    anchorSkew: true
 });
 
 map.setCursor('pointer');
@@ -117,7 +117,11 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
 function initGeocoder() { //map 초기화
 	map.addListener('click', function(e) { //지도를 클릭했을 때 이벤트
 		document.form.roadAddrPart1.value = ""; //주소text 초기화
-		searchCoordinateToAddress(e.coord); //위도 -> 주소     
+		searchCoordinateToAddress(e.coord); //위도 -> 주소     	
+
+	});
+	map.addListener('rightclick', function(e) { //오른쪽 마우스 누르면 창이 닫힌다.
+		infoWindow.close();
 	});
 }
 
