@@ -1,4 +1,4 @@
-package address.Data;
+package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,7 +86,7 @@ public class AddressDataServlet extends HttpServlet {
             out.print(result4); 
             break;      
             
-         case 6: //크롤링한 데이터를 받아서 넘겨준다.
+       /*  case 6: //크롤링한 데이터를 받아서 넘겨준다.
             String Si = request.getParameter("Si");
             String clickSi = request.getParameter("clickSi");
                if(!Si.equals(clickSi)) {
@@ -98,7 +98,8 @@ public class AddressDataServlet extends HttpServlet {
                   String  result5 = "null";
                   out.print(result5);
                }
-            break;         
+            break;        
+        */ 
             
          case 7: //reset
             int result6 = ad.resetData();
@@ -211,9 +212,6 @@ public class AddressDataServlet extends HttpServlet {
            out.print(r.resultPoly(how3));
            break;
         	 
-         case 19: 
-        	 
-           break;
          case 20: // 대중교통 left 에 뿌려줌
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");

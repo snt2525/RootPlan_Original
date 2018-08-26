@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 import dto.Location;
  
-public class Search {
+public class ShowLocalSearch {
     public static StringBuilder sb;//
     public static int display;
     public static String clientId = "QUyHkL9SA1c0aTQjz197";
@@ -16,7 +16,7 @@ public class Search {
     public static  String findLocation;
     static LinkedList<Location> ld = new LinkedList<Location>();
     
-    public Search(String si){ 
+    public ShowLocalSearch(String si){ 
        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
     }
    

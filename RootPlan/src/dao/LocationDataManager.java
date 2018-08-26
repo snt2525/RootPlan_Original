@@ -2,7 +2,7 @@ package dao;
 
 import java.util.LinkedList;
 
-import callApi.Search;
+import callApi.ShowLocalSearch;
 import dto.Location;
 
 
@@ -15,7 +15,7 @@ public class LocationDataManager {
    }
    
    public String getLocation(String si) {
-      Search s = new Search(si);      
+      ShowLocalSearch s = new ShowLocalSearch(si);      
       locationData.clear();
       locationData = s.getRecommendData(); //크롤링하기
       

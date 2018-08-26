@@ -76,8 +76,8 @@ function searchCoordinateToAddress(latlng) {
 		document.saveAddress.address.value = htmlAddresses;
 		document.saveAddress.si.value = items[0].addrdetail.sido;
 
-      getCrawlingData();
-      document.SiData.Si.value = document.SiData.clickSi.value;
+        getLocalSearchData();
+        document.SiData.Si.value = document.SiData.clickSi.value;
    });
 }
 

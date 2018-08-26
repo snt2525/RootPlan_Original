@@ -16,9 +16,9 @@ $.ajaxSetup({
 
 
 var isStarted = 0;
-function getCrawlingData(){
+function getLocalSearchData(){
    $.ajax({
-       url:"/RootPlan/AddressDataServlet",
+       url:"/RootPlan/CallSearchLocalApi",
        dataType: "xml",
        data: $("#SiData").serialize(),
        success: function(data){
