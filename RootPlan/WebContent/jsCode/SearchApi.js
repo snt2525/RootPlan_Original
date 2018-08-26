@@ -122,7 +122,7 @@ function init(num){
     document.searchApi.num.value = num;
 }
 
-function callSearchApi(num){	
+function callSearchApi(num){
 		//초기화
 		init(num);   
        if(num == 0){
