@@ -120,30 +120,30 @@ public class Route {
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
-	   for(int i=0; i<ptList.size();i++) {
-		   int InfoPTSize = ptList.get(i).getLineListSize();
-		   for(int j=0; j<InfoPTSize; j++) {
-			   result += "<Data>";
-			   DataPair pair = ptList.get(i).getLineList(j);
-			   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-			   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
-			   result += "</Data>";
+		   for(int i=0; i<ptList.size();i++) {
+			   int InfoPTSize = ptList.get(i).getLineListSize();
+			   for(int j=0; j<InfoPTSize; j++) {
+				   result += "<Data>";
+				   DataPair pair = ptList.get(i).getLineList(j);
+				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+				   result += "</Data>";
+			   }
 		   }
-	   }
-	   result += "</ptData>";
+		   result += "</ptData>";
 	   }else if(how==1) {
 		   result += "<carData>";
-	   for(int i=0; i<carList.size(); i++) {
-		   int lineListSize = carList.get(i).getLineListSize();
-		   for(int j=0; j<lineListSize; j++) {
-			   result += "<Data>";
-			   DataPair pair = carList.get(i).getLineList(j);
-			   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
-			   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
-			   result += "</Data>";
+		   for(int i=0; i<carList.size(); i++) {
+			   int lineListSize = carList.get(i).getLineListSize();
+			   for(int j=0; j<lineListSize; j++) {
+				   result += "<Data>";
+				   DataPair pair = carList.get(i).getLineList(j);
+				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
+				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+				   result += "</Data>";
+			   }
 		   }
-	   }
-	   result += "</carData>";
+		   result += "</carData>";
 	   }
 	   return result;
    }   
@@ -178,6 +178,7 @@ public class Route {
 				   InfoSectionPT tmpSec = info.getSection(j);
 				   result += "<Data>";
 				   result += "<check>2</check>";
+				   System.out.println("trafficType은 뭐지 : " + tmpSec.getTrafficType());
 				   if(tmpSec.getTrafficType()==1) result += "<trafficType>지하철</trafficType>";
 				   else result += "<trafficType>버스</trafficType>";
 				   result += "<bus>";

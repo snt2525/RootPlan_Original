@@ -23,8 +23,8 @@
 					
 					<!-- tab으로 구성 -->
 					<ul class="tab">
-						<li class="current" data-tab="tab1"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대중교통+도보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-						<li data-tab="tab2"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자동차+도보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li class="current" data-tab="tab1"><a href="#">대중교통+도보</a></li>
+						<li data-tab="tab2"><a href="#">자동차+도보</a></li>
 					</ul>			
 					
 					<form id="showPT" name="showPT" method="post">
@@ -39,7 +39,7 @@
 						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
 						<input type="hidden" id="how" name="how" value="1">
 						<div id="tab2" class="tabcontent">
-							<div id="resultCarList" name="resultPTList"></div> <!-- 자동차 정보 뿌려주기 -->
+							<div id="resultCarList" name="resultCarList"></div> <!-- 자동차 정보 뿌려주기 -->
 						</div>
 					</form>
 							
@@ -70,7 +70,7 @@
 	<script type="text/javascript" src="jsCode/Result.js"></script>
 	<script>
 		callResult();
-		callPolyLine();
+		callPolyLine(); // 대중교통 그리기 
 		showResultPT();
 		
 		function toggleLayer(layer)
@@ -82,6 +82,7 @@
 		        l.style.display = "";
 		}
 		
+		
 		$(function() {
 			$('ul.tab li').click(function() {
 				var title = $(this).text();
@@ -90,11 +91,7 @@
 				$('.tabcontent').removeClass('current');
 				$(this).addClass('current');
 				$('#' + activeTab).addClass('current');
-				if(title=="대중교통+도보"){ 
-					showResultPT();
-				}else{
-					showResultCar();
-				}
+				click(title);
 			})
 		});
 	</script>
