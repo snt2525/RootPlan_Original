@@ -67,9 +67,6 @@ public class AddressDataServlet extends HttpServlet {
             break;
             
          case 4: //위도 경도
-            System.out.print("위도 경도,");
-            String result3 = ad.callLatLng(sd);
-            out.print(result3); 
             break;
             
          case 5: //주소 리스트 호출

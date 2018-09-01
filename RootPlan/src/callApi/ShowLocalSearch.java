@@ -9,7 +9,8 @@ import java.util.LinkedList;
 import dto.Location;
  
 public class ShowLocalSearch {
-    public static StringBuilder sb;//
+	LocalSearchImg img;
+    public static StringBuilder sb;
     public static int display;
     public static String clientId = "QUyHkL9SA1c0aTQjz197";
     public static String clientSecret = "d4nYetPHwT";
@@ -17,52 +18,9 @@ public class ShowLocalSearch {
     static LinkedList<Location> ld = new LinkedList<Location>();
     
     public ShowLocalSearch(String si){ 
-       findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
-    }
-   
-   public static String getImage(String imgTitle) {
-      //System.out.println("이미지 불러오기");
-      try {
-         String text = URLEncoder.encode(imgTitle, "utf-8");
-         // 여기에 있는 display 값을 조정함에 따라 사진을 긁어오는게 달라진다. 
-         String apiURL = "https://openapi.naver.com/v1/search/image?query=" + text + "&display=" + 100 + "&";
-         URL url = new URL(apiURL);
-         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-         con.setRequestMethod("GET");
-         con.setRequestProperty("X-Naver-Client-Id", clientId);
-         con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-         //System.out.println("URL : " + apiURL);
-         int responseCode = con.getResponseCode();
-         BufferedReader br;
-         if (responseCode == 200) {
-            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-         } else {
-            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-         }
-         sb = new StringBuilder();
-         String line;
-
-         while ((line = br.readLine()) != null) {
-            sb.append(line + "\n");
-         }
-
-         br.close();
-         con.disconnect();
-         //System.out.println(sb);
-         String data = sb.toString();
-         String[] array;
-         array = data.split("\"");
-         
-         for (int i = 0; i < array.length; i++) {
-            if (array[i].equals("thumbnail") && array[i+2]!=null) 
-               return array[i+2];
-         }
-      }catch(Exception e) {
-         System.out.println(e);
-      }
-      return null;
-   }
-   
+    	img = new LocalSearchImg(); //이미지 호출API
+        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
+    } 
    // 후에 함수로 변경 : 매개변수(findLocation) : 시주소
    public LinkedList<Location> getRecommendData() {
       ld.clear();
@@ -103,7 +61,7 @@ public class ShowLocalSearch {
                 if (array[i].equals("title")) {
                    location = new Location();
                    location.setTitle(array[i+2]);
-                   location.setImgUrl(getImage(array[i+2])); // title로 이미지 검색해서 넣어주기
+                   location.setImgUrl(img.getImage(array[i+2], 0)); // title로 이미지 검색해서 넣어주기
                 }
                 if(array[i].equals("link")) 
                 	location.setLink(array[i+2]);
@@ -124,7 +82,6 @@ public class ShowLocalSearch {
                     ld.add(location);    
                 }
             }
-            //System.out.println(sb);
         } catch (Exception e) {
             System.out.println(e);
         }
