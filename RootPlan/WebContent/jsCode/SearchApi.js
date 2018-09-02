@@ -144,7 +144,7 @@ function getImg(no , i){
 	}
 	infoWindow.close();
 	  infoWindow.setContent([
-    	  '<div style="position:relative;padding:20px;width:620px;height:220px;">',
+    	  '<div style="position:relative;padding:20px;width:620px;height:200px;">',
              '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
              '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
              '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
@@ -152,12 +152,12 @@ function getImg(no , i){
                tp[no] + category[no] +'</p>',                                                                     
               '<p>' + description[no],         
               '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
-             '</a></br> </p>',
+             '</a> </br> </p>',
           '</div>',
              '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
-             '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+',0);"/>',
+             '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
              '<img src="'+ LocationImg[cntNow] +'" width="230px" height="180px" style= "float:left;"/>',
-             '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+',1);"/>',
+             '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+', 1);"/>',
              '</div></div>'
         ].join('\n'));
         infoWindow.open(map, latlngTmp2);   
