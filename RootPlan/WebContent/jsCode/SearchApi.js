@@ -9,7 +9,7 @@ var link = new Array(100);
 var link2 = new Array(100);
 var description = new Array(100);
 var latlngTmp2; //위도 경도
-var cntNow = 0;
+var cntNow = 1;
 $.ajaxSetup({
    contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
    type:"post"
@@ -100,7 +100,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
              
                   latlngTmp2 = new naver.maps.TransCoord.fromTM128ToLatLng(tm128);
                   infoWindow.setContent([
-                	  '<div style="position:relative;padding:20px;width:620px;height:220px;">',
+                	  '<div style="position:relative;padding:20px;width:620px;height:200px;">',
        	              '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
        	              '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
        	              '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
@@ -108,11 +108,11 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
        	                tp[no] + category[no] +'</p>',                                                                     
        	               '<p>' + description[no],         
        	               '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
-       	              '</br> </p>',
+       	              '</a> </br> </p>',
        	           '</div>',
-       	              '<div style="position:relative;width:280px;height:200px;float:right;padding:20px;" >',
+       	              '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
        	              '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
-       	              '<img src="'+ LocationImg[cntNow] +'" width="230" height="180" style= "float:left;"/>',
+       	              '<img src="'+ LocationImg[cntNow] +'" width="230px" height="180px" style= "float:left;"/>',
        	              '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+', 1);"/>',
        	              '</div></div>'
        	         ].join('\n'));
@@ -142,7 +142,7 @@ function getImg(no , i){
 		if(cntNow == -1)
 			cntNow = 9;
 	}
-	
+	infoWindow.close();
 	  infoWindow.setContent([
     	  '<div style="position:relative;padding:20px;width:620px;height:220px;">',
              '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
@@ -152,11 +152,11 @@ function getImg(no , i){
                tp[no] + category[no] +'</p>',                                                                     
               '<p>' + description[no],         
               '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
-             '</br> </p>',
+             '</a></br> </p>',
           '</div>',
-             '<div style="position:relative;width:280px;height:200px;float:right;padding:20px;" >',
+             '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
              '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+',0);"/>',
-             '<img src="'+ LocationImg[cntNow] +'" width="230" height="180" style= "float:left;"/>',
+             '<img src="'+ LocationImg[cntNow] +'" width="230px" height="180px" style= "float:left;"/>',
              '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+',1);"/>',
              '</div></div>'
         ].join('\n'));
