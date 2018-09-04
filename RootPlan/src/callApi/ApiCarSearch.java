@@ -21,7 +21,7 @@ public class ApiCarSearch {
    int adSize;
  
    // 생성자, 이차원 배열 초기화
-   public ApiCarSearch(LinkedList<Address> ad){
+   public ApiCarSearch(LinkedList<Address> ad ){
 	   int adSize = ad.size();
 	   this.ad = ad;
 	   this.ws  = new ApiWalkSearch();

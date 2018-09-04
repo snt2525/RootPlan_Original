@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import callApi.LocalSearch;
+import callApi.LocalSearchImg;
 import dao.LocationDataManager;
 
 
@@ -54,7 +55,16 @@ public class SearchAPIServlet extends HttpServlet {
 	                  String  result1 = "null";
 	                  out.print(result1);
 	               }
-				  break;		
+				  break;	
+			  case 3:
+				  String result2 = "";
+				  LocalSearchImg img = new LocalSearchImg();
+				  String localName = request.getParameter("localName");
+				  System.out.println("호출된 로컬 타이틀:" + localName);
+				  result2 = img.getImage(localName, 1);
+				  //System.out.println(result2);
+				  out.print(result2);
+				  break;				
 		  }
    }
    

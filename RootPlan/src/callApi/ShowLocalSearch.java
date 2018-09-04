@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import dto.Location;
  
 public class ShowLocalSearch {
+	LocalSearchImg img;
     public StringBuilder sb;//
     public int display;
     public String clientId = "QUyHkL9SA1c0aTQjz197";
@@ -65,6 +66,10 @@ public class ShowLocalSearch {
       return null;
    }
    
+    public ShowLocalSearch(String si){ 
+    	img = new LocalSearchImg(); //이미지 호출API
+        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
+    } 
    // 후에 함수로 변경 : 매개변수(findLocation) : 시주소
    public LinkedList<Location> getRecommendData() {
 	   System.out.println("keyword : " + keyword);
@@ -106,7 +111,7 @@ public class ShowLocalSearch {
                 if (array[i].equals("title")) {
                    location = new Location();
                    location.setTitle(array[i+2]);
-                   location.setImgUrl(getImage(array[i+2])); // title로 이미지 검색해서 넣어주기
+                   location.setImgUrl(img.getImage(array[i+2], 0)); // title로 이미지 검색해서 넣어주기
                 }
                 if(array[i].equals("link")) 
                 	location.setLink(array[i+2]);
@@ -127,7 +132,6 @@ public class ShowLocalSearch {
                     ld.add(location);    
                 }
             }
-            //System.out.println(sb);
         } catch (Exception e) {
             System.out.println(e);
         }

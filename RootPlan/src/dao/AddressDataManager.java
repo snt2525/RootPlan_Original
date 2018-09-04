@@ -42,7 +42,7 @@ public class AddressDataManager {
       return result;
    }
    
-   public String callLatLng(SetData sd) {
+  /* public String callLatLng(SetData sd) {
       int size = addressData.size();
       String result = "";      
       result += "<AddressData>";
@@ -55,7 +55,7 @@ public class AddressDataManager {
       }
       result += "</AddressData>";
       return result;
-   }
+   }*/
    
    public String callAllAddress() {
       int size = addressData.size();
@@ -64,6 +64,7 @@ public class AddressDataManager {
          return result;   
       
       result += "<AddressData>";
+      
       for(int i =0;i<size;i++) {
          result += "<Address>";
          result += "<no>"+Integer.toString(i+1)+"</no>";
