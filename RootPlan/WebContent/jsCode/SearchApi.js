@@ -8,24 +8,35 @@ var category = new Array(100);
 var link = new Array(100);
 var link2 = new Array(100);
 var description = new Array(100);
+var keyword = "여행지";
 
 $.ajaxSetup({
    contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
    type:"post"
 });
 
+function button_click(value){
+	keyword=value;
+	document.SiData.keywordVal.value=value;
+	alert(document.SiData.keywordVal.value);
+	document.SiData.Si.value = "미국";
+	document.all("message").innerHTML="가이드 키워드입니다. 클릭한 해당지역의 키워드를 기준으로 오른쪽에 결과를 볼 수 있습니다. <b>" 
+		+ value + "</b>을 선택하셨습니다.";
+}
 
 var isStarted = 0;
 function getLocalSearchData(){
+	var word = keyword;
    $.ajax({
        url:"/RootPlan/CallSearchLocalApi",
        dataType: "xml",
        data: $("#SiData").serialize(),
        success: function(data){
+    	   //alert("성공");
           var htmlStr = "";
           htmlStr += "<div id='box'>";
           $(data).find("CityData").each(function(){
-             htmlStr += "<h2 class='h2-style'>"+ $(this).find('LocationCity').text()+ " 대표 여행지" +"</h2>";    
+             htmlStr += "<h2 class='h2-style'>"+ $(this).find('LocationCity').text()+ " " + word +"</h2>";    
           })
           $(data).find("Data").each(function(){     
              htmlStr += "<div class='item1'>";
@@ -66,8 +77,8 @@ function getLocalSearchData(){
           
           $("#crawlingData").html(htmlStr);
        }, error: function(data){
-            // alert("실패");
-          console.log("이전 데이터와 같습니다.");
+    	   //console.log(data);
+            // alert("데이터 받기 실패");
     }
    });
 }

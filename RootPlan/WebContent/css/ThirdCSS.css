@@ -94,12 +94,26 @@ tr {
 	text-align: center;
 }
 
+.wrapIndex{
+	weight:100%;
+	height:100%;
+}
 .over {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	/*위에 올라가는 레이어의 포지션은 top, bottom 둘 중 하나, left, right 둘 중 하나의 속성을 선택하여 잡아준다.*/
 	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.overTitle{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.5);
 	width: 100%;
 	height: 100%;
 	text-align: center;
@@ -114,6 +128,12 @@ tr {
 
 .over_message {
 	width: 23%;
+}
+
+.title_message{
+	font-size:17px;
+	font-weight: 700;
+	color:white;
 }
 
 <!--LastPT.html 왼쪽 tab -->

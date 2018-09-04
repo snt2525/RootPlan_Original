@@ -196,13 +196,13 @@ public class AddressDataServlet extends HttpServlet {
             
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
-           System.out.println("16번 연결");            
+           //System.out.println("16번 연결");            
            r.callShortestPath(ad, sd.GetStartData(),sd.GetLastData(), sd.isSame(), how); // 자동차 1, 대중교통  0           
            break;
          
          case 17:  //마크를 위한 호출
            int how2 = Integer.parseInt(request.getParameter("how")); 
-           System.out.println("17번 연결");           
+           //System.out.println("17번 연결");           
            String result11 = r.orderResult(how2, ad);
            out.print(result11);
            break;
@@ -214,10 +214,11 @@ public class AddressDataServlet extends HttpServlet {
         	 
          case 20: // 대중교통 left 에 뿌려줌
         	 int how4 = Integer.parseInt(request.getParameter("how"));
-        	 System.out.println("서블렛 20번 들어옴");
-         	out.print(r.resultList(how4));
+        	 //System.out.println("서블렛 20번 들어옴");
+         	out.print(r.resultList(how4, ad));
          	break;
-         	
+     
+
       }               
    }
 }

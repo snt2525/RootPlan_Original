@@ -31,8 +31,21 @@ html, body {
 #asideTop {
 	position: relative;
 	overflow: auto;
-	height: 85%;
+	height: 50%;
 }
+
+#aisdeLatest{
+	position:relative;
+	overflow:auto;
+	height:20%;
+}
+
+#aisdeKeyword{
+	position:relative;
+	overflow:auto; 
+	height:15%;
+}
+
 
 #asideBottom {
 	position: relative;
@@ -111,4 +124,8 @@ div {
 	border-radius: 3px;
 	cursor: pointer;
 	box-sizing: content-box;
+}
+.latest_title{
+	font-weight:800;
+	font-size:20px;
 }

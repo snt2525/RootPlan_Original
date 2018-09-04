@@ -14,8 +14,8 @@ public class LocationDataManager {
       locationData = new LinkedList<Location>();
    }
    
-   public String getLocation(String si) {
-      ShowLocalSearch s = new ShowLocalSearch(si);      
+   public String getLocation(String si, String keywordVal) {
+      ShowLocalSearch s = new ShowLocalSearch(si, keywordVal);      
       locationData.clear();
       locationData = s.getRecommendData(); //크롤링하기
       

@@ -1,12 +1,7 @@
 package servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import callApi.LocalSearch;
 import dao.LocationDataManager;
-import dto.Location;
 
 
 @WebServlet("/CallSearchLocalApi")
@@ -49,15 +43,18 @@ public class SearchAPIServlet extends HttpServlet {
 			  case 2:
 				  String Si = request.getParameter("Si");
 		          String clickSi = request.getParameter("clickSi");
+		          String keywordVal = request.getParameter("keywordVal");
+		          //System.out.println("keyWordVal : " + keywordVal);
 	               if(!Si.equals(clickSi)) {
 	                  LocationDataManager l = new LocationDataManager();	                  
-	                  String  result1 = l.getLocation(clickSi);
+	                  String  result1 = l.getLocation(clickSi, keywordVal);
+	                  //System.out.println("result : " + result1);
 	                  out.print(result1);
 	               }else {
 	                  String  result1 = "null";
 	                  out.print(result1);
 	               }
-				  break;			  
+				  break;		
 		  }
    }
    

@@ -206,6 +206,30 @@ blockquote strong {
    float: right;
 }
 
+
+.left-content1 {
+   font-size: 10px;
+   font-weight: 500;
+   margin-bottom: 5%;
+   display: inline-block;
+   width: 5%;
+   float: left;
+}
+
+.middle-content1 {
+   font-size: 10px;
+   font-weight: 500;
+   margin-bottom: 5%;
+   display: inline-block;
+   width: 85%;
+   word-break: break-all;
+}
+
+.right-content1 {
+   display: inline-block;
+   float: right;
+}
+
 .main-content {
    font-size: 20px;
    font-weight: 700;
@@ -2301,6 +2325,7 @@ keyframes blink { 50% {
 	position: relative;
 	display: inline-block;
 	outline: none;
+	background-color: #ff5c0f;
 	color: #fff;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -2309,7 +2334,20 @@ keyframes blink { 50% {
 	text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
 	font-size: 14px;
 }
-
+.btnKeyword {
+	border-radius: 10px;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	background-color: #727272;
+	color: #ffffff;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 400;
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+	font-size: 14px;
+}
 .btn.btn-noradius {
 	border-radius: 0;
 }
@@ -2338,6 +2376,12 @@ a.btn:focus {
 	color: #fff;
 	background-color: #666;
 	border-color: #666;
+}
+
+.btn-skin1:hover, .btn-skin1:focus, .btn-skin1:active, .btn-skin1.active {
+	color: #fff;
+	background-color: #ff8040;
+	border-color: #ff8040;
 }
 
 .btn-default:hover, .btn-default:focus {

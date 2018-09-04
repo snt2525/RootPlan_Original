@@ -18,6 +18,7 @@
 				<!--  frameLeft -->
 				<div id="asideTop" class="text-center">
 					<div class="title">
+						<a href="Third.html"><img src='img/click_left.png'/></a>
 						<h3>최적 경로</h3>
 					</div>
 					
@@ -68,10 +69,12 @@
 	</div>
 	<script type="text/javascript" src="jsCode/Init.js"></script>
 	<script type="text/javascript" src="jsCode/Result.js"></script>
+	<script type="text/javascript" src="jsCode/LocalStorage.js"></script>
 	<script>
 		callResult();
-		callPolyLine(); // 대중교통 그리기 
+		callPolyLine(0); // 대중교통 그리기 
 		showResultPT();
+		getListData();
 		
 		function toggleLayer(layer)
 		{
@@ -91,7 +94,7 @@
 				$('.tabcontent').removeClass('current');
 				$(this).addClass('current');
 				$('#' + activeTab).addClass('current');
-				click(title);
+				tabClick(title);
 			})
 		});
 	</script>

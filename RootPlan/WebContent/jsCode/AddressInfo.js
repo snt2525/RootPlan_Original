@@ -64,7 +64,7 @@ function getData(){
 			
 			$(data).find("Address").each(function(){
 				htmlStr += "<div>";
-				htmlStr += "<div class='left-content'>" + $(this).find('no').text()+". " + "</div>";
+				htmlStr += "<div class='left-content'>" + $(this).find('no').text()+". </div>";
 				htmlStr +=  "<div class='middle-content'>" + $(this).find('data').text() + "</div>";
 				htmlStr += "<div class='right-content'><a href='#' class='delete-factor' id='del', name='"+ $(this).find("no").text() +"'>X</a></div>";
 				htmlStr += "</div>";

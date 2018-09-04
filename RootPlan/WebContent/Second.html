@@ -10,14 +10,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" href="./css/NewFileCSS.css">
 <link href="css/style.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"   type="text/css" />
-<link href="css/nivo-lightbox.css" rel="stylesheet" />
-<link href="css/nivo-lightbox-theme/default/default.css"   rel="stylesheet" type="text/css" />
-<link href="css/owl.carousel.css" rel="stylesheet" media="screen" />
-<link href="css/owl.theme.css" rel="stylesheet" media="screen" />
-<link href="css/animate.css" rel="stylesheet" />
-<link href="color/default.css" rel="stylesheet">
-<link href="css/flexslider.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -27,17 +20,37 @@
             <!--  frameLeft -->
             <div id="asideTop">
                <form name="addressBasket" id="addressBasket" method="post">
-                  <input type="hidden" class="btn btn-skin" value="Reset"
-                     id="resetBtn" name="resetBtn">
+                  <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn">
                   <h3 class='headline'>여행지 선택</h3>
-                  <div id="list" name="list"></div>
-                  <!-- 검색 결과 리스트 출력 -->
+                  <div id="list" name="list"></div>   <!-- 검색 결과 리스트 출력 -->
                </form>
             </div>
+     
+            
+            <div id="aisdeKeyword">
+            	<div id="message" name="message">가이드 키워드입니다. 클릭한 해당지역의 키워드를 기준으로 오른쪽에 결과를 볼 수 있습니다.</div>
+            	<div> <!-- 여기에 다양한 키워드 넣기 -->
+            		<form name="keyword" id="keyword" method="post">
+            			<input type="hidden" id="menuIndex" name="menuIndex" value="3"/>
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="거리">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="문화재">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="유적지">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="자연">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="박물관">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="예술">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="전시회">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="복합문화공간">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="명소">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="호텔">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="게스트하우스">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="터미널">
+            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="테마파크">
+            		</form>
+            	</div>
+            </div>
             <div id="asideBottom">
-               <a href="Third.html" data-role="button" id="nextBtn1"
-                  onClick="getDataSize(0);"> <img src="img/click_right.png"
-                  alt="NEXT >" />
+               <a href="Third.html" data-role="button" id="nextBtn1" onClick="getDataSize(0);"> 
+               <img src="img/click_right.png" alt="NEXT >" />
                </a>
             </div>
          </div>
@@ -52,11 +65,9 @@
                   </a>
                   
                   <input type="hidden" id="roadAddrPart1">
-                  <!-- <input type="hidden" id="autocompleteUseYn" name="autocompleteUseYn" value="Y" /> -->
                   <input type="hidden" id="jibunAddr" value="" /> 
                   <input type="hidden" id="confmKey" name="confmKey"
                      value="U01TX0FVVEgyMDE4MDcxMTIxMDYwMTEwODAwMzQ="> 
-                  <!-- <input type="button" id="btn" name="btn" value="장바구니" /> -->
                </div>
             </form>
 
@@ -123,6 +134,7 @@
          <div id="bottom">
             <form name="SiData" id="SiData" method="post">
                <input type="hidden" id="menuIndex" name="menuIndex" value="2" /> 
+               <input type="hidden" id="keywordVal" name="keywordVal" value="여행지" />
                <input type="hidden" id="Si" name="Si" value="첫번째" /> 
                <input type="hidden" id="clickSi" name="clickSi" value="한국" />
                <div id='crawlingData' name="crawlingData"></div>
@@ -135,9 +147,11 @@
    <script type="text/javascript" src="jsCode/AddressInfo.js"></script>
    <script id="code" type="text/javascript" src="jsCode/MapApi.js"></script>
    <script type="text/javascript" src="jsCode/SearchApi.js"></script>
+   <script type="text/javascript" src="jsCode/LocalStorage.js"></script>
    <script>
+   	  output();
       getData(); //초기화init()
-      getLocalSearchData();
+      //getLocalSearchData();
     </script>
 </body>
 </html>

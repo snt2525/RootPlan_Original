@@ -9,18 +9,20 @@ import java.util.LinkedList;
 import dto.Location;
  
 public class ShowLocalSearch {
-    public static StringBuilder sb;//
-    public static int display;
-    public static String clientId = "QUyHkL9SA1c0aTQjz197";
-    public static String clientSecret = "d4nYetPHwT";
-    public static  String findLocation;
+    public StringBuilder sb;//
+    public int display;
+    public String clientId = "QUyHkL9SA1c0aTQjz197";
+    public String clientSecret = "d4nYetPHwT";
+    public String keyword;
+    public  String findLocation;
     static LinkedList<Location> ld = new LinkedList<Location>();
     
-    public ShowLocalSearch(String si){ 
+    public ShowLocalSearch(String si, String keywordVal){ 
        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
+       this.keyword = keywordVal;
     }
    
-   public static String getImage(String imgTitle) {
+   public String getImage(String imgTitle) {
       //System.out.println("이미지 불러오기");
       try {
          String text = URLEncoder.encode(imgTitle, "utf-8");
@@ -65,11 +67,12 @@ public class ShowLocalSearch {
    
    // 후에 함수로 변경 : 매개변수(findLocation) : 시주소
    public LinkedList<Location> getRecommendData() {
+	   System.out.println("keyword : " + keyword);
       ld.clear();
        display = 20;
         try {
         	System.out.println("검색 호출");
-            String text = URLEncoder.encode(findLocation + " 여행지", "utf-8");
+            String text = URLEncoder.encode(findLocation + " " + keyword, "utf-8");
             String apiURL = "https://openapi.naver.com/v1/search/local?query=" + text + "&display=" + display + "&";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -93,7 +96,7 @@ public class ShowLocalSearch {
  
             br.close();
             con.disconnect();
-           // System.out.println(sb); 
+           //System.out.println(sb); 
             String data = sb.toString();
             String[] array;
             array = data.split("\"");

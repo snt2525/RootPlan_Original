@@ -159,12 +159,28 @@ public class Route {
 	   return result;
    }   
    
-   public String resultList(int how) { // 0:pt, 1:car
+   public String resultList(int how, AddressDataManager ad) { // 0:pt, 1:car
 	   String result="";
 	   
 	   if(how==0) {
 		   result += "<resultPTList>";
 		   int sectionSize=0;
+		   
+		   // -1번 지점 // adSize 보내기 
+		   result += "<Data>";
+		   result += "<check>-1</check>";
+		   result += "<wayCount>"+ad.addressData.size()+"</wayCount>";
+		   result += "</Data>";
+		   
+		   // 0번 지점
+		   int adSize = ad.addressData.size();
+		   for(int k=0; k<adSize; k++) {
+			   result += "<Data>";
+			   result += "<check>0</check>";
+			   result += "<title>" + ad.addressData.get(k).getAddress() + "</title>";
+			   result += "</Data>";
+		   }
+		   
 		   
 		   for(int i=0; i<ptList.size(); i++) {
 			   InfoPT info = ptList.get(i);
@@ -240,9 +256,26 @@ public class Route {
 		   result += "</resultPTList>";
 	   }else {
 		   result += "<resultCarList>";
+		   
+		   // -1번 지점 // adSize 보내기 
+		   result += "<Data>";
+		   result += "<check>-1</check>";
+		   result += "<wayCount>"+ad.addressData.size()+"</wayCount>";
+		   result += "</Data>";
+		   
+		   // 0번 지점
+		   int adSize = ad.addressData.size();
+		   for(int k=0; k<adSize; k++) {
+			   result += "<Data>";
+			   result += "<check>0</check>";
+			   result += "<title>" + ad.addressData.get(k).getAddress() + "</title>";
+			   result += "</Data>";
+		   }
+		   
 		   for(int i=0; i<carList.size(); i++) {
 			   result += "<Data>";
 			   InfoCar info = carList.get(i);
+			   result += "<check>1</check>";
 			   result += "<distance>" + Integer.toString(info.getDistance())+"</distance>";
 			   result += "<walk>" + info.isWalk() + "</walk>";
 			   result += "<time>" + Integer.toString(info.getTime()) + "</time>";
