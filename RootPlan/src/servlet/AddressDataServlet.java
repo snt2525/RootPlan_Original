@@ -39,7 +39,7 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.print("연결");
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
-      int ID = Integer.parseInt(request.getParameter("ID"));  
+      int ID = Integer.parseInt(request.getParameter("IDNum"));  
       
       switch(optionNum) {
          case 1:  //정보 저장

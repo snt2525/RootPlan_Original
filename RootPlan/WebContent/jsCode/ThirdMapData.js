@@ -72,7 +72,7 @@ function possibleNext(){
 			contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "text",
-			data: "menuIndex=8",
+			data:  $("#possible").serialize(),
 			success:function(data){	
 				var size = data;
 				if(size>4){ // 대중교통 반으로 나눠서 돌리기

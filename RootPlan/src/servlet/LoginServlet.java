@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static int customerCnt = 0;
 	static int customerSize = 0;
-    static int[] log = new int[20]; //20명만 수용
+    static int[] log = new int[20]; //우선 20명만 수용
 	static Map<String,Integer> logCheck = new HashMap<String,Integer>();   
     public LoginServlet() {     
 	    super();

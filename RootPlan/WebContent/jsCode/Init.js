@@ -10,7 +10,7 @@ $.ajax({
 	type : "post",
 	url:"/RootPlan/AddressDataServlet",
 	dataType: "xml",
-	data: "menuIndex=12",
+	data:  $("#Init").serialize(),
 	success: function(data){
 		$(data).find("Data").each(function(){
 			latlngPoint = new naver.maps.Point($(this).find('lat').text(),$(this).find('lng').text());	
@@ -34,7 +34,7 @@ function showMapAgain(){
 			type : "post",
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "xml",
-			data: "menuIndex=12",
+			data:  $("#Init").serialize(),
 			success: function(data){
 				$(data).find("Data").each(function(){
 					latlngPoint = new naver.maps.Point($(this).find('lat').text(),$(this).find('lng').text());	
