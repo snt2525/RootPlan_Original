@@ -15,20 +15,21 @@ public class Route {
 	ApiPTSearch pt;
     ApiCarSearch cs;
     Shortpath sp;
-    public static TimeMethod[][] carDist; // 자동차 최단 거리 저장
-    public static TimeMethod[][] ptDist; // 대중교통 최단 거리 저장
+    public static TimeMethod[][][] carDist; // 자동차 최단 거리 저장
+    public static TimeMethod[][][] ptDist; // 대중교통 최단 거리 저장
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
     public static LinkedList<InfoCar> carList;
-    public static LinkedList<InfoPT> ptList;
-    
-    public Route(){
+    public static LinkedList<InfoPT> ptList;   
+    public int IDnum = 0;
+    public Route(int id){
+       IDnum = id;
        sp = new Shortpath();
        carList = new LinkedList<InfoCar>();
        ptList = new LinkedList<InfoPT>();
-       carDist = new TimeMethod[7][7];
-       ptDist = new TimeMethod[7][7];      
+       carDist = new TimeMethod[20][7][7];
+       ptDist = new TimeMethod[20][7][7];      
     }
     
     public void Clear() {
@@ -40,17 +41,17 @@ public class Route {
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
 	   size = ad.addressData.size();
-       pt = new ApiPTSearch(ad.getList());
+       pt = new ApiPTSearch(ad.getList(), IDnum);
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
         System.out.println("대중교통 호출");
         pt.callTransportApi(a, b);    
         System.out.println("car : " + car);
         if(car.equals("0")) {      
-           sp.init(ad.addressData.size());
+           sp.init(ad.addressData.size(), IDnum);
            //자동차 api호출
             System.out.println("자동차호출");           
             ptFlag = 1; //대중됴통 호출 끌
-            cs = new ApiCarSearch(ad.getList());
+            cs = new ApiCarSearch(ad.getList(), IDnum);
             cs.carApi(); //자동차 API call 
  		    carFlag = 1; //자동차 호출 끌 
             return false;
@@ -61,12 +62,12 @@ public class Route {
    void print(int size) {
       System.out.print("자동차 : ");
       for(int i=0; i<size; i++) {
-         System.out.print(Shortpath.carAns[i]+" ");
+         System.out.print(sp.carAns[i]+" ");
       }
       System.out.println();
       System.out.print("대중교통 : ");
       for(int i=0; i<size; i++) {
-         System.out.print(Shortpath.ptAns[i]+" ");
+         System.out.print(sp.ptAns[i]+" ");
       }
       System.out.println();
    }

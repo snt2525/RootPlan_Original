@@ -10,11 +10,11 @@ import dto.Location;
  
 public class ShowLocalSearch {
 	LocalSearchImg img;
-    public static StringBuilder sb;
-    public static int display;
+    public StringBuilder sb;
+    public int display;
     public static String clientId = "QUyHkL9SA1c0aTQjz197";
     public static String clientSecret = "d4nYetPHwT";
-    public static  String findLocation;
+    public String findLocation;
     static LinkedList<Location> ld = new LinkedList<Location>();
     
     public ShowLocalSearch(String si){ 

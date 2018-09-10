@@ -14,22 +14,23 @@ import dto.InfoCar;
 import dto.TimeMethod;
 
 public class ApiCarSearch {
+   CalculateDist cd = new CalculateDist();
    StringBuilder sb;
    String key = "9974a775-4c3d-48f1-8df7-650b3f2debfc";
    LinkedList<Address> ad;
    ApiWalkSearch ws;
    int adSize;
- 
+   int id = 0;
    // 생성자, 이차원 배열 초기화
-   public ApiCarSearch(LinkedList<Address> ad ){
+   public ApiCarSearch(LinkedList<Address> ad,int id){
 	   int adSize = ad.size();
 	   this.ad = ad;
 	   this.ws  = new ApiWalkSearch();
-	   
+	   this.id = id;
 	   for(int i=0; i<adSize; i++) {
 		   for(int j=i; j<adSize; j++) {
-			   Route.carDist[i][j] = new TimeMethod(Integer.MAX_VALUE,false);
-			   Route.carDist[j][i] = new TimeMethod(Integer.MAX_VALUE,false);
+			   Route.carDist[id][i][j] = new TimeMethod(Integer.MAX_VALUE,false);
+			   Route.carDist[id][j][i] = new TimeMethod(Integer.MAX_VALUE,false);
 		   }
 	   }
    }
@@ -52,11 +53,11 @@ public class ApiCarSearch {
 
    // carApi에서 호출당해, 자동차 호출
    public void callApi(int sno, int eno, double sx, double sy, double ex, double ey) {
-	   double distanceMeter =  CalculateDist.distance(sx, sy, ex, ey, "meter"); // 직선거리 구하기     
+	   double distanceMeter =  cd.distance(sx, sy, ex, ey, "meter"); // 직선거리 구하기     
        if(distanceMeter <= 800) {     	   // 직선거리 800m이하이면 걷기로 넘기기
     	   int walkTime = ws.walkApi(sno, eno, sx, sy, ex, ey);
-    	   Route.carDist[sno][eno]  = new TimeMethod(walkTime/ 60, true);
-    	   Route.carDist[eno][sno]  = new TimeMethod(walkTime/ 60, true);
+    	   Route.carDist[id][sno][eno]  = new TimeMethod(walkTime/ 60, true);
+    	   Route.carDist[id][eno][sno]  = new TimeMethod(walkTime/ 60, true);
        }else {
 	      try {
 	          String apiURL = "https://api2.sktelecom.com/tmap/routes?version=1&format=xml&totalValue=2&startX="
@@ -75,8 +76,8 @@ public class ApiCarSearch {
 	          } else { //경로 찾기 실패시 도보로 대체
 	              br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	              int walkTime = ws.walkApi(sno, eno, sx, sy, ex, ey);
-	       	   		Route.carDist[sno][eno]  = new TimeMethod(walkTime/ 60, true);
-	       	   		Route.carDist[eno][sno]  = new TimeMethod(walkTime/ 60, true);
+	       	   		Route.carDist[id][sno][eno]  = new TimeMethod(walkTime/ 60, true);
+	       	   		Route.carDist[id][eno][sno]  = new TimeMethod(walkTime/ 60, true);
 	       	   	return;
 	          }
 	          sb = new StringBuilder();
@@ -93,8 +94,8 @@ public class ApiCarSearch {
 	          array = data.split("<|>");
 	          for(int i=0; i<array.length; i++) {
 	        	   if(array[i].equals("tmap:totalTime")) {
-	        		   Route.carDist[sno][eno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); 	       
-	        		   Route.carDist[eno][sno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); 
+	        		   Route.carDist[id][sno][eno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); 	       
+	        		   Route.carDist[id][eno][sno] = new TimeMethod(Integer.parseInt(array[i+1]) / 60 ,false); 
 	        		   break;
 	        	  }
 	          }	        	          
@@ -130,7 +131,7 @@ public class ApiCarSearch {
    // 마지막에 결과 재호출해서 한노드에서 한 노드로 총 정보 가져오기 
    public InfoCar callResultCar(double sx, double sy, double ex, double ey) {
 		InfoCar carData = new InfoCar();
-		double distanceMeter = CalculateDist.distance(sx, sy, ex, ey, "meter");
+		double distanceMeter = cd.distance(sx, sy, ex, ey, "meter");
 		if (distanceMeter <= 800) {
 			carData = ws.resultWalkCarApi(sx, sy, ex, ey);
 		} else {

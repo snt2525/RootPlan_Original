@@ -6,25 +6,26 @@ public class Shortpath {
    int visit[];
    int listSize;
    int tmp[]; // 임시 경로 순서
-   public static int carAns[];
-   public static int ptAns[];
-
-   public void init(int size){
+   public int carAns[];
+   public int ptAns[];
+   int id = 0;
+   public void init(int size, int id){
       min=Integer.MAX_VALUE;
       listSize = size;
       visit = new int[size];
       tmp = new int[size];
       carAns = new int[size];
       ptAns = new int[size];
+      this.id = id;
    }
    
    void dfs(int cnt, int now, int sum, int end, int how) { // how : 0 대중교통, 1 자동차
       if(sum > min) return;
       if(cnt == listSize-1) {
          if(how==0)
-            sum +=  Route.ptDist[now][end].getTime();
+            sum +=  Route.ptDist[id][now][end].getTime();
          else
-            sum += Route.carDist[now][end].getTime();
+            sum += Route.carDist[id][now][end].getTime();
          
          if(min>sum) {
             for(int i=0; i<listSize - 1; i++) {
@@ -46,9 +47,9 @@ public class Shortpath {
          visit[i] = 1;
          tmp[cnt] = i;
          if(how==0) { // 대중교통
-            dfs(cnt+1, i, sum+Route.ptDist[now][i].getTime(), end, 0);   
+            dfs(cnt+1, i, sum+Route.ptDist[id][now][i].getTime(), end, 0);   
          }else { // 자동차
-            dfs(cnt+1, i, sum+Route.carDist[now][i].getTime(), end, 1);
+            dfs(cnt+1, i, sum+Route.carDist[id][now][i].getTime(), end, 1);
          }
          tmp[cnt]=-1;
          visit[i] = 0;
@@ -60,9 +61,9 @@ public class Shortpath {
       if(cnt == listSize) {
          // 시작점까지 가는 거리 더해주기
          if(how==0)
-            sum +=  Route.ptDist[now][start].getTime();
+            sum +=  Route.ptDist[id][now][start].getTime();
          else
-            sum += Route.carDist[now][start].getTime();
+            sum += Route.carDist[id][now][start].getTime();
          
          if(min>sum) {
             for(int i=0; i<listSize; i++) {
@@ -80,27 +81,27 @@ public class Shortpath {
          visit[i] = 1;
          tmp[cnt] = i;
          if(how==0) { // 대중교통
-            dfsEqual(cnt+1, i, sum+Route.ptDist[now][i].getTime(), start, 0);   
+            dfsEqual(cnt+1, i, sum+Route.ptDist[id][now][i].getTime(), start, 0);   
          }else { // 자동차
-            dfsEqual(cnt+1, i, sum+Route.carDist[now][i].getTime(), start, 1);
+            dfsEqual(cnt+1, i, sum+Route.carDist[id][now][i].getTime(), start, 1);
          }
          tmp[cnt]=-1;
          visit[i] = 0;
       }
    }
-   static void carPrint(int size) {
+   void carPrint(int size) {
       for(int i=0; i<size; i++) {
          for(int j=0; j<size; j++) {
-            System.out.print(Route.carDist[i][j].getTime() + " ");
+            System.out.print(Route.carDist[id][i][j].getTime() + " ");
          }
          System.out.println();
       }
    }
    
-   static void ptPrint(int size) {
+   void ptPrint(int size) {
       for(int i=0; i<size; i++) {
          for(int j=0; j<size; j++) {
-            System.out.print(Route.ptDist[i][j].getTime() + " ");
+            System.out.print(Route.ptDist[id][i][j].getTime() + " ");
          }
          System.out.println();
       }

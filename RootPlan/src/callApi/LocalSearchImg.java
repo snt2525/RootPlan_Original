@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class LocalSearchImg {
-	 public static StringBuilder sb;
+	 public StringBuilder sb;
 	 public static String clientId = "QUyHkL9SA1c0aTQjz197";
 	 public static String clientSecret = "d4nYetPHwT";
 	 
