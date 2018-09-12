@@ -34,7 +34,10 @@ public class Route {
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
 	   //size = ad.addressData.size();
-	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) listSize++;	   
+	   if(sd.GetStartData() == sd.GetLastData()) {
+		   listSize++;
+	   }
+	   System.out.println("listSize : " + listSize);
        pt = new ApiPTSearch(ad.getList(), dataTotal, listSize);
 	   size = ad.addressData.size();
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
@@ -186,10 +189,10 @@ public class Route {
 	   return result;
    }   
    
-   public String resultList(int how, AddressDataManager ad) { // 0:pt, 1:car
+   public String resultList(int how, AddressDataManager ad, SetData sd, Route r) { // 0:pt, 1:car
 	   String result="";
 	   int adSize = ad.addressData.size();
-	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) {
+	   if(sd.GetStartData() == sd.GetLastData()) {
 		   adSize++;
 	   }
 	   
@@ -207,13 +210,13 @@ public class Route {
 		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(ad.r.dataTotal.ptAns[k]).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(r.dataTotal.ptAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
-		   if(ad.sd.GetStartData()==ad.sd.GetLastData()) {
+		   if(sd.GetStartData()==sd.GetLastData()) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(ad.sd.GetLastData()).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(sd.GetLastData()).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   
@@ -304,14 +307,14 @@ public class Route {
 		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(ad.r.dataTotal.carAns[k]).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(r.dataTotal.carAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   
-		   if(ad.sd.GetStartData() == ad.sd.GetLastData()) {
+		   if(sd.GetStartData() == sd.GetLastData()) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(ad.sd.GetLastData()).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(sd.GetLastData()).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   
