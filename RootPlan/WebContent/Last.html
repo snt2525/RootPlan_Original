@@ -71,6 +71,7 @@
 	<script type="text/javascript" src="jsCode/Init.js"></script>
 	<script type="text/javascript" src="jsCode/Result.js"></script>
 	<script>
+<<<<<<< HEAD
 		if(sessionCheck(1) ==1){
 		
 		callResult();
@@ -99,6 +100,42 @@
 			})
 		});
 		}
+=======
+	var map2 = new naver.maps.Map("map2", {
+        center: new naver.maps.LatLng(37.3595316, 127.1052133),
+        zoom: 10,
+        size : new  naver.maps.Size($(window).width(), $(window).height()), 
+        mapTypeControl: true
+    });
+	
+		sessionCheck(1);
+		
+		callResult();
+		callPolyLine(0); // 대중교통 그리기 
+		showResultPT();
+		
+		function toggleLayer(layer)
+		{
+		    var l = document.getElementById(layer);
+		    if(l.style.display == "")
+		        l.style.display = "none";
+		    else if(l.style.display == "none")
+		        l.style.display = "";
+		}
+		
+		
+		$(function() {
+			$('ul.tab li').click(function() {
+				var title = $(this).text();
+				var activeTab = $(this).attr('data-tab');
+				$('ul.tab li').removeClass('current');
+				$('.tabcontent').removeClass('current');
+				$(this).addClass('current');
+				$('#' + activeTab).addClass('current');
+				tabClick(title);
+			})
+		});
+>>>>>>> branch 'branch5' of https://github.com/snt2525/RootPlan
 	</script>
 </body>
 </html>
