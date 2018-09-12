@@ -208,7 +208,7 @@ public class AddressDataServlet extends HttpServlet {
          case 20: // 대중교통 left 에 뿌려줌
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
-         	out.print(r[ID].resultList(how4, ad[ID]));
+         	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
          	break;
          	
       }               

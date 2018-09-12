@@ -7,8 +7,6 @@ import dto.SetData;
 
 public class AddressDataManager {
    public LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
-   public SetData sd = new SetData();
-   public Route r;
    int size = 0;
    
    public AddressDataManager(){

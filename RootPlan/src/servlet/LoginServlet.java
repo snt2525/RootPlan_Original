@@ -2,7 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,8 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		System.out.println("사용자주소할당");		
 		String ID = request.getParameter("ID");	
-		int num = Integer.parseInt(request.getParameter("num"));
+		//int num = Integer.parseInt(request.getParameter("num"));
+		int num = 0;
 		
 		switch(num){
 		case 0: //주소할당 받기
