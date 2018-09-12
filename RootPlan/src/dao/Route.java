@@ -128,7 +128,6 @@ public class Route {
 			   boolean isWalk = dataTotal.ptList.get(i).isWalk();
 			  
 			   // 이부분 이상함, 왜그러는지 모르겠음 
-			   System.out.println("sx, sy : " + Double.toString(dataTotal.ptList.get(i).getSx()) +", " + Double.toString(dataTotal.ptList.get(i).getSy()));
 			   result += "<Data>";
 			   if(isWalk) {
 				   result += "<walk>0</walk>";
@@ -136,7 +135,7 @@ public class Route {
 				   result += "<walk>1</walk>";
 			   }
 			   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getSx())+ "</lat>";
-			   result += "</lng>" +Double.toString(dataTotal.ptList.get(i).getSy())+ "</lng>";
+			   result += "<lng>" +Double.toString(dataTotal.ptList.get(i).getSy())+ "</lng>";
 			   result += "</Data>";
 			   
 			   for(int j=0; j<InfoPTSize; j++) {
@@ -147,14 +146,12 @@ public class Route {
 					   result += "<walk>1</walk>";
 				   }
 				   DataPair pair = dataTotal.ptList.get(i).getLineList(j);
-				   System.out.println("x, y : " +pair.getX()  +", " + pair.getY());
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
 				   result += "</Data>";
 			   }
 			   
 			   if(i==dataTotal.ptList.size()-1) {
-				   System.out.println("ex, ey : " + Double.toString(dataTotal.ptList.get(i).getEx()) +", " + Double.toString(dataTotal.ptList.get(i).getEy()));
 				  result += "<Data>";
 				  if(isWalk) {
 					   result += "<walk>0</walk>";
@@ -162,11 +159,12 @@ public class Route {
 					   result += "<walk>1</walk>";
 				   }
 				   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getEx())+ "</lat>";
-				   result += "</lng>" +Double.toString(dataTotal.ptList.get(i).getEy())+ "</lng>";
+				   result += "<lng>" +Double.toString(dataTotal.ptList.get(i).getEy())+ "</lng>";
 				   result += "</Data>";
 			   }
 		   }
 		   result += "</ptData>";
+		   
 	   }else if(how==1) {
 		   result += "<carData>";
 		   for(int i=0; i<dataTotal.carList.size(); i++) {

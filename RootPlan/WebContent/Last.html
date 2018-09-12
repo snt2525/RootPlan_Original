@@ -71,7 +71,14 @@
 	<script type="text/javascript" src="jsCode/Init.js"></script>
 	<script type="text/javascript" src="jsCode/Result.js"></script>
 	<script>
-		if(sessionCheck(1) ==1){
+	var map2 = new naver.maps.Map("map2", {
+        center: new naver.maps.LatLng(37.3595316, 127.1052133),
+        zoom: 10,
+        size : new  naver.maps.Size($(window).width(), $(window).height()), 
+        mapTypeControl: true
+    });
+	
+		sessionCheck(1);
 		
 		callResult();
 		callPolyLine(0); // 대중교통 그리기 
@@ -98,7 +105,6 @@
 				tabClick(title);
 			})
 		});
-		}
 	</script>
 </body>
 </html>
