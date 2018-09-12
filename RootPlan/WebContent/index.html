@@ -11,6 +11,16 @@
 </head>
 <body>
  <div id="container" class="wrap">
+	      
+	      <form name="loginData" id="loginData" method="post">         
+	        <input type="hidden" id="menuIndex" name ="menuIndex" value="0" /> 
+	        <input type="hidden" id="email" name="email" value=""/>  
+	        <input type="hidden" id="id" name="id" value=""/> 
+	        <input type="hidden" id="gender" name="gender" value=""/> 
+	        <input type="hidden" id="age" name="age" value=""/>
+	        <input type="hidden" id="birthday" name="birthday" value=""/>  	                                           
+	      </form> 
+	      
  		<img  class="wrapIndex" src="img/travel1.jpg"/>
     	<div class="overTitle">
     	<div style="position:absolute;text-align:center;width:100%;height:100%;top:30%;">
@@ -30,7 +40,6 @@
    </div>
     <script type="text/javascript" src="jsCode/Login.js"></script>
    <script>
-   sessionCheck();
    var naver_id_login = new naver_id_login("QUyHkL9SA1c0aTQjz197", "http://localhost:8090/RootPlan/index.html");
    //alert(naver_id_login.oauthParams.access_token); // 토큰 정보
    naver_id_login.get_naver_userprofile("naverSignInCallback()");
@@ -40,9 +49,9 @@
 		 sessionStorage.setItem("id", naver_id_login.getProfileData('id'));
 		 sessionStorage.setItem("gender", naver_id_login.getProfileData('gender'));
 		 sessionStorage.setItem("age", naver_id_login.getProfileData('age'));
-		 sessionStorage.setItem("birthday", naver_id_login.getProfileData('birthday'));
+		 sessionStorage.setItem("birthday", naver_id_login.getProfileData('birthday')); 
  	}
- 	
+ 	sessionCheck();
    </script>
 </body>
 </html>

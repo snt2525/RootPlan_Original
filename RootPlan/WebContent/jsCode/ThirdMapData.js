@@ -9,7 +9,7 @@ function isChecked_S(index){ //0:START,1:FINAL , i: 넘버
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: "menuIndex=4",
+		data: $("#callLatLng").serialize(),
 		success: function(data){
 			var i = 0;
 			$(data).find("LatLng").each(function(){

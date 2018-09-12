@@ -25,6 +25,10 @@ public class AddressDataServlet extends HttpServlet {
    
     public AddressDataServlet() {
         super();
+        for(int i=0; i<20; i++) {
+            ad[i]=new AddressDataManager();
+            sd[i] = new SetData();
+         }
     }
     
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,8 +43,8 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.print("연결");
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
-      int ID = Integer.parseInt(request.getParameter("IDNum"));  
-      
+      //int ID = Integer.parseInt(request.getParameter("IDNum"));  
+      int ID = 0;
       switch(optionNum) {
          case 1:  //정보 저장
         	 apiFlag[ID] = true;
@@ -70,6 +74,9 @@ public class AddressDataServlet extends HttpServlet {
             break;
             
          case 4: //위도 경도
+        	  System.out.print("위도 경도,"); 
+        	  String result3 = ad[ID].callLatLng(sd[ID]); 
+        	  out.print(result3);  
             break;
             
          case 5: //주소 리스트 호출
@@ -97,6 +104,7 @@ public class AddressDataServlet extends HttpServlet {
             break;   
             
          case 9:  //start, last 데이터 넣기
+        	 System.out.println("호출");
             int index = Integer.parseInt(request.getParameter("index"));
             int startLast = Integer.parseInt(request.getParameter("startLast"));
             System.out.print(index);

@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		
 		switch(num){
 		case 0: //주소할당 받기
+			
 			if(customerSize == customerCnt && log[customerCnt] == 0) { //사이즈랑 주소가 같으면
 				logCheck.put(ID, customerCnt);
 				log[customerCnt] = 1;
@@ -58,7 +59,9 @@ public class LoginServlet extends HttpServlet {
 			if(customerSize == customerCnt)
 				customerCnt--;
 			customerSize--;
-			break;
+			//해쉬 해제도 해줘야함
+			logCheck.remove(ID);
+			break;		
 		}
 
 	}
