@@ -20,7 +20,13 @@
             <!--  frameLeft -->
             <div id="asideTop">
                <form name="addressBasket" id="addressBasket" method="post">
+<<<<<<< HEAD
                   <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn">
+=======
+               	<input type="hidden" id="IDNum" name="IDNum" value="0"> 
+                  <input type="hidden" class="btn btn-skin" value="Reset"
+                     id="resetBtn" name="resetBtn">
+>>>>>>> refs/heads/branch4
                   <h3 class='headline'>여행지 선택</h3>
                   <div id="list" name="list"></div>   <!-- 검색 결과 리스트 출력 -->
                </form>
@@ -59,12 +65,12 @@
       <div id="content">
          <div id="top">
             <!-- NewFile -->
-            <form name="form" id="form" method="post">
+            <form name="form" id="form" method="post">      
                <div class="search">
                   <a href="#" id="roadAddrPart1" onclick="goPopup();"> 
                      <img src="img/search_color.png" onmouseover="this.src='img/search_gray.png';"   onmouseout="this.src='img/search_color.png';" alt="goRoutePlan" />
                   </a>
-                  
+                  <input type="hidden" id="IDNum" name="IDNum" value="0"> 
                   <input type="hidden" id="roadAddrPart1">
                   <input type="hidden" id="jibunAddr" value="" /> 
                   <input type="hidden" id="confmKey" name="confmKey"
@@ -82,45 +88,54 @@
                <input type="hidden" id="udrtYn" name="udrtYn" value="" /> 
                <input type="hidden" id="buldMnnm" name="buldMnnm" value="" /> 
                <input type="hidden" id="buldSlno" name="buldSlno" value="" />
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
 
             <!--주소 데이터 저장 -->
             <form name="saveAddress" id="saveAddress" method="post">
-               <input type="hidden" id="menuIndex" name="menuIndex" value="1" /> <input
-                  type="hidden" id="lat" name="lat" value="" /> <input type="hidden"
-                  id="lng" name="lng" value="" /> <input type="hidden" id="si"
-                  name="si" value="" /> <input type="hidden" id="address"
-                  name="address" value="" />
+               <input type="hidden" id="menuIndex" name="menuIndex" value="1" /> 
+               <input type="hidden" id="lat" name="lat" value="" /> 
+               <input type="hidden" id="lng" name="lng" value="" /> 
+               <input type="hidden" id="si" name="si" value="" /> 
+               <input type="hidden" id="address" name="address" value="" />
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
 
             <!--주소 데이터 삭제-->
             <form name="deleteAddress" id="deleteAddress" method="post">
-               <input type="hidden" id="menuIndex" name="menuIndex" value="2" /> <input
-                  type="hidden" id="deleteIndex" name="deleteIndex" value="" />
+               <input type="hidden" id="menuIndex" name="menuIndex" value="2" /> 
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
+               <input type="hidden" id="deleteIndex" name="deleteIndex" value="" />
             </form>
 
             <!--주소 데이터 호출-->
             <form name="getAddress" id="getAddress" method="post">
-               <input type="hidden" id="menuIndex" name="menuIndex" value="3" /> <input
-                  type="hidden" id="addressIndex" name="addressIndex" value="" /> <input
-                  type="hidden" id="getAddress" name="getAddress" value="" />
+               <input type="hidden" id="menuIndex" name="menuIndex" value="3" /> 
+               <input type="hidden" id="addressIndex" name="addressIndex" value="" /> 
+               <input type="hidden" id="getAddress" name="getAddress" value="" />
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
+<<<<<<< HEAD
 
             <form name="getLatLng" id="getLatLng" method="post">
                <input type="hidden" id="menuIndex" name="menuIndex" value="4" /> 
                <input type="hidden" id="latLngindex" name="latLngindex" value="" />
             </form> 
+=======
+>>>>>>> refs/heads/branch4
             
             <!-- img url을 호출 -->
             <form name="getImgURL" id="getImgURL" method="post">
                <input type="hidden" id="menuIndex" name="menuIndex" value="3" /> 
                <input type="hidden" id="localName" name="localName" value="" />
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
             
             <!--  전체 주소 데이터 받기  -->
             <form name="getAddressData" id="getAddressData" method="post">
                <input type="hidden" id="menuIndex" name="menuIndex" value="5">
                <input type="hidden" id="num" name="num" value="1"> 
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
 
             <!-- 검색 api호출 -->
@@ -129,8 +144,18 @@
                <input type="hidden" id="findLocation" name="findLocation" value="">
                <input type="hidden" id="address" name="address" value=""> 
                <input type="hidden" id="num" name="num" value=""> 
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
             </form>
 
+  			<form name="initData" id="initData" method="post">
+               <input type="hidden" id="menuIndex" name="menuIndex" value="7">
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
+            </form>
+            
+            <form name="getSize" id="getSize" method="post">
+               <input type="hidden" id="menuIndex" name="menuIndex" value="8">
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
+            </form>
 
             <div id="wrap" class="section">
                <div id="map" style="width: 100%; height: 600px;"></div>
@@ -143,6 +168,7 @@
                <input type="hidden" id="keywordVal" name="keywordVal" value="여행지" />
                <input type="hidden" id="Si" name="Si" value="첫번째" /> 
                <input type="hidden" id="clickSi" name="clickSi" value="한국" />
+               <input type="hidden" id="IDNum" name="IDNum" value="0"> 
                <div id='crawlingData' name="crawlingData"></div>
                <!-- 검색 결과 리스트 출력 -->
                <input type="hidden" id="addSi" name="addSi" value="미국" />

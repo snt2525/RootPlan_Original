@@ -7,8 +7,11 @@ import dto.SetData;
 
 public class AddressDataManager {
    public LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
+<<<<<<< HEAD
    public SetData sd = new SetData();
    public Route r;
+=======
+>>>>>>> refs/heads/branch4
    int size = 0;
    public AddressDataManager(){
       addressData = new LinkedList<Address>();      
@@ -43,21 +46,6 @@ public class AddressDataManager {
       result += "</AddressData>";
       return result;
    }
-   
-  /* public String callLatLng(SetData sd) {
-      int size = addressData.size();
-      String result = "";      
-      result += "<AddressData>";
-      for(int i =0;i< size; i++) {
-         result += "<LatLng>";
-         result += "<start>"+Integer.toString(sd.GetStartData())+"</start>";
-         result += "<lat>"+addressData.get(i).getLat()+"</lat>";
-         result += "<lng>"+addressData.get(i).getLng()+"</lng>";
-         result += "</LatLng>";
-      }
-      result += "</AddressData>";
-      return result;
-   }*/
    
    public String callAllAddress() {
       int size = addressData.size();

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import dto.Location;
  
 public class ShowLocalSearch {
+<<<<<<< HEAD
 	LocalSearchImg img;
     public StringBuilder sb;//
     public int display;
@@ -17,6 +18,15 @@ public class ShowLocalSearch {
     public String keyword;
     public  String findLocation;
     LinkedList<Location> ld = new LinkedList<Location>();
+=======
+	LocalSearchImg img;
+    public StringBuilder sb;
+    public int display;
+    public static String clientId = "QUyHkL9SA1c0aTQjz197";
+    public static String clientSecret = "d4nYetPHwT";
+    public String findLocation;
+    static LinkedList<Location> ld = new LinkedList<Location>();
+>>>>>>> refs/heads/branch4
     
     public ShowLocalSearch(String si, String keywordVal){ 
     	img = new LocalSearchImg(); //이미지 호출API

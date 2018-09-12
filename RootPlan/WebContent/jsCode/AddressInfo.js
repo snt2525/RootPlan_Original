@@ -98,7 +98,7 @@ $("#addressBasket").on("click", '#resetBtn' , function(){
 		$.ajax({
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "html",
-			data: "menuIndex=7",
+			data: $("#initData").serialize(),
 			success: function(data){
 				if(data>0){
 					clean();
@@ -149,7 +149,7 @@ function getDataSize(num){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "text",
-		data: "menuIndex=8",
+		data: $("#getSize").serialize(),
 		success:function(data){				
 			if(data<3){
 				if(num==0) 

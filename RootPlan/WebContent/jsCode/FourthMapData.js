@@ -84,7 +84,7 @@ function getDataFourth(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: "menuIndex=11",
+		data: $("#mData").serialize(),
 		success: function(data){
 			var htmlStr = "";
 			var tmpCnt = 0;

@@ -8,8 +8,13 @@ import java.net.URLEncoder;
 
 public class LocalSearchImg {
 	 public StringBuilder sb;
+<<<<<<< HEAD
 	 public String clientId = "QUyHkL9SA1c0aTQjz197";
 	 public String clientSecret = "d4nYetPHwT";
+=======
+	 public static String clientId = "QUyHkL9SA1c0aTQjz197";
+	 public static String clientSecret = "d4nYetPHwT";
+>>>>>>> refs/heads/branch4
 	 
 	 public String getImage(String imgTitle,int num) {
 	      //System.out.println("이미지 불러오기");
