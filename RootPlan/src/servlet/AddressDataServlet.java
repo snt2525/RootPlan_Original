@@ -41,7 +41,7 @@ public class AddressDataServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       
       PrintWriter out = response.getWriter();
-      System.out.print("연결");
+      System.out.print("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
       //int ID = Integer.parseInt(request.getParameter("IDNum"));  
       int ID = 0;

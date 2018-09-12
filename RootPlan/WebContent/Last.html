@@ -49,6 +49,11 @@
 		</div>
 
 		<div id="content">
+		
+			<form name="Init" id="Init" method="post">
+				<input type="hidden" id="menuIndex" name="menuIndex" value="12">
+				<input type="hidden" id="IDNum" name="IDNum" value="0"> 
+			</form>
 
 			<form name="resultLatLng" id="resultLatLng" method="post">
 				<input type="hidden" id="menuIndex" name="menuIndex" value="17" />
@@ -71,7 +76,6 @@
 	<script type="text/javascript" src="jsCode/Init.js"></script>
 	<script type="text/javascript" src="jsCode/Result.js"></script>
 	<script>
-
 		sessionCheck(1);
 		
 		callResult();
