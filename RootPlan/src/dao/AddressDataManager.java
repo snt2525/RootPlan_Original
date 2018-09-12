@@ -7,12 +7,10 @@ import dto.SetData;
 
 public class AddressDataManager {
    public LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
-<<<<<<< HEAD
    public SetData sd = new SetData();
    public Route r;
-=======
->>>>>>> refs/heads/branch4
    int size = 0;
+   
    public AddressDataManager(){
       addressData = new LinkedList<Address>();      
    }

@@ -13,34 +13,16 @@ public class Route {
 	ApiPTSearch pt;
     ApiCarSearch cs;
     Shortpath sp;
-<<<<<<< HEAD
     int listSize;
-=======
-    public static TimeMethod[][][] carDist; // 자동차 최단 거리 저장
-    public static TimeMethod[][][] ptDist; // 대중교통 최단 거리 저장
->>>>>>> refs/heads/branch4
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
-<<<<<<< HEAD
     public DataTotal dataTotal;
     
     public Route(int listSize){
     	this.listSize = listSize;
     	dataTotal = new DataTotal(listSize);
-        sp = new Shortpath();
-=======
-    public static LinkedList<InfoCar> carList;
-    public static LinkedList<InfoPT> ptList;   
-    public int IDnum = 0;
-    public Route(int id){
-       IDnum = id;
        sp = new Shortpath();
-       carList = new LinkedList<InfoCar>();
-       ptList = new LinkedList<InfoPT>();
-       carDist = new TimeMethod[20][7][7];
-       ptDist = new TimeMethod[20][7][7];      
->>>>>>> refs/heads/branch4
     }
     
     public void Clear() {
@@ -51,34 +33,21 @@ public class Route {
     }
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
-<<<<<<< HEAD
 	   //size = ad.addressData.size();
-	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) listSize++;
-	   
+	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) listSize++;	   
        pt = new ApiPTSearch(ad.getList(), dataTotal, listSize);
-=======
 	   size = ad.addressData.size();
-       pt = new ApiPTSearch(ad.getList(), IDnum);
->>>>>>> refs/heads/branch4
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
         System.out.println("대중교통 호출");
         pt.callTransportApi(a, b);    
         //System.out.println("car : " + car);
         if(car.equals("0")) {      
-<<<<<<< HEAD
            sp.init(ad.addressData.size(),dataTotal);
         	//sp = new Shortpath(ad.addressData.size(),dataTotal);
-=======
-           sp.init(ad.addressData.size(), IDnum);
->>>>>>> refs/heads/branch4
            //자동차 api호출
             System.out.println("자동차호출");           
             ptFlag = 1; //대중됴통 호출 끌
-<<<<<<< HEAD
             cs = new ApiCarSearch(ad.getList(), dataTotal, listSize);
-=======
-            cs = new ApiCarSearch(ad.getList(), IDnum);
->>>>>>> refs/heads/branch4
             cs.carApi(); //자동차 API call 
  		    carFlag = 1; //자동차 호출 끌 
             return false;
@@ -89,20 +58,12 @@ public class Route {
    void print(int size) {
       System.out.print("자동차 : ");
       for(int i=0; i<size; i++) {
-<<<<<<< HEAD
          System.out.print(dataTotal.carAns[i]+" ");
-=======
-         System.out.print(sp.carAns[i]+" ");
->>>>>>> refs/heads/branch4
       }
       System.out.println();
       System.out.print("대중교통 : ");
       for(int i=0; i<size; i++) {
-<<<<<<< HEAD
          System.out.print(dataTotal.ptAns[i]+" ");
-=======
-         System.out.print(sp.ptAns[i]+" ");
->>>>>>> refs/heads/branch4
       }
       System.out.println();
    }
