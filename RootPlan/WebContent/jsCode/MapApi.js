@@ -55,7 +55,7 @@ function searchCoordinateToAddress(latlng) {
 		//console.log(items)
 		if (htmlAddresses.length == 0)
 			htmlAddresses.push(items[0].address);
-		console.log(items);
+		//console.log(items);
 		//search api를 호출한다.
 		document.searchApi.findLocation.value = items[1].addrdetail.rest;
     	document.searchApi.address.value = items[1].address;
@@ -85,7 +85,6 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
    flag = 1;
    $(xmlStr).find("juso").each(
          function() {
-            // alert($(this).find('entX').text());
             var tmp = new naver.maps.Point($(this).find('entX').text(), $(
                   this).find('entY').text());
             latlngTmp = naver.maps.TransCoord.fromUTMKToLatLng(tmp);
@@ -102,7 +101,6 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
                if (status === naver.maps.Service.Status.ERROR) {
                   return alert('Something Wrong!');
          }
-          //alert(address2)
          //form에 위도 경도를 저장해둔다.
          document.saveAddress.lat.value = latlngTmp.x;
          document.saveAddress.lng.value = latlngTmp.y;

@@ -49,7 +49,6 @@ public class SearchAPIServlet extends HttpServlet {
 	               if(!Si.equals(clickSi)) {
 	                  LocationDataManager l = new LocationDataManager();	                  
 	                  String  result1 = l.getLocation(clickSi, keywordVal);
-	                  //System.out.println("result : " + result1);
 	                  out.print(result1);
 	               }else {
 	                  String  result1 = "null";

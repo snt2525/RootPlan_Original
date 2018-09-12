@@ -7,9 +7,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class LocalSearchImg {
-	 public static StringBuilder sb;
-	 public static String clientId = "QUyHkL9SA1c0aTQjz197";
-	 public static String clientSecret = "d4nYetPHwT";
+	 public StringBuilder sb;
+	 public String clientId = "QUyHkL9SA1c0aTQjz197";
+	 public String clientSecret = "d4nYetPHwT";
 	 
 	 public String getImage(String imgTitle,int num) {
 	      //System.out.println("이미지 불러오기");
@@ -44,6 +44,7 @@ public class LocalSearchImg {
 	         String data = sb.toString();	         
 	         String[] array;
 	         array = data.split("\"");         
+	       //  System.out.println("이미지 개수 : " + array.length);
 	         if(num == 0) {  //데이터 추천의 이미지를 보여주는 경우
 		         for (int i = 0; i < array.length; i++) {
 		            if (array[i].equals("thumbnail") && array[i+2]!=null) 

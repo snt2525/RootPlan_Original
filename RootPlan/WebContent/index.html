@@ -1,119 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-
+<meta charset="UTF-8">
 <title>ROOT PLAN</title>
+ <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
-<!-- css -->
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="css/nivo-lightbox.css" rel="stylesheet" />
-<link href="css/nivo-lightbox-theme/default/default.css"
-	rel="stylesheet" type="text/css" />
-<link href="css/owl.carousel.css" rel="stylesheet" media="screen" />
-<link href="css/owl.theme.css" rel="stylesheet" media="screen" />
-<link href="css/flexslider.css" rel="stylesheet" />
-<link href="css/animate.css" rel="stylesheet" />
+<link rel="stylesheet" href="./css/ThirdCSS.css">
 <link href="css/style.css" rel="stylesheet">
-<link href="color/default.css" rel="stylesheet">
-
-<!-- =======================================================
-    Theme Name: Valera
-    Theme URL: https://bootstrapmade.com/valera-free-bootstrap-theme/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
-
 </head>
-
-<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
-
-
-	<!-- Section: home video -->
-	<section id="intro" class="home-video text-light">
-		<div class="home-video-wrapper">
-
-			<div class="homevideo-container">
-				<div id="P1" class="bg-player"
-					style="display: block; margin: auto; background: rgba(0, 0, 0, 0.5)"
-					data-property="{videoURL:'https://www.youtube.com/watch?v=mroiVdC7H10',containment:'.homevideo-container', quality: 'hd720', showControls: false, autoPlay:true, mute:true, startAt:0, opacity:1}"></div>
+<body>
+ <div id="container" class="wrap">
+ 		<img  class="wrapIndex" src="img/travel1.jpg"/>
+    	<div class="overTitle">
+    	<div style="position:absolute;text-align:center;width:100%;height:100%;top:30%;">
+		     <div>
+				<a href="Second.html" id="btn-scroll"> 
+					<img src="img/logo_white.png" onmouseover="this.src='img/logo_orange.png';"	onmouseout="this.src='img/logo_white.png';" alt="goRoutePlan" />
+				</a> 
+		      </div>
+		        <div class='title_message'>루트플랜으로 더 편리하고 빠르게 여행을 즐기세요</div>
+		        <div class="margintop-30">
+				<a href="showTutorial.html" id="btn-tutorial"> 
+					<img src="img/tutorial.png" onmouseover="this.src='img/tutorial_color.png';" onmouseout="this.src='img/tutorial.png';" alt="goTutorial" />
+				</a>
 			</div>
-			<div class="overlay">
-				<div class="text-center">
-					<div>
-						<a href="Second.html" id="btn-scroll"> 
-							<img src="img/logo_white.png" onmouseover="this.src='img/logo_orange.png';"	onmouseout="this.src='img/logo_white.png';" alt="goRoutePlan" />
-						</a>
-					</div>
-
-					<div class="wow bounceInUp" data-wow-offset="0" data-wow-delay="1s">
-						<div class="index-message">루트플랜으로 더 편리하고 빠르게 여행을 즐기세요</div>
-						<div class="margintop-30">
-							<a href="showTutorial.html" id="btn-tutorial"> 
-								<img src="img/tutorial.png" onmouseover="this.src='img/tutorial_color.png';" onmouseout="this.src='img/tutorial.png';" alt="goTutorial" />
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- /Section: intro -->
-
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-
-					<div class="text-center">
-						<a href="#intro" class="totop"><i class="pe-7s-angle-up pe-3x"></i></a>
-
-						<p>&copy;Valera Theme. All Rights Reserved</p>
-						<div class="credits">Developed by Kim's club</div>
-						<div class="credits">
-							<!--
-                All the links in the footer should remain intact.
-                You can delete the links only if you purchased the pro version.
-                Licensing information: https://bootstrapmade.com/license/
-                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Valera
-              -->
-							Designed by Kim's club & <a href="https://bootstrapmade.com/">BootstrapMade</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- Core JavaScript Files -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
-	<script src="js/jquery.appear.js"></script>
-	
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/slippry.min.js"></script>
-	<script src="js/jquery.flexslider-min.js"></script>
-	<script src="js/morphext.min.js"></script>
-	<script src="js/gmap.js"></script>
-	<script src="js/jquery.mb.YTPlayer.js"></script>
-	<script src="js/jquery.easing.min.js"></script>
-	<script src="js/jquery.scrollTo.js"></script>
-	
-	<script src="js/stellar.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/nivo-lightbox.min.js"></script>
-	<script src="js/jquery.nicescroll.min.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="contactform/contactform.js"></script>
-
+	     </div>
+      </div>
+   </div>
+    <script type="text/javascript" src="jsCode/Login.js"></script>
+   <script>
+   sessionCheck();
+   var naver_id_login = new naver_id_login("QUyHkL9SA1c0aTQjz197", "http://localhost:8090/RootPlan/index.html");
+   //alert(naver_id_login.oauthParams.access_token); // 토큰 정보
+   naver_id_login.get_naver_userprofile("naverSignInCallback()");
+   
+ 	function naverSignInCallback() {
+		 sessionStorage.setItem("email", naver_id_login.getProfileData('email'));
+		 sessionStorage.setItem("id", naver_id_login.getProfileData('id'));
+		 sessionStorage.setItem("gender", naver_id_login.getProfileData('gender'));
+		 sessionStorage.setItem("age", naver_id_login.getProfileData('age'));
+		 sessionStorage.setItem("birthday", naver_id_login.getProfileData('birthday'));
+ 	}
+ 	
+   </script>
 </body>
-
 </html>

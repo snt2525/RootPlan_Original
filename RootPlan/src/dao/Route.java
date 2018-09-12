@@ -1,56 +1,53 @@
 package dao;
 
-import java.util.LinkedList;
-
 import callApi.ApiCarSearch;
 import callApi.ApiPTSearch;
 import dto.DataPair;
+import dto.DataTotal;
 import dto.InfoCar;
 import dto.InfoPT;
 import dto.InfoSectionPT;
 import dto.SetData;
-import dto.TimeMethod;
 
 public class Route {
 	ApiPTSearch pt;
     ApiCarSearch cs;
     Shortpath sp;
-    public static TimeMethod[][] carDist; // 자동차 최단 거리 저장
-    public static TimeMethod[][] ptDist; // 대중교통 최단 거리 저장
+    int listSize;
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
-    public static LinkedList<InfoCar> carList;
-    public static LinkedList<InfoPT> ptList;
+    public DataTotal dataTotal;
     
-    public Route(){
-       sp = new Shortpath();
-       carList = new LinkedList<InfoCar>();
-       ptList = new LinkedList<InfoPT>();
-       carDist = new TimeMethod[7][7];
-       ptDist = new TimeMethod[7][7];      
+    public Route(int listSize){
+    	this.listSize = listSize;
+    	dataTotal = new DataTotal(listSize);
+        sp = new Shortpath();
     }
     
     public void Clear() {
-        carList.clear();
-        ptList.clear();
+    	dataTotal.carList.clear();
+    	dataTotal.ptList.clear();
         carFlag = 0;
         ptFlag = 0;        
     }
     
    public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
-	   size = ad.addressData.size();
-       pt = new ApiPTSearch(ad.getList());
+	   //size = ad.addressData.size();
+	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) listSize++;
+	   
+       pt = new ApiPTSearch(ad.getList(), dataTotal, listSize);
       //대중교통  API 호출 & 동시에 걷기도 호출해서 이차원배열 채우기
         System.out.println("대중교통 호출");
         pt.callTransportApi(a, b);    
-        System.out.println("car : " + car);
+        //System.out.println("car : " + car);
         if(car.equals("0")) {      
-           sp.init(ad.addressData.size());
+           sp.init(ad.addressData.size(),dataTotal);
+        	//sp = new Shortpath(ad.addressData.size(),dataTotal);
            //자동차 api호출
             System.out.println("자동차호출");           
             ptFlag = 1; //대중됴통 호출 끌
-            cs = new ApiCarSearch(ad.getList());
+            cs = new ApiCarSearch(ad.getList(), dataTotal, listSize);
             cs.carApi(); //자동차 API call 
  		    carFlag = 1; //자동차 호출 끌 
             return false;
@@ -61,32 +58,34 @@ public class Route {
    void print(int size) {
       System.out.print("자동차 : ");
       for(int i=0; i<size; i++) {
-         System.out.print(Shortpath.carAns[i]+" ");
+         System.out.print(dataTotal.carAns[i]+" ");
       }
       System.out.println();
       System.out.print("대중교통 : ");
       for(int i=0; i<size; i++) {
-         System.out.print(Shortpath.ptAns[i]+" ");
+         System.out.print(dataTotal.ptAns[i]+" ");
       }
       System.out.println();
    }
 
-   public void recallApiData(int how) {
-	   if(how == 0)
-		   pt.resultOrderCall(sp.ptAns);
-	   else
-		  cs.resultOrderCall(sp.carAns);
+   public void recallApiData(int how, int start, int end) {
+	   if(how == 0) {
+		   pt.resultOrderCall(dataTotal.ptAns, start, end);
+	   }
+	   else {
+		  cs.resultOrderCall(dataTotal.carAns, start, end);
+	   }
 	   
    }
    
    public void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
-      if(how == 1) {
+	   if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
-         recallApiData(1);  // 자동차 재호출
+         recallApiData(1, start, last);  // 자동차 재호출
       	 //cs.resultOrderCall(sp.carAns); //결과 순서로 api 다시 호출, 자동차
       }else { 
          sp.callDFS(start, last, 0, isSame);
-         recallApiData(0);  // 대중교통 재호출
+         recallApiData(0, start, last);  // 대중교통 재호출
         // pt.resultOrderCall(sp.ptAns); //결과 순서로 api 다시 호출, 대중교통
       }
    } 
@@ -97,8 +96,8 @@ public class Route {
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
 			  result += "<Data>"; 
-		      result += "<lat>"+ Double.toString(ad.addressData.get(sp.ptAns[i]).getLat()) +"</lat>";
-		      result += "<lng>"+ Double.toString(ad.addressData.get(sp.ptAns[i]).getLng()) +"</lng>";
+		      result += "<lat>"+ Double.toString(ad.addressData.get(dataTotal.ptAns[i]).getLat()) +"</lat>";
+		      result += "<lng>"+ Double.toString(ad.addressData.get(dataTotal.ptAns[i]).getLng()) +"</lng>";
 		      result += "</Data>"; 
 		   }
 		   result += "</ResultData>";
@@ -106,8 +105,8 @@ public class Route {
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
 			  result += "<Data>"; 
-		      result += "<lat>"+ Double.toString(ad.addressData.get(sp.carAns[i]).getLat()) +"</lat>";
-		      result += "<lng>"+ Double.toString(ad.addressData.get(sp.carAns[i]).getLng()) +"</lng>";
+		      result += "<lat>"+ Double.toString(ad.addressData.get(dataTotal.carAns[i]).getLat()) +"</lat>";
+		      result += "<lng>"+ Double.toString(ad.addressData.get(dataTotal.carAns[i]).getLng()) +"</lng>";
 		      result += "</Data>"; 
 		   }
 		   result += "</ResultData>";		   
@@ -121,34 +120,62 @@ public class Route {
 	   String result ="";
 	   if(how==0) {
 		   result += "<ptData>";
-		   for(int i=0; i<ptList.size();i++) {
-			   int InfoPTSize = ptList.get(i).getLineListSize();
+		   for(int i=0; i<dataTotal.ptList.size();i++) {
+			   int InfoPTSize = dataTotal.ptList.get(i).getLineListSize();
+			   boolean isWalk = dataTotal.ptList.get(i).isWalk();
+			  
+			   // 이부분 이상함, 왜그러는지 모르겠음 
+			   System.out.println("sx, sy : " + Double.toString(dataTotal.ptList.get(i).getSx()) +", " + Double.toString(dataTotal.ptList.get(i).getSy()));
+			   result += "<Data>";
+			   if(isWalk) {
+				   result += "<walk>0</walk>";
+			   }else {
+				   result += "<walk>1</walk>";
+			   }
+			   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getSx())+ "</lat>";
+			   result += "</lng>" +Double.toString(dataTotal.ptList.get(i).getSy())+ "</lng>";
+			   result += "</Data>";
+			   
 			   for(int j=0; j<InfoPTSize; j++) {
 				   result += "<Data>";
-				   if(ptList.get(i).isWalk()) { // 도보
+				   if(isWalk) { // 도보
 					   result += "<walk>0</walk>";
 				   }else {
 					   result += "<walk>1</walk>";
 				   }
-				   DataPair pair = ptList.get(i).getLineList(j);
+				   DataPair pair = dataTotal.ptList.get(i).getLineList(j);
+				   System.out.println("x, y : " +pair.getX()  +", " + pair.getY());
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
+				   result += "</Data>";
+			   }
+			   
+			   if(i==dataTotal.ptList.size()-1) {
+				   System.out.println("ex, ey : " + Double.toString(dataTotal.ptList.get(i).getEx()) +", " + Double.toString(dataTotal.ptList.get(i).getEy()));
+				  result += "<Data>";
+				  if(isWalk) {
+					   result += "<walk>0</walk>";
+				   }else {
+					   result += "<walk>1</walk>";
+				   }
+				   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getEx())+ "</lat>";
+				   result += "</lng>" +Double.toString(dataTotal.ptList.get(i).getEy())+ "</lng>";
 				   result += "</Data>";
 			   }
 		   }
 		   result += "</ptData>";
 	   }else if(how==1) {
 		   result += "<carData>";
-		   for(int i=0; i<carList.size(); i++) {
-			   int lineListSize = carList.get(i).getLineListSize();
+		   for(int i=0; i<dataTotal.carList.size(); i++) {
+			   int lineListSize = dataTotal.carList.get(i).getLineListSize();
 			   for(int j=0; j<lineListSize; j++) {
 				   result += "<Data>";
-				   if(carList.get(i).isWalk()) { // 도보
+				   if(dataTotal.carList.get(i).isWalk()) { // 도보
 					   result += "<walk>0</walk>";
 				   }else {
 					   result += "<walk>1</walk>";
 				   }
-				   DataPair pair = carList.get(i).getLineList(j);
+				   DataPair pair = dataTotal.carList.get(i).getLineList(j);
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
 				   result += "</Data>";
@@ -161,6 +188,10 @@ public class Route {
    
    public String resultList(int how, AddressDataManager ad) { // 0:pt, 1:car
 	   String result="";
+	   int adSize = ad.addressData.size();
+	   if(ad.sd.GetStartData() == ad.sd.GetLastData()) {
+		   adSize++;
+	   }
 	   
 	   if(how==0) {
 		   result += "<resultPTList>";
@@ -169,21 +200,27 @@ public class Route {
 		   // -1번 지점 // adSize 보내기 
 		   result += "<Data>";
 		   result += "<check>-1</check>";
-		   result += "<wayCount>"+ad.addressData.size()+"</wayCount>";
+		   result += "<wayCount>"+adSize+"</wayCount>";
 		   result += "</Data>";
 		   
 		   // 0번 지점
-		   int adSize = ad.addressData.size();
-		   for(int k=0; k<adSize; k++) {
+		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(k).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(ad.r.dataTotal.ptAns[k]).getAddress() + "</title>";
+			   result += "</Data>";
+		   }
+		   if(ad.sd.GetStartData()==ad.sd.GetLastData()) {
+			   result += "<Data>";
+			   result += "<check>0</check>";
+			   result += "<title>" + ad.addressData.get(ad.sd.GetLastData()).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   
+		   System.out.println("dataTotal.ptList.size : " +dataTotal.ptList.size());
 		   
-		   for(int i=0; i<ptList.size(); i++) {
-			   InfoPT info = ptList.get(i);
+		   for(int i=0; i<dataTotal.ptList.size(); i++) {
+			   InfoPT info = dataTotal.ptList.get(i);
 			   // 처음에 버스번호 여러개(시작 역이름)->지하철 번호(시작 역이름) -> 버스번호 여러개(시작 역이름)
 			   
 			   // 1번 지점에서 보일 내용 : 경로 1->2 지점에서 띄어줄 내용 
@@ -260,21 +297,27 @@ public class Route {
 		   // -1번 지점 // adSize 보내기 
 		   result += "<Data>";
 		   result += "<check>-1</check>";
-		   result += "<wayCount>"+ad.addressData.size()+"</wayCount>";
+		   result += "<wayCount>"+adSize+"</wayCount>";
 		   result += "</Data>";
 		   
 		   // 0번 지점
-		   int adSize = ad.addressData.size();
-		   for(int k=0; k<adSize; k++) {
+		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(k).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(ad.r.dataTotal.carAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   
-		   for(int i=0; i<carList.size(); i++) {
+		   if(ad.sd.GetStartData() == ad.sd.GetLastData()) {
 			   result += "<Data>";
-			   InfoCar info = carList.get(i);
+			   result += "<check>0</check>";
+			   result += "<title>" + ad.addressData.get(ad.sd.GetLastData()).getAddress() + "</title>";
+			   result += "</Data>";
+		   }
+		   
+		   for(int i=0; i<dataTotal.carList.size(); i++) {
+			   result += "<Data>";
+			   InfoCar info = dataTotal.carList.get(i);
 			   result += "<check>1</check>";
 			   result += "<distance>" + Integer.toString(info.getDistance())+"</distance>";
 			   result += "<walk>" + info.isWalk() + "</walk>";

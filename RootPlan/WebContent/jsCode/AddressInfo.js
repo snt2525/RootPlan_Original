@@ -87,8 +87,9 @@ function getData(){
 			})
 			$("#list").html(htmlStr);	
 		}, error: function(data){
-				alert("실패");
+				console.log("실패");
 		}
+		
 	});
 }
 
@@ -136,7 +137,9 @@ $("#list").on("click", '#del' , function(){
 					alert("삭제를 실패하였습니다.");
 				}			
 			},
-			error: function(data){alert(data)}			
+			error: function(data){
+				console.log(data);
+			}
 		});
 	}
 })
@@ -156,6 +159,8 @@ function getDataSize(num){
 				$('#nextBtn1').attr({'href':'Third.html'});
 			}
 		},
-		error: function(data){alert(data)}			
+		error: function(data){
+			console.log(data);
+		}			
 	});	
 }

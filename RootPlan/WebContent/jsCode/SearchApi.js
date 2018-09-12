@@ -8,6 +8,7 @@ var category = new Array(100);
 var link = new Array(100);
 var link2 = new Array(100);
 var description = new Array(100);
+var keyword = "여행지";
 
 var latlngTmp2; //위도 경도
 var cntNow = 1;
@@ -19,10 +20,11 @@ $.ajaxSetup({
 function button_click(value){
 	keyword=value;
 	document.SiData.keywordVal.value=value;
-	alert(document.SiData.keywordVal.value);
+	//alert(document.SiData.keywordVal.value);
 	document.SiData.Si.value = "미국";
 	document.all("message").innerHTML="가이드 키워드입니다. 클릭한 해당지역의 키워드를 기준으로 오른쪽에 결과를 볼 수 있습니다. <b>" 
 		+ value + "</b>을 선택하셨습니다.";
+	getLocalSearchData();
 }
 
 var isStarted = 0;
@@ -33,7 +35,7 @@ function getLocalSearchData(){
        dataType: "xml",
        data: $("#SiData").serialize(),
        success: function(data){
-    	   //alert("성공");
+    	   console.log("크롤링 js 들어옴");
           var htmlStr = "";
           htmlStr += "<div id='box'>";
           $(data).find("CityData").each(function(){
@@ -137,7 +139,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
                  
               });               
        }, error: function(data){
-             alert("실패");
+    	   console.log("실패");
        }
    });  
 }
@@ -235,7 +237,7 @@ function callSearchApi(num){
                })            
                   
             }, error: function(data){
-                  alert("실패");
+            	console.log("실패");
             }
          });
       }

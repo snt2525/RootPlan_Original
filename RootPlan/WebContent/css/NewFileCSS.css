@@ -31,14 +31,9 @@ html, body {
 #asideTop {
 	position: relative;
 	overflow: auto;
-	height: 50%;
+	height: 70%;
 }
 
-#aisdeLatest{
-	position:relative;
-	overflow:auto;
-	height:20%;
-}
 
 #aisdeKeyword{
 	position:relative;

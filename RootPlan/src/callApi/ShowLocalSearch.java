@@ -16,15 +16,19 @@ public class ShowLocalSearch {
     public String clientSecret = "d4nYetPHwT";
     public String keyword;
     public  String findLocation;
-    static LinkedList<Location> ld = new LinkedList<Location>();
+    LinkedList<Location> ld = new LinkedList<Location>();
     
     public ShowLocalSearch(String si, String keywordVal){ 
-       findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
+    	img = new LocalSearchImg(); //이미지 호출API
+    	findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
        this.keyword = keywordVal;
     }
-   
+    public ShowLocalSearch(String si){ 
+    	img = new LocalSearchImg(); //이미지 호출API
+        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
+    } 
    public String getImage(String imgTitle) {
-      //System.out.println("이미지 불러오기");
+      System.out.println("이미지 불러오기");
       try {
          String text = URLEncoder.encode(imgTitle, "utf-8");
          // 여기에 있는 display 값을 조정함에 따라 사진을 긁어오는게 달라진다. 
@@ -66,10 +70,7 @@ public class ShowLocalSearch {
       return null;
    }
    
-    public ShowLocalSearch(String si){ 
-    	img = new LocalSearchImg(); //이미지 호출API
-        findLocation = si;   //지도에서 받은 시의 위치를 넣어준다.
-    } 
+
    // 후에 함수로 변경 : 매개변수(findLocation) : 시주소
    public LinkedList<Location> getRecommendData() {
 	   System.out.println("keyword : " + keyword);
@@ -101,7 +102,7 @@ public class ShowLocalSearch {
  
             br.close();
             con.disconnect();
-           //System.out.println(sb); 
+            //System.out.println("sb: "  + sb); 
             String data = sb.toString();
             String[] array;
             array = data.split("\"");
@@ -113,21 +114,28 @@ public class ShowLocalSearch {
                    location.setTitle(array[i+2]);
                    location.setImgUrl(img.getImage(array[i+2], 0)); // title로 이미지 검색해서 넣어주기
                 }
-                if(array[i].equals("link")) 
+                else if(array[i].equals("link")) {
                 	location.setLink(array[i+2]);
-                if(array[i].equals("category")) 
+                }
+                else if(array[i].equals("category")) {
                 	location.setCategory(array[i+2]);
-                if(array[i].equals("description")) 
+                }
+                else if(array[i].equals("description")) {
                 	location.setDescription(array[i+2]);
-                if(array[i].equals("telephone")) 
+                }
+                else if(array[i].equals("telephone")) { 
                 	location.setTp(array[i+2]);
-                if(array[i].equals("address")) 
+                }
+                else if(array[i].equals("address")) {
                 	location.setAddress(array[i+2]);
-                if(array[i].equals("roadAddress")) 
+                }
+                else if(array[i].equals("roadAddress")) {
                 	location.setRoadaddress(array[i+2]);
-                if (array[i].equals("mapx"))
+                }
+                else if (array[i].equals("mapx")) {
                    location.setMapx(array[i+2]);
-                if (array[i].equals("mapy")) {
+                }
+                else if (array[i].equals("mapy")) {
                     location.setMapy(array[i+2]);
                     ld.add(location);    
                 }
@@ -135,7 +143,7 @@ public class ShowLocalSearch {
         } catch (Exception e) {
             System.out.println(e);
         }
+        
         return ld;
     }
-  
 }

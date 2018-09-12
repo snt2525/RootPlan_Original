@@ -7,8 +7,8 @@ import java.net.URL;
 import java.util.LinkedList;
 
 import dao.CalculateDist;
-import dao.Route;
 import dto.DataPair;
+import dto.DataTotal;
 import dto.InfoPT;
 import dto.InfoSectionPT;
 import dto.TimeMethod;
@@ -17,30 +17,29 @@ public class ApiPTSearch {
    StringBuilder sb;
    String key = "5FtIuAS9YmPfOD56TV5NHqYE6EivPWAAIBCZcy6V72c";
    LinkedList<dto.Address> ad;
+   DataTotal dataTotal;
    // 이차원 배열을 Route.java에다가 넣어주기
    ApiWalkSearch ws;
+   int listSize;
    boolean flag = false; // 대중교통에서 걷기 api호출에 쿨타임을 주기 위해서 만들었다.
-   int adSize;
+   boolean isSame=false;
    
    // 생성자, 이차원 배열 초기화
-   public ApiPTSearch(LinkedList<dto.Address> ad) {
-      adSize = ad.size();
+   public ApiPTSearch(LinkedList<dto.Address> ad, DataTotal dataTotal, int listSize) {
+	  this.listSize = listSize;
       this.ad = ad;
       this.ws = new ApiWalkSearch();
+      this.dataTotal = dataTotal;
       // 배열 초기화
-      for (int i = 0; i < adSize; i++) {
-         for (int j = 0; j < adSize; j++) {
-            Route.ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
-         }
-      }
+      dataTotal.initPtDist();
    }   
 
    // 출력 함수 : 대중교통 거리 출력
-   static void ptPrint(int size) {
+   void ptPrint(int size) {
       System.out.println("대중교통 거리 출력");
-      for(int i=0; i<size; i++) {
-         for(int j=0; j<size; j++) {
-            System.out.print(Route.ptDist[i][j].getTime() + " "); 
+      for(int i=0; i<listSize; i++) {
+         for(int j=0; j<listSize; j++) {
+            System.out.print(dataTotal.ptDist[i][j].getTime() + " "); 
          }
          System.out.println();
       }
@@ -48,13 +47,12 @@ public class ApiPTSearch {
    
    // 이차원 배열 돌면서 callPTApi 호출
    public void callTransportApi(int a, int b) {
-      int size = ad.size();
       for (int i = a; i < b; i++) {
-         for (int j = 0; j < size; j++) {
-            if (Route.ptDist[i][j].getMethod())
+         for (int j = 0; j < listSize; j++) {
+            if (dataTotal.ptDist[i][j].getMethod())
                continue; // 걷기데이터가 호출되었었기 때문에
             else if (i == j)
-               Route.ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
+            	dataTotal.ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
             else
                callPTApi( ad.get(i).getLat(),  ad.get(i).getLng(), ad.get(j).getLat(), ad.get(j).getLng(),i ,j );
          }
@@ -64,7 +62,8 @@ public class ApiPTSearch {
  
    // callTransportApi 호출당해, 대중교통 호출
   public void callPTApi(double sx, double sy, double ex , double ey, int i, int j) {
-      double distanceMeter = CalculateDist.distance(sx, sy, ex, ey, "meter");
+      CalculateDist calDist = new CalculateDist();
+	  double distanceMeter = calDist.distance(sx, sy, ex, ey, "meter");
       if (distanceMeter <= 800) {
          // 이전에 있던 애가 걷기 호출을 했었는지
          int tmpTime = 0;
@@ -78,8 +77,8 @@ public class ApiPTSearch {
          }
          
          // 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
-         Route.ptDist[i][j] = new TimeMethod(tmpTime, true);
-         Route.ptDist[j][i] = new TimeMethod(tmpTime, true);
+         dataTotal.ptDist[i][j] = new TimeMethod(tmpTime, true);
+         dataTotal.ptDist[j][i] = new TimeMethod(tmpTime, true);
          flag = true;
       } else {
          flag = false;
@@ -109,8 +108,8 @@ public class ApiPTSearch {
                }
                
                // 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
-               Route.ptDist[i][j] = new TimeMethod(tmpTime, true);
-               Route.ptDist[j][i] = new TimeMethod(tmpTime, true);
+               dataTotal.ptDist[i][j] = new TimeMethod(tmpTime, true);
+               dataTotal.ptDist[j][i] = new TimeMethod(tmpTime, true);
                flag = true;
 
                return ;
@@ -131,7 +130,7 @@ public class ApiPTSearch {
             
             for (int k = 0; k < array.length; k++) {
                if (array[k].equals("totalTime")) {
-                  Route.ptDist[i][j] = new TimeMethod(Integer.parseInt(array[k + 1].substring(1, array[k + 1].length() - 1)), false);
+            	   dataTotal.ptDist[i][j] = new TimeMethod(Integer.parseInt(array[k + 1].substring(1, array[k + 1].length() - 1)), false);
                   break;
                }
             }
@@ -139,9 +138,11 @@ public class ApiPTSearch {
       }
    }
 
-  public void resultOrderCall(int[] result) {  //결과대로 호출
-      for(int i =0; i < result.length - 1; i++) {
-         Route.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
+  public void resultOrderCall(int[] result, int start, int end) {  //결과대로 호출
+	  if(start==end) listSize++;
+	  //System.out.println("result 길이 : " + result.length);
+      for(int i =0; i < listSize-1; i++) {
+    	  dataTotal.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
       }
   }
@@ -150,8 +151,9 @@ public class ApiPTSearch {
   public InfoPT callResultPT(double sx, double sy, double ex, double ey) {
       InfoPT infopt = new InfoPT(); // 1-2 지점 이동시
       InfoSectionPT infoSec = new InfoSectionPT();
+      CalculateDist calDist = new CalculateDist();
+      double distanceMeter = calDist.distance(sx, sy, ex, ey, "meter");
       
-      double distanceMeter = CalculateDist.distance(sx, sy, ex, ey, "meter");
       if (distanceMeter <= 800) {
     	  System.out.println("걷기 호출");
          // 이전에 있던 애가 걷기 호출을 했었는지

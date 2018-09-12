@@ -54,8 +54,6 @@ function showResultPT(){
 	    			 if(wayCount!=count) htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
 	    			 else htmlStr += "</div>"; 
 	    		   }else if($(this).find('check').text()=='1'){	   // 1번 지점
-	    			   //console.log("1번");
-		    			 
 	    			   now = now+1;
 	    			   cnt=0; 
 	    			   cnt1=0;
@@ -80,7 +78,6 @@ function showResultPT(){
 	    		   		totalFare += Number($(this).find('totalFare').text());
 	    		   }else if($(this).find('check').text() == '2'){
 	    			   cnt = cnt+1;
-	    			  // console.log("2번");
 	    			   if($(this).find('trafficType').text()== "버스"){
 	    				   if($(this).find('stationName').text()=="null"){
 	    					   htmlStr += "해당 정보를 제공하지 않습니다.";
@@ -102,9 +99,7 @@ function showResultPT(){
 		    			   htmlStr += "<div id='"+tmpId+"' style='display:none'>";  
 	    			   }
 	    		   }else if($(this).find('check').text() == '3'){ // 섹션 정보 
-	    			   //console.log("3번");
 	    			   cnt1=cnt1+1;
-	    			  // console.log("cnt1의 값 : " + cnt1);
 		    		   if($(this).find('walk').text()=="true"){ // 도보
 		    			   htmlStr += "<div><img src='img/walk.png'/>도보 이용입니다.</div>";	
 		    		   }else{ // 도보 이용 아닌 경우 환승 정보 있으므로 
@@ -177,7 +172,7 @@ function showResultCar(){
 	    	   })
 	    	   htmlStr += "<hr class='lastHr'><div>총 거리 : " + (Number(totalDistance)/1000).toFixed(2) + "km | 총 시간 : " 
 	    	   			+totalTime.toFixed(0) + "분 | 총 택시요금 : " + totalFare + "원</div>";
-	    	   console.log(htmlStr);
+	    	   //console.log(htmlStr);
 	    	   $("#resultCarList").html(htmlStr);
 	       }, error:function(request,status,error){
 	    	  console.log("자동차 List 불러오기 실패");

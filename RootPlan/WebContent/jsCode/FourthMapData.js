@@ -39,7 +39,7 @@ function isChecked_L(index){ //0:START,1:FINAL , i: 넘버
 				marker[i++].setMap(map2); // 추가	
 			})
 		}, error: function(data){
-				alert("실패");
+			console.log("실패");
 		}
 	});
 	$("#index").val(index);	
@@ -123,7 +123,7 @@ function getDataFourth(){
 			htmlStr += "</table>";	
 			$("#list3").html(htmlStr);	
 		}, error: function(data){
-				alert("실패");
+			console.log("실패");
 		}
 	});
 }

@@ -14,7 +14,7 @@ function start() {
 			if (data == 1) {
 				callResultPT();
 			} else {
-				alert("실패")
+				console.log("실패");
 			}
 		}
 	});
@@ -52,5 +52,5 @@ function callResultCar() { //자동차
 		}
 	});
 
-	location.replace("LastPT.html");
+	location.replace("Last.html");
 }

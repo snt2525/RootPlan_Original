@@ -73,21 +73,21 @@ public class LocalSearch {
 		               location.setTitle(array[i+2]);
 		               //location.setImgUrl(getImage(findLocation)); // title로 이미지 검색해서 넣어주기
 		            }
-		            if(array[i].equals("link")) 
+		            else if(array[i].equals("link")) 
 		               location.setLink(array[i+2]);
-		            if(array[i].equals("category")) 
+		            else if(array[i].equals("category")) 
 		               location.setCategory(array[i+2]);
-		            if(array[i].equals("description")) 
+		            else if(array[i].equals("description")) 
 		               location.setDescription(array[i+2]);
-		            if(array[i].equals("telephone")) 
+		            else if(array[i].equals("telephone")) 
 		               location.setTp(array[i+2]);
-		            if(array[i].equals("address")) 
+		            else if(array[i].equals("address")) 
 		               location.setAddress(array[i+2]);
-		            if(array[i].equals("roadAddress")) 
+		            else if(array[i].equals("roadAddress")) 
 		               location.setRoadaddress(array[i+2]);
-		            if (array[i].equals("mapx"))
+		            else if (array[i].equals("mapx"))
 		               location.setMapx(array[i+2]);
-		            if (array[i].equals("mapy")) {
+		            else if (array[i].equals("mapy")) {
 		                location.setMapy(array[i+2]);
 		                if(checkResult(location, tmp, findLocation)) {
 		                   result = makeCheckList(location,findLocation);

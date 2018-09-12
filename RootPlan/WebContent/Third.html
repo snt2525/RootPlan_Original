@@ -69,11 +69,13 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="jsCode/Login.js"></script>
 	<script type="text/javascript" src="jsCode/ThirdMapData.js"></script>
 	<script type="text/javascript" src="jsCode/Init.js"></script>
-	<script type="text/javascript" src="jsCode/RouteApi.js"></script>
 	<script>
-		getDataThird(); //초기화
+		if(sessionCheck()==1){
+			getDataThird(); //초기화
+		}
  	</script>
 </body>
 </html>
