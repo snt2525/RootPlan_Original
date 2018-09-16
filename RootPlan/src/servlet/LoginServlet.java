@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
    static int customerSize = 0;
     static int[] log = new int[20]; //우선 20명만 수용
    static Map<String,Integer> logCheck = new HashMap<String,Integer>();   
-    public LoginServlet() {     
+    public LoginServlet() {    
        super();
    }
        
@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
          String cid = request.getParameter("cid");
          String gender = request.getParameter("gender");
          String age = request.getParameter("age");
+         System.out.println("이메일= "+email+", cid= "+cid+" , gender= "+gender+" , age=" + age);
          CustomerInfo tmp = new CustomerInfo(cid, email, gender, age);
          db.CheckID(tmp);   //아이디 있으면 pass; 있으면 생성   
          if(customerSize == customerCnt && log[customerCnt] == 0) { //사이즈랑 주소가 같으면
