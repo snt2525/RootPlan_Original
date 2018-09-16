@@ -45,8 +45,8 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.print("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
-      //int ID = Integer.parseInt(request.getParameter("IDNum"));  
-      int ID = 0;
+      int ID = Integer.parseInt(request.getParameter("IDNum"));  
+      
       switch(optionNum) {
          case 0: //경로 데이터 저장
         	 String cID = request.getParameter("cID");   
@@ -229,8 +229,7 @@ public class AddressDataServlet extends HttpServlet {
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
          	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
-         	break;
-         	
+         	break;       	
       }               
    }
 }
