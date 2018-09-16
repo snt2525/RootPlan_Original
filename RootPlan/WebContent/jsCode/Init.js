@@ -31,7 +31,7 @@ $.ajax({
 	type : "post",
 	url:"/RootPlan/AddressDataServlet",
 	dataType: "xml",
-	data:  $("#Init").serialize(),
+	data:  $("#Init").serialize()+"&customerID="+customerID,
 	success: function(data){
 		$(data).find("Data").each(function(){
 			latlngPoint = new naver.maps.Point($(this).find('lat').text(),$(this).find('lng').text());	

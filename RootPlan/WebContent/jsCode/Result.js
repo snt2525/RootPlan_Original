@@ -15,6 +15,57 @@ var imgIconUrl = [
 	'img/subway.png' // 7 : 지하철 아이콘
 ]
 
+function checkSave(){
+	$.ajax({
+		url:"/RootPlan/AddressDataServlet",
+		dataType: "text",
+		data: "menuIndex=0&customerID="+customerID,
+		success: function(data){
+			if(data==0){ // 이미 저장되있음 
+				state=1;
+				console.log("이미 저장된 데이터");
+				document.saveBtn.src="img/star_orange.png";
+			}
+		}, 		
+	    error: function (data) {
+	    	console.log("경로 저장되있는지 확인 실패");
+    	}				
+	});
+}
+
+var state=0;
+function ChangeImage(check){ //  저장 버튼 클릭시 변신
+	if(state==1) return;
+	if(check=='0'){ // onmouseover event
+		document.saveBtn.src="img/star_yellow.png";	
+	}else if(check=='1'){ // onmouseout
+		document.saveBtn.src="img/star_gray.png";
+	}else if(check='2'){ // 아예 바뀜 onclick
+		save();
+	}
+}
+
+
+function save(){
+	$.ajax({
+		url:"/RootPlan/AddressDataServlet",
+		dataType: "text",
+		data: "menuIndex=0&customerID="+customerID,
+		success: function(data){
+			if(data==1){
+				state=1;
+				alert("경로가 저장되었습니다.");
+				document.saveBtn.src="img/star_orange.png";
+			}else if(data==0){
+				alert("이미 저장되어 있습니다.");
+			}
+		}, 		
+	    error: function (data) {
+	    	alert("저장에 실패했습니다.");
+    	}				
+	});
+}
+
 function tabClick(title){
 	if(title=="대중교통+도보"){ 
 		document.resultPoly.how.value = "0";
@@ -36,23 +87,32 @@ function showResultPT(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showPT").serialize(),
+	       data:  $("#showPT").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0;
 	    	   var now=-1;
-	    	   var sectionSize =0, cnt=0, tmpId=0, cnt1=0, wayCount=0, count=0;
+	    	   var sectionSize =0, cnt=0, tmpId=0, cnt1=0, wayCount=0, count=0, cycle=0;
 	    	   htmlStr += "<div>직선거리 800m 이하는 도보로 제공됩니다.</div>";
 	    	   htmlStr += "<div>대중교통 이용시 걷는 시간 및 거리는 포함되지 않습니다.</div>";
 	    	   htmlStr += "<div><img class='iconImg' src='img/bus.png'/> : 버스 | <img class='iconImg' src='img/subway.png'/> : 지하철 | <img class='iconImg' src='img/walk.png'/> : 도보</div><div><hr class='one'>";
 	    	   $(data).find("Data").each(function(){
 	    		   if($(this).find('check').text()=='-1'){ // 경로 총 몇개인지
 	    			   wayCount =$(this).find('wayCount').text();
+	    			   cycle = $(this).find('cycle').text();
 	    		   }else if($(this).find('check').text()=='0'){
-	    			 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
-	    			 count = count+1;
-	    			 if(wayCount!=count) htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
-	    			 else htmlStr += "</div>"; 
+	    			 if(wayCount-1!=count){
+	    				 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
+		    			 count = count+1;
+	    				 htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
+	    			 }
+	    			 else{
+	    				 if(cycle=='1')
+	    					 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[0] +" />" + $(this).find('title').text();
+	    				 else 
+	    					 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
+	    				 htmlStr += "</div>"; 
+	    			 }
 	    		   }else if($(this).find('check').text()=='1'){	   // 1번 지점
 	    			   now = now+1;
 	    			   cnt=0; 
@@ -137,20 +197,29 @@ function showResultCar(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showCar").serialize(),
+	       data:  $("#showCar").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var htmlStr ="";
-	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0, wayCount=0, count=0;
+	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0, wayCount=0, count=0, cycle=0;
 	    	   htmlStr += "<div>직선거리 800m 이하는 도보로 제공됩니다.</div>";
 	    	   htmlStr += "<div><img class='iconImg' src='img/car.png'/> : 자동차 | <img class='iconImg' src='img/walk.png'/> : 도보</div><div><hr class='one'>";
 	    	   $(data).find("Data").each(function(){
 	    		   if($(this).find('check').text()=='-1'){
 	    			   wayCount = $(this).find('wayCount').text();
+	    			   cycle = $(this).find('cycle').text();
 	    		   }else if($(this).find('check').text()=='0'){
-	    			   	htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
-		    			count = count+1;
-		    			if(wayCount!=count) htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
-		    			else htmlStr += "</div>";
+		    			if(wayCount-1!=count){
+		    				htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
+			    			count = count+1;
+		    				htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
+		    			}
+		    			else{
+		    				if(cycle=='1')
+		    					htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[0] +" />" + $(this).find('title').text();
+		    				else
+		    					htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
+		    				htmlStr += "</div>";
+		    			}
 	    		   }else{
 	    			   htmlStr += "<hr class='one'><div>";
 	    			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
@@ -192,7 +261,7 @@ function callPolyLine(title){ // 0:pt, 1:car
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultPoly").serialize(),
+	       data:  $("#resultPoly").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   lineArray = null;
 	    	   lineArray = new Array();
@@ -233,7 +302,7 @@ function callResult(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultLatLng").serialize(),
+	       data:  $("#resultLatLng").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var i = 0;
 				$(data).find("Data").each(function(){

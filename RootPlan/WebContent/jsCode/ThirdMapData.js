@@ -9,7 +9,7 @@ function isChecked_S(index){ //0:START,1:FINAL , i: 넘버
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: $("#callLatLng").serialize(),
+		data: $("#callLatLng").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var i = 0;
 			$(data).find("LatLng").each(function(){
@@ -45,7 +45,7 @@ function saveIndex(){  //start, last 데이터를 저장해 둔다.
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "html",
-		data: $("#setIndexData").serialize(),
+		data: $("#setIndexData").serialize()+"&customerID="+customerID,
 		success: function(data){
 		}
 	});
@@ -72,7 +72,7 @@ function possibleNext(){
 			contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "text",
-			data:  $("#possible").serialize(),
+			data:  $("#possible").serialize()+"&customerID="+customerID,
 			success:function(data){	
 				var size = data;
 				if(size>4){ // 대중교통 반으로 나눠서 돌리기
@@ -81,14 +81,14 @@ function possibleNext(){
 					document.apiAB.carBlock.value = "0";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize()
+						data: $("#apiAB").serialize()+"&customerID="+customerID
 					});	
 					document.apiAB.a.value = "4";
 					document.apiAB.b.value = String(size);
 					document.apiAB.carBlock.value = "1";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize()
+						data: $("#apiAB").serialize()+"&customerID="+customerID
 					});	
 				}else{ // 자동차 
 					document.apiAB.a.value = "0";
@@ -96,7 +96,7 @@ function possibleNext(){
 					document.apiAB.carBlock.value = "0";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize()
+						data: $("#apiAB").serialize()+"&customerID="+customerID
 					});
 				}	
 			},
@@ -114,7 +114,7 @@ function getDataThird(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: $("#getAddressData").serialize(),
+		data: $("#getAddressData").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var htmlStr = "";
 			$(data).find("Address").each(function(){

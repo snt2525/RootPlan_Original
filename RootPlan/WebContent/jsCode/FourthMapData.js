@@ -9,7 +9,7 @@ function isChecked_L(index){ //0:START,1:FINAL , i: 넘버
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: $("#callLatLng").serialize(),
+		data: $("#callLatLng").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var i = 0;
 			$(data).find("LatLng").each(function(){
@@ -52,7 +52,7 @@ function saveIndex(){  //start, last 데이터를 저장해 둔다.
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "html",
-		data: $("#setIndexData").serialize(),
+		data: $("#setIndexData").serialize()+"&customerID="+customerID,
 		success: function(data){
 		}
 	});
@@ -84,7 +84,7 @@ function getDataFourth(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: $("#mData").serialize(),
+		data: $("#mData").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var htmlStr = "";
 			var tmpCnt = 0;

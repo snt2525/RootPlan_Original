@@ -9,7 +9,7 @@ function start() {
 	$.ajax({
 		url : "/RootPlan/AddressDataServlet",
 		dataType : "html",
-		data : $("#finish1").serialize(), //0
+		data : $("#finish1").serialize()+"&customerID="+customerID, //0
 		success : function(data) {
 			if (data == 1) {
 				callResultPT();
@@ -21,7 +21,7 @@ function start() {
 	$.ajax({
 		url : "/RootPlan/AddressDataServlet",
 		dataType : "html",
-		data : $("#finish2").serialize(), //1
+		data : $("#finish2").serialize()+"&customerID="+customerID, //1
 		success : function(data) {
 			if (data == 1) {
 				callResultCar();
@@ -35,7 +35,7 @@ function callResultPT() { //대중교통
 		type : "POST",
 		url : "/RootPlan/AddressDataServlet",
 		dataType : "html",
-		data : $("#finishCallDFS1").serialize(), //0
+		data : $("#finishCallDFS1").serialize()+"&customerID="+customerID, //0
 		success : function() {
 			ptFlag = 1;
 		}
@@ -46,7 +46,7 @@ function callResultCar() { //자동차
 		type : "POST",
 		url : "/RootPlan/AddressDataServlet",
 		dataType : "html",
-		data : $("#finishCallDFS2").serialize(), //1
+		data : $("#finishCallDFS2").serialize()+"&customerID="+customerID, //1
 		success : function() {
 			carFlag = 1;
 		}

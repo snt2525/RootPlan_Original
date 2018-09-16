@@ -149,7 +149,7 @@ function getAddr() {
    $.ajax({
       url : "http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do", //인터넷망
       type : "post",
-      data : $("#form2").serialize(),
+      data : $("#form2").serialize()+"&customerID="+customerID,
       dataType : "jsonp",
       crossDomain : true,
       success : function(xmlStr) {

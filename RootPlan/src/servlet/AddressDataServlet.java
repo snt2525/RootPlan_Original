@@ -23,7 +23,7 @@ public class AddressDataServlet extends HttpServlet {
     SetData[] sd = new SetData[20];
     Route[] r = new Route[20];
     Address[] aTmp = new Address[20];
-    boolean[] apiFlag = new boolean[20]; 
+    boolean[] apiFlag = new boolean[20]; // 로그아웃시 or session죽을 떄 자원해제해야하니까 apiFlag 변경해야함 
    
     public AddressDataServlet() {
         super();
@@ -43,12 +43,15 @@ public class AddressDataServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       
       PrintWriter out = response.getWriter();
-      System.out.print("연결: "+ request.getParameter("menuIndex"));
+      System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
-      int ID = Integer.parseInt(request.getParameter("IDNum"));  
+      int ID = Integer.parseInt(request.getParameter("customerID"));
+      System.out.println("customerID : "+ID);
+      
       
       switch(optionNum) {
          case 0: //경로 데이터 저장
+        	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
         	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
@@ -90,9 +93,10 @@ public class AddressDataServlet extends HttpServlet {
             String result4 = ad[ID].callAllAddress();
             int num = Integer.parseInt(request.getParameter("num"));
             if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
+            	System.out.println("초기화");
             	this.r[ID] = new Route(ad[ID].addressData.size());
             	apiFlag[ID] = true;   
-                r[ID].Clear();
+               // r[ID].Clear();
                 System.out.println("자동차 flag ="+ r[ID].carFlag+", 대중교통 flag="+ r[ID].ptFlag);
             	sd[ID].SetStartData(-1);
             	sd[ID].SetLastData(-1);
@@ -150,7 +154,7 @@ public class AddressDataServlet extends HttpServlet {
              
          case 13:  //결과 로딩이 끝났는지 
         	 int what = Integer.parseInt(request.getParameter("what"));
-        	 System.out.println("13" +what + r[ID].ptFlag);
+        	 System.out.println("13," +what +":"+ r[ID].ptFlag);
         	 int result13 = 0; 
         	 if(what == 0) { //대중교통
 	        		 try {

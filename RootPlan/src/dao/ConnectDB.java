@@ -1,16 +1,17 @@
 package dao;
 
-import java.util.*;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import dto.Address;
 import dto.CustomerInfo;
 import dto.DBRouteData;
-
-import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ConnectDB {
 	static Connection connection;
@@ -20,8 +21,8 @@ public class ConnectDB {
 	public ConnectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");
-			st = connection.createStatement();
+			connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");
+			st = (Statement) connection.createStatement();
 			rs = st.executeQuery("SHOW TABLES;");
 			while (rs.next()) {
 				String str = rs.getNString(1);
