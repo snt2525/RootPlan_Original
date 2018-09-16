@@ -12,7 +12,7 @@ function sessionCheck(i){
 		console.log("age : " + sessionStorage.getItem("age"));
 		console.log("birthday : " + sessionStorage.getItem("birthday"));	
 		
-		if(i == 0){
+	/*	if(i == 0){
 			$.ajax({
 				url:"/RootPlan/LoginServlet",
 				dataType: "html",
@@ -21,7 +21,7 @@ function sessionCheck(i){
 					
 				}
 			});
-		}
+		}*/
 		return 1;
 	}	
 }
