@@ -5,13 +5,12 @@ public class Address {
    private double lat; //y
    private double lng; //x
    private String address;
-   private String Si;
+   //private String Si;
    
-   public Address(double lat, double lng, String address,String si) {
+   public Address(double lat, double lng, String address) {
       this.lat = lat; 
       this.lng = lng;
       this.address = address;
-      this.Si = si;
    }
     
    public double getLat() {
@@ -26,7 +25,5 @@ public class Address {
       return address;
    }
    
-   public String getSi() {
-      return Si;
-   }   
+   
 }

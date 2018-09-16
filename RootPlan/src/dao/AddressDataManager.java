@@ -3,9 +3,11 @@ package dao;
 import java.util.LinkedList;
 
 import dto.Address;
+import dto.DBRouteData;
 import dto.SetData;
 
 public class AddressDataManager {
+   ConnectDB db = new ConnectDB();
    public LinkedList<Address> addressData; //��� �����͸� �����Ѵ�.   
    int size = 0;
    
@@ -119,7 +121,24 @@ public class AddressDataManager {
       
       return result;
    }
+   
    public LinkedList<Address> getList(){
       return addressData;
    }
+  
+   //저장에서 선택된 데이터를 list에 넣어준다.
+   public void callSaveDBData(String cID, String rID) {
+	   addressData.clear();
+	   //데이터를 DBRouteData에 넣어서 return 받는다.
+	   DBRouteData tmpDB = db.CallDBData_INDEX(cID, rID);
+	   //리턴받은 데이터를 addressData에 넣어준다.
+	   int size = tmpDB.getDatasize();
+	   for(int i = 0;i < size;i++) {
+		   	String a = tmpDB.getAddress(i);
+		   	double b = tmpDB.getLat(i);
+		   	double c = tmpDB.getLng(i);
+		   	Address tmp = new Address(b, c, a);
+		   	addressData.add(tmp);
+	   }
+   } 
 }

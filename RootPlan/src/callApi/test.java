@@ -16,7 +16,7 @@ public class test {
 	static Connection connection;
 	static Statement st;
 	static ResultSet rs;
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");
@@ -34,7 +34,7 @@ public class test {
 			e.printStackTrace();
 		}
 	}
-	public static void CheckID() {
+	public void CheckID() {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");	
 			st = connection.createStatement();
@@ -51,7 +51,7 @@ public class test {
 			
 		}
 	}
-	public static void CreateDB() {
+	public void CreateDB() {
 		System.out.println("DB를 생성합니다");
 		int result = 0;
 		try {
@@ -66,4 +66,12 @@ public class test {
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}
 	}
+	public void SaveData() { //데이터 저장
+		
+	}
+	public void GetAllData() { //모든 데이터 넘겨주기
+		
+	}
+	
+	
 }

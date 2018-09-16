@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AddressDataManager;
+import dao.ConnectDB;
 import dao.Route;
 import dto.Address;
 import dto.SetData;
@@ -17,6 +18,7 @@ import dto.SetData;
 @WebServlet("/AddressDataServlet")
 public class AddressDataServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    ConnectDB db = new ConnectDB();
     AddressDataManager[] ad = new AddressDataManager[20];  
     SetData[] sd = new SetData[20];
     Route[] r = new Route[20];
@@ -46,6 +48,11 @@ public class AddressDataServlet extends HttpServlet {
       //int ID = Integer.parseInt(request.getParameter("IDNum"));  
       int ID = 0;
       switch(optionNum) {
+         case 0: //경로 데이터 저장
+        	 String cID = request.getParameter("cID");   
+        	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
+        	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
+        	 break;
          case 1:  //정보 저장
         	 apiFlag[ID] = true;
             if(ad[ID].addressData.size() == 7) {
@@ -54,8 +61,8 @@ public class AddressDataServlet extends HttpServlet {
                double lat = Double.parseDouble(request.getParameter("lat"));
                double lng = Double.parseDouble(request.getParameter("lng"));
                String address = request.getParameter("address");
-               String si = request.getParameter("si");
-               aTmp[ID] = new Address(lat,lng,address,si);   
+               //String si = request.getParameter("si");
+               aTmp[ID] = new Address(lat,lng,address);   
                String result= ad[ID].addData(aTmp[ID]);
                out.print(result); 
             }
@@ -92,6 +99,12 @@ public class AddressDataServlet extends HttpServlet {
             }
             out.print(result4); 
             break;      
+            
+         case 6:
+        	 cID = request.getParameter("cID");
+        	 String resultDB = db.GetAllData(cID);
+        	 out.print(resultDB);
+        	 break;
             
          case 7: //reset
             int result6 = ad[ID].resetData();
@@ -201,9 +214,16 @@ public class AddressDataServlet extends HttpServlet {
            break;
          
          case 18: //폴리라인 그리기 위한 latlng 데이터 호출
-        	 int how3 =  Integer.parseInt(request.getParameter("how"));
+           int how3 =  Integer.parseInt(request.getParameter("how"));
            out.print(r[ID].resultPoly(how3));
            break;
+           
+         case 19: //저장한 데이터를 불러오기
+        	 String rID = request.getParameter("rID");   
+        	 String cID2 = request.getParameter("cID2");  
+        	 ad[ID].callSaveDBData(rID, cID2);
+        	 out.print("1");
+        	 break;
         	 
          case 20: // 대중교통 left 에 뿌려줌
         	 int how4 = Integer.parseInt(request.getParameter("how"));
