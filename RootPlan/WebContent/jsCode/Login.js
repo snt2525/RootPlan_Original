@@ -32,14 +32,15 @@ function sessionCheck(i){
 
 function sendCustomerInfo(){
 	document.loginData.email.value = sessionStorage.getItem("email");
-	document.loginData.customerID.value = sessionStorage.getItem("id");
-	document.loginData.email.gender = sessionStorage.getItem("gender");
-	document.loginData.email.age = sessionStorage.getItem("age");
+	document.loginData.cid.value = sessionStorage.getItem("id");
+	document.loginData.gender.value = sessionStorage.getItem("gender");
+	document.loginData.age.value = sessionStorage.getItem("age");
 	$.ajax({
 		url:"/RootPlan/LoginServlet",
-		dataType: "html",
+		dataType: "text",
 		data: $("#loginData").serialize(),
 		success: function(data){
+			console.log("customerID : " + data);
 			sessionStorage.setItem("customerID", data); // customerID 입력
 		},error:function(data){
 			console.log("customerID 값 받아오기 실패"); 

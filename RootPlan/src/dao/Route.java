@@ -22,17 +22,18 @@ public class Route {
     public Route(int listSize){
     	this.listSize = listSize;
     	dataTotal = new DataTotal(listSize);
-       sp = new Shortpath();
+        sp = new Shortpath();
     }
     
     public void Clear() {
     	dataTotal.carList.clear();
     	dataTotal.ptList.clear();
         carFlag = 0;
-        ptFlag = 0;        
+        ptFlag = 0;
+        size = 0;     
     }
     
-   public boolean callApi(int a, int b, String car, AddressDataManager ad, SetData sd) {     
+   public boolean callAPIData(int a, int b, String car, AddressDataManager ad, SetData sd) {     
 	   //size = ad.addressData.size();
 	   if(sd.GetStartData() == sd.GetLastData()) {
 		   listSize++;
@@ -201,8 +202,6 @@ public class Route {
 		   result += "<Data>";
 		   result += "<check>-1</check>";
 		   result += "<wayCount>"+adSize+"</wayCount>";
-		   System.out.println("시작 : " + sd.GetStartData());
-		   System.out.println("끝 : " + sd.GetLastData());
 		   if(sd.GetLastData()==sd.GetStartData()) result += "<cycle>1</cycle>";
 		   else result += "<cycle>0</cycle>";
 		   result += "</Data>";
