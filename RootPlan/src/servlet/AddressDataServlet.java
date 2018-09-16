@@ -16,12 +16,12 @@ import dto.SetData;
 
 @WebServlet("/AddressDataServlet")
 public class AddressDataServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
-   AddressDataManager[] ad = new AddressDataManager[20];  
-   SetData[] sd = new SetData[20];
-   Route[] r = new Route[20];
-   Address[] aTmp = new Address[20];
-   boolean[] apiFlag = new boolean[20]; 
+    private static final long serialVersionUID = 1L;
+    AddressDataManager[] ad = new AddressDataManager[20];  
+    SetData[] sd = new SetData[20];
+    Route[] r = new Route[20];
+    Address[] aTmp = new Address[20];
+    boolean[] apiFlag = new boolean[20]; 
    
     public AddressDataServlet() {
         super();
@@ -166,7 +166,7 @@ public class AddressDataServlet extends HttpServlet {
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();    			 
-	        	 }
+					}
         	 }
         	 System.out.println(result13);
         	 out.print(result13);
@@ -183,7 +183,7 @@ public class AddressDataServlet extends HttpServlet {
               int a = Integer.parseInt(request.getParameter("a"));
               int b = Integer.parseInt(request.getParameter("b"));
               String car = request.getParameter("carBlock");
-              apiFlag[ID] = r[ID].callApi(a, b, car, ad[ID], sd[ID]);      
+              apiFlag[ID] = r[ID].callAPIData(a, b, car, ad[ID], sd[ID]);      
            }
             break;
             

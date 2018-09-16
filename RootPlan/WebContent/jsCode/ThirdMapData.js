@@ -81,16 +81,14 @@ function possibleNext(){
 					document.apiAB.carBlock.value = "0";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize(),
-						type:"get"
+						data: $("#apiAB").serialize()
 					});	
 					document.apiAB.a.value = "4";
 					document.apiAB.b.value = String(size);
 					document.apiAB.carBlock.value = "1";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize(),
-						type:"get"
+						data: $("#apiAB").serialize()
 					});	
 				}else{ // 자동차 
 					document.apiAB.a.value = "0";
@@ -98,8 +96,7 @@ function possibleNext(){
 					document.apiAB.carBlock.value = "0";
 					$.ajax({
 						url:"/RootPlan/AddressDataServlet",
-						data: $("#apiAB").serialize(),
-						type:"get"
+						data: $("#apiAB").serialize()
 					});
 				}	
 			},
