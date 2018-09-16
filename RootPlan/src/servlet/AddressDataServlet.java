@@ -100,7 +100,7 @@ public class AddressDataServlet extends HttpServlet {
             out.print(result4); 
             break;      
             
-         case 6:
+         case 6: //DB의 사용자 저장한  데이터  모두 호출
         	 cID = request.getParameter("cID");
         	 String resultDB = db.GetAllData(cID);
         	 out.print(resultDB);
@@ -218,7 +218,7 @@ public class AddressDataServlet extends HttpServlet {
            out.print(r[ID].resultPoly(how3));
            break;
            
-         case 19: //저장한 데이터를 불러오기
+         case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기
         	 String rID = request.getParameter("rID");   
         	 String cID2 = request.getParameter("cID2");  
         	 ad[ID].callSaveDBData(rID, cID2);
