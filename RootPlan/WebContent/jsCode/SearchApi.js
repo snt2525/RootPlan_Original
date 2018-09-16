@@ -33,7 +33,7 @@ function getLocalSearchData(){
    $.ajax({
        url:"/RootPlan/CallSearchLocalApi",
        dataType: "xml",
-       data: $("#SiData").serialize(),
+       data: $("#SiData").serialize()+"&customerID="+customerID,
        success: function(data){
     	   console.log("크롤링 js 들어옴");
           var htmlStr = "";
@@ -97,7 +97,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
        url:"/RootPlan/CallSearchLocalApi",
        dataType: "xml",
        type : "post",
-       data: $("#getImgURL").serialize(),
+       data: $("#getImgURL").serialize()+"&customerID="+customerID,
        success: function(data){
     	  var cnt = 0;   	  
           $(data).find("Data").each(function(){
@@ -205,7 +205,7 @@ function callSearchApi(num){
             url:"/RootPlan/CallSearchLocalApi",
             type : "post",
             dataType: "xml",
-            data: $("#searchApi").serialize(),
+            data: $("#searchApi").serialize()+"&customerID="+customerID,
             success: function(data){               
                $(data).find("ResultData").each(function(){   
                   if($(this).find('title').text() == "l.l"){

@@ -33,12 +33,12 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		System.out.println("사용자주소할당");		
 		String ID = request.getParameter("ID");	
-		//int num = Integer.parseInt(request.getParameter("num"));
-		int num = 0;
+		int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
+		//int menuIndex = 0;
 		
-		switch(num){
+		switch(menuIndex){
 		case 0: //주소할당 받기
-			
+			/*
 			if(customerSize == customerCnt && log[customerCnt] == 0) { //사이즈랑 주소가 같으면
 				logCheck.put(ID, customerCnt);
 				log[customerCnt] = 1;
@@ -51,8 +51,8 @@ public class LoginServlet extends HttpServlet {
 					}
 				}
 			}	
-			customerSize++;
-			out.print(customerCnt);
+			customerSize++;*/
+			out.print(0);
 			break;
 			
 		case 1: //주소 해제

@@ -25,7 +25,7 @@ function clickADDBtn(){
 		$.ajax({
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "html",
-			data: $("#saveAddress").serialize(),
+			data: $("#saveAddress").serialize()+"&customerID="+customerID,
 			success: function(data){
 				infoWindow.close();
 				document.saveAddress.lat.value = "";
@@ -52,7 +52,7 @@ function getData(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "xml",
-		data: $("#getAddressData").serialize(),
+		data: $("#getAddressData").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var htmlStr = "";
 			if(data!= null){
@@ -98,7 +98,7 @@ $("#addressBasket").on("click", '#resetBtn' , function(){
 		$.ajax({
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "html",
-			data: $("#initData").serialize(),
+			data: $("#initData").serialize()+"&customerID="+customerID,
 			success: function(data){
 				if(data>0){
 					clean();
@@ -128,7 +128,7 @@ $("#list").on("click", '#del' , function(){
 		$.ajax({
 			url:"/RootPlan/AddressDataServlet",
 			dataType: "text",
-			data: $("#deleteAddress").serialize(),
+			data: $("#deleteAddress").serialize()+"&customerID="+customerID,
 			success:function(data){				
 				if(data>0){
 					//clean(); 
@@ -149,7 +149,7 @@ function getDataSize(num){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "text",
-		data: $("#getSize").serialize(),
+		data: $("#getSize").serialize()+"&customerID="+customerID,
 		success:function(data){				
 			if(data<3){
 				if(num==0) 

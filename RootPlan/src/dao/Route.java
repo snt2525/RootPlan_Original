@@ -127,7 +127,6 @@ public class Route {
 			   int InfoPTSize = dataTotal.ptList.get(i).getLineListSize();
 			   boolean isWalk = dataTotal.ptList.get(i).isWalk();
 			  
-			   // 이부분 이상함, 왜그러는지 모르겠음 
 			   result += "<Data>";
 			   if(isWalk) {
 				   result += "<walk>0</walk>";
@@ -202,6 +201,10 @@ public class Route {
 		   result += "<Data>";
 		   result += "<check>-1</check>";
 		   result += "<wayCount>"+adSize+"</wayCount>";
+		   System.out.println("시작 : " + sd.GetStartData());
+		   System.out.println("끝 : " + sd.GetLastData());
+		   if(sd.GetLastData()==sd.GetStartData()) result += "<cycle>1</cycle>";
+		   else result += "<cycle>0</cycle>";
 		   result += "</Data>";
 		   
 		   // 0번 지점
@@ -299,6 +302,8 @@ public class Route {
 		   result += "<Data>";
 		   result += "<check>-1</check>";
 		   result += "<wayCount>"+adSize+"</wayCount>";
+		   if(sd.GetStartData()==sd.GetLastData()) result += "<cycle>1</cycle>";
+		   else result += "<cycle>0</cycle>";
 		   result += "</Data>";
 		   
 		   // 0번 지점
