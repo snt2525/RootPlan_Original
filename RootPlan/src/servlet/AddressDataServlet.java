@@ -225,7 +225,7 @@ public class AddressDataServlet extends HttpServlet {
            
          case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기
         	 String rID = request.getParameter("rID");   
-        	 String cID2 = request.getParameter("cID2");  
+        	 String cID2 = request.getParameter("cID");  
         	 ad[ID].callSaveDBData(rID, cID2);
         	 out.print("1");
         	 break;
