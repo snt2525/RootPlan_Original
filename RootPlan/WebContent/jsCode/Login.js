@@ -12,6 +12,7 @@ function print(){
 	console.log("gender : " + sessionStorage.getItem("gender"));
 	console.log("age : " + sessionStorage.getItem("age"));
 }
+
 function sessionCheck(i){
 	// 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
 	if(sessionStorage.getItem('id')==null){
@@ -31,13 +32,11 @@ function sessionCheck(i){
 	}	
 }
 
-var email, id, gender, age;
-
+var email = sessionStorage.getItem("email");
+var id = sessionStorage.getItem("id");
+var gender = sessionStorage.getItem("gender");
+var age = sessionStorage.getItem("age");
 function sendCustomerInfo(){
-	email = sessionStorage.getItem("email");
-	id = sessionStorage.getItem("id");
-	gender = sessionStorage.getItem("gender");
-	age = sessionStorage.getItem("age");
 	$.ajax({
 		url:"/RootPlan/LoginServlet",
 		dataType: "text",

@@ -45,8 +45,10 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
-      int ID = Integer.parseInt(request.getParameter("customerID"));
-      System.out.println("customerID : "+ID);
+      System.out.println("customerID : " + request.getParameter("customerID"));
+      int ID = 0;
+      //int ID = Integer.parseInt(request.getParameter("customerID"));
+      //System.out.println("customerID : "+ID);
       
       
       switch(optionNum) {
@@ -93,6 +95,7 @@ public class AddressDataServlet extends HttpServlet {
          case 5: //주소 리스트 호출
             String result4 = ad[ID].callAllAddress();
             int num = Integer.parseInt(request.getParameter("num"));
+            System.out.println("num : " + num);
             if(num== 0) {  //3번째 페이지에 오면 시작과 끝을 초기화 해준다.
             	System.out.println("초기화");
             	this.r[ID] = new Route(ad[ID].addressData.size());
@@ -234,7 +237,7 @@ public class AddressDataServlet extends HttpServlet {
          case 20: // 대중교통 left 에 뿌려줌
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
-         	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
+         	out.print(r[ID].resultList(how4, ad[ID], sd[ID]));
          	break;    
          
       }               

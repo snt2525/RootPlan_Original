@@ -187,7 +187,7 @@ public class Route {
 	   return result;
    }   
    
-   public String resultList(int how, AddressDataManager ad, SetData sd, Route r) { // 0:pt, 1:car
+   public String resultList(int how, AddressDataManager ad, SetData sd) { // 0:pt, 1:car
 	   String result="";
 	   int adSize = ad.addressData.size();
 	   if(sd.GetStartData() == sd.GetLastData()) {
@@ -210,7 +210,7 @@ public class Route {
 		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(r.dataTotal.ptAns[k]).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(dataTotal.ptAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   if(sd.GetStartData()==sd.GetLastData()) {
@@ -309,7 +309,7 @@ public class Route {
 		   for(int k=0; k<ad.addressData.size(); k++) {
 			   result += "<Data>";
 			   result += "<check>0</check>";
-			   result += "<title>" + ad.addressData.get(r.dataTotal.carAns[k]).getAddress() + "</title>";
+			   result += "<title>" + ad.addressData.get(dataTotal.carAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
 		   

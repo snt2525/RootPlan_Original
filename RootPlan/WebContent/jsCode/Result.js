@@ -19,7 +19,7 @@ function checkSave(){
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "text",
-		data: "menuIndex=0&customerID="+customerID,
+		data: "menuIndex=0&customerID="+customerID+"&cID="+id,
 		success: function(data){
 			if(data==0){ // 이미 저장되있음 
 				state=1;
@@ -47,24 +47,25 @@ function ChangeImage(check){ //  저장 버튼 클릭시 변신
 
 
 function save(){
-	$.ajax({
-		url:"/RootPlan/AddressDataServlet",
-		dataType: "text",
-		data: "menuIndex=0&customerID="+customerID,
-		success: function(data){
-			if(data==1){
-				state=1;
-				alert("경로가 저장되었습니다.");
-				document.saveBtn.src="img/star_orange.png";
-			}else if(data==0){
-				alert("이미 저장되어 있습니다.");
-			}
-		}, 		
-	    error: function (data) {
-	    	alert("저장에 실패했습니다.");
-    	}				
-	});
-}
+	   var id = sessionStorage.getItem("id");
+	   $.ajax({
+	      url:"/RootPlan/AddressDataServlet",
+	      dataType: "text",
+	      data: "menuIndex=0&customerID="+customerID+"&cID="+id,
+	      success: function(data){
+	         if(data==1){
+	            state=1;
+	            alert("경로가 저장되었습니다.");
+	            document.saveBtn.src="img/star_orange.png";
+	         }else if(data==0){
+	            alert("이미 저장되어 있습니다.");
+	         }
+	      },       
+	       error: function (data) {
+	          alert("저장에 실패했습니다.");
+	       }            
+	   });
+	}
 
 function tabClick(title){
 	if(title=="대중교통+도보"){ 
