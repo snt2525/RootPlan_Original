@@ -1,7 +1,10 @@
 package dao;
 
+import java.util.Arrays;
+
 import callApi.ApiCarSearch;
 import callApi.ApiPTSearch;
+import dto.DBRoute2Data;
 import dto.DataPair;
 import dto.DataTotal;
 import dto.InfoCar;
@@ -14,12 +17,18 @@ public class Route {
     ApiCarSearch cs;
     Shortpath sp;
     int listSize;
+    String[] result_html = new String[2]; //DB에 넣어줄 데이터
+    String[] result_xml = new String[2];
+    String[] result_mark = new String[2];
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
     public DataTotal dataTotal;
     
     public Route(int listSize){
+    	Arrays.fill(result_html, "");
+    	Arrays.fill(result_xml, "");
+    	Arrays.fill(result_mark, "");
     	this.listSize = listSize;
     	dataTotal = new DataTotal(listSize);
         sp = new Shortpath();
@@ -32,6 +41,25 @@ public class Route {
         ptFlag = 0;
         size = 0;     
     }
+   //DB에 저장 할때 데이터를 넣어준다
+   public DBRoute2Data putDBRoute2Data(DBRoute2Data tmp, AddressDataManager ad, SetData sd) {
+	   for(int i = 0; i<2;i++) {  //우선 데이터를 배열에 다 저장해둔다.
+		   if(result_html[i].equals("")) 
+			   resultList(i, ad, sd); 		   
+		   if(result_xml[i].equals("")) 
+			   resultPoly(i);		   
+		   if(result_mark[i].equals("")) 
+			   orderResult(i, ad);		   
+	   }
+	   //dto에 넣주는 작업
+	    tmp.setPt_html(result_html[0]);
+	    tmp.setCar_html(result_html[1]);
+	    tmp.setPt_xml(result_xml[0]);
+	    tmp.setCar_xml(result_xml[1]);
+	    tmp.setPt_mark(result_mark[0]);
+	    tmp.setCar_mark(result_mark[1]);	   
+	   return tmp;
+   }
     
    public boolean callAPIData(int a, int b, String car, AddressDataManager ad, SetData sd) {     
 	   //size = ad.addressData.size();
@@ -115,6 +143,7 @@ public class Route {
 		   }
 		   result += "</ResultData>";		   
 	   }
+	   result_mark[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }
    
@@ -184,6 +213,7 @@ public class Route {
 		   }
 		   result += "</carData>";
 	   }
+	   result_xml[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }   
    
@@ -332,6 +362,10 @@ public class Route {
 		   }
 		   result += "</resultCarList>";
 	   }
+	   result_html[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }
+   
+   
+   
 }
