@@ -55,6 +55,9 @@ public class AddressDataServlet extends HttpServlet {
         	 String cID = request.getParameter("cID");   
         	 System.out.println("cID(서블렛) : "+cID);
         	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
+        	 if(resultFlag.equals("1")) { // 저장됫으면 route2에 데이터를 저장해줘야한다.
+        		 
+        	 }
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
          case 1:  //정보 저장
@@ -234,7 +237,8 @@ public class AddressDataServlet extends HttpServlet {
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
          	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
-         	break;    
+         	break; 
+         
          
       }               
    }

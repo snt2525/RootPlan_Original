@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import dto.Address;
 import dto.CustomerInfo;
+import dto.DBRoute2Data;
 import dto.DBRouteData;
 
 import java.sql.Connection;
@@ -155,6 +156,23 @@ public class ConnectDB {
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}	
 	}
+	
+	public void SaveRoute2Data(DBRoute2Data data) { //car_html, car_xml, car_mark... pt등등의 데이터 저장		
+		int result = 0;
+		try {
+			connection = ds.getConnection();
+			st = connection.createStatement();
+			int Query = st.executeUpdate("INSERT INTO route2 VALUES()");
+					       
+			rs.close();
+			st.close();
+			connection.close();
+		} catch (SQLException SQLex) {
+			System.out.println("SQLException: " + SQLex.getMessage());
+			System.out.println("SQLState: " + SQLex.getSQLState());
+		}	
+	}
+	
 	
 	public String GetAllData(String cID) { //모든 데이터 넘겨주기
 		String result = "<SaveData>";
