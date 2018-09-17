@@ -20,12 +20,16 @@
             <!--  frameLeft -->
             <div id="asideTop">
                <form name="addressBasket" id="addressBasket" method="post">
-                  <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn">
-               	<input type="hidden" id="IDNum" name="IDNum" value="0"> 
-                  <input type="hidden" class="btn btn-skin" value="Reset"
-                     id="resetBtn" name="resetBtn">
-                  <h3 class='headline'>여행지 선택</h3>
-                  <div id="list" name="list"></div>   <!-- 검색 결과 리스트 출력 -->
+                  	<div  id="btnMainList" class="left-content-second"><a href="#" >
+		        		<img  src="img/list_gray.png" onmouseover="this.src='img/list_yellow.png';" onmouseout="this.src='img/list_gray.png';" />
+		        	</a></div>              
+                  	<div  id="btnSaveList" class="left-content-second"><a href="#" >
+		        		<img  src="img/saveListGray.png" onmouseover="this.src='img/saveListYellow.png';" onmouseout="this.src='img/saveListGray.png';" />
+		        	</a></div>
+		        	<div class="right-content-second"> <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn"> </div>
+		        	
+               	  <input type="hidden" id="IDNum" name="IDNum" value="0"> 
+                  <div id="list" name="list"><h3 class='headline'>여행지 선택</h3></div>   <!-- 검색 결과 리스트 출력 -->
                </form>
             </div>
      
@@ -36,14 +40,12 @@
             		<form name="keyword" id="keyword" method="post">
             			<input type="hidden" id="menuIndex" name="menuIndex" value="3"/>
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="거리">
-            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="문화재">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="여행지">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="유적지">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="자연">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="박물관">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="행사">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="전시회">
-            			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="쇼핑">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="명소">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="호텔">
             			<input type="button" class="btnKeyword btn-skin1" onclick="button_click(this.value);" value="게스트하우스">
@@ -175,10 +177,12 @@
    <script id="code" type="text/javascript" src="jsCode/MapApi.js"></script>
    <script type="text/javascript" src="jsCode/SearchApi.js"></script>
    <script>	
-  		 if(sessionCheck(1)==1){
+   		document.getElementById("btnMainList").style.display="none";
+  		 if(sessionCheck(0)==1){
 	  		 getData(); //초기화init()
 	    	 getLocalSearchData();
   		 }
+  		
     </script>
 </body>
 </html>

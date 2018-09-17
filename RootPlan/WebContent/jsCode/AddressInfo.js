@@ -19,6 +19,44 @@ $.ajaxSetup({
 	type:"post"
 });
 
+// 즐겨찾기 버튼 누르면 리스트 보여주는 함수로 가기
+$(function(){
+   $('#btnSaveList').click(function(){
+	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기 
+	   document.getElementById("btnMainList").style.display="block";
+	   document.getElementById("btnSaveList").style.display="none";
+	   //document.getElementById("headlineID").style.display="block";
+       showSaveList();
+       alert("showSaveList");
+   });
+   $('#btnMainList').click(function(){
+	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기
+	   document.getElementById("btnMainList").style.display="none";
+	   document.getElementById("btnSaveList").style.display="block";
+	  // document.getElementById("headlineID").style.display="none";
+	   getData(); // main으로 돌아가면 모든 리스트 다시 보여주기
+	   alert("main으로");
+   });
+ }); 
+
+function showSaveList(){
+	// addressServlet 6번으로 가기
+	$.ajax({
+		url:"/RootPlan/AddressDataServlet",
+		dataType: "text", // 나중에 xml로 바꿔야함 
+		data: "menuIndex=6&customerID="+customerID,
+		success: function(data){
+			// 모든 데이터 받아와서 매핑해야서 보여줘야함
+			$("#resetBtn").attr("type","hidden");
+			var htmlStr = "<h4>저장한 모든 데이터 보여주기</h4>";
+			$("#list").html(htmlStr);	
+		}, 		
+	    error: function (data) {
+	    	console.log("저장한 리스트 가져오기 실패");
+    	}				
+	});
+}
+
 //$("infoBtn").on("click", '#btn' , function(){
 function clickADDBtn(){
 	if(flag == 1){
@@ -54,7 +92,7 @@ function getData(){
 		dataType: "xml",
 		data: $("#getAddressData").serialize()+"&customerID="+customerID,
 		success: function(data){
-			var htmlStr = "";
+			var htmlStr = "<h3 class='headline'>여행지 선택</h3>";
 			if(data!= null){
 				$("#resetBtn").attr("type","button");  //초기화 버튼 활성화
 			}
@@ -102,7 +140,7 @@ $("#addressBasket").on("click", '#resetBtn' , function(){
 			success: function(data){
 				if(data>0){
 					clean();
-					var htmlStr = "";
+					var htmlStr = "<h3 class='headline'>여행지 선택</h3>";
 					$("#resetBtn").attr("type","hidden");  //초기화 버튼 hidden
 					$("#list").html(htmlStr); 
 					getDataSize(1);

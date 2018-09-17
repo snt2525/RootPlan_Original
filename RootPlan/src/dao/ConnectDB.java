@@ -1,5 +1,9 @@
 package dao;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -8,13 +12,6 @@ import dto.Address;
 import dto.CustomerInfo;
 import dto.DBRoute2Data;
 import dto.DBRouteData;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ConnectDB {
 	static DataSource ds;

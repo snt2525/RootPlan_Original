@@ -36,8 +36,8 @@ public class LoginServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");         
       PrintWriter out = response.getWriter();
       System.out.println("사용자주소할당");      
-      String ID="";
-      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));  
+      String ID=request.getParameter("customerID");   
+      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
       
       switch(menuIndex){
       case 0: //주소할당 받기
