@@ -16,25 +16,22 @@ public class test {
 	static Connection connection;
 	static Statement st;
 	static ResultSet rs;
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");
 			st = connection.createStatement();
 			rs = st.executeQuery("SHOW TABLES;");
-			CheckID();
 			while (rs.next()) {
 				String str = rs.getNString(1);
 				System.out.println(str);
 			}
+			CheckID();
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
 			System.out.println("SQLState: " + SQLex.getSQLState());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
-	public void CheckID() {
+	public static void CheckID() {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");	
 			st = connection.createStatement();
@@ -51,7 +48,7 @@ public class test {
 			
 		}
 	}
-	public void CreateDB() {
+	public static void CreateDB() {
 		System.out.println("DB를 생성합니다");
 		int result = 0;
 		try {

@@ -21,9 +21,9 @@ public class LoginServlet extends HttpServlet {
    static ConnectDB db = new ConnectDB();
    static int customerCnt = 0;
    static int customerSize = 0;
-    static int[] log = new int[20]; //우선 20명만 수용
+   static int[] log = new int[20]; //우선 20명만 수용
    static Map<String,Integer> logCheck = new HashMap<String,Integer>();   
-    public LoginServlet() {     
+    public LoginServlet() {    
        super();
    }
        
@@ -42,14 +42,16 @@ public class LoginServlet extends HttpServlet {
       switch(menuIndex){
       case 0: //주소할당 받기
          String email = request.getParameter("email");
-         String cid = request.getParameter("cid");
+         String cid = request.getParameter("cID");
          String gender = request.getParameter("gender");
          String age = request.getParameter("age");
+         System.out.println("이메일= "+email+", cid= "+cid+" , gender= "+gender+" , age=" + age);
          CustomerInfo tmp = new CustomerInfo(cid, email, gender, age);
          db.CheckID(tmp);   //아이디 있으면 pass; 있으면 생성   
          if(customerSize == customerCnt && log[customerCnt] == 0) { //사이즈랑 주소가 같으면
             log[customerCnt] = 1;
             out.print(customerCnt);
+            logCheck.put(cid, customerCnt);
             customerSize++;
             customerCnt++;
          }else{
@@ -57,23 +59,24 @@ public class LoginServlet extends HttpServlet {
                if(log[i] == 0) {
                   log[i] = 1;
                   customerSize++;
+                  logCheck.put(cid, i);
                   out.print(i);
                }
             }
-         }   
+         }
+         
          break;
          
       case 1: //주소 해제, 수정해야함
-         int IDaddress = Integer.parseInt(request.getParameter("customerID"));
-         log[IDaddress] = 0;
+         int cID = Integer.parseInt(request.getParameter("cID"));
+         int customerCnt =  logCheck.get(cID);
+         log[customerCnt] = 0;
          if(customerSize == customerCnt)
             customerCnt--;
          customerSize--;
          //해쉬 해제도 해줘야함
-         logCheck.remove(ID);
-         System.out.println("customerID 해제 완료");
+         logCheck.remove(cID);
          break;      
       }
-
    }
 }

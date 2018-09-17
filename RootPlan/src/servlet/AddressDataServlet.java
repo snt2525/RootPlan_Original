@@ -45,14 +45,15 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
-      System.out.println("customerID : "+request.getParameter("customerID"));
       int ID = Integer.parseInt(request.getParameter("customerID"));
+      System.out.println("customerID : "+ID);
       
       
       switch(optionNum) {
          case 0: //경로 데이터 저장
         	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
+        	 System.out.println("cID(서블렛) : "+cID);
         	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -225,7 +226,7 @@ public class AddressDataServlet extends HttpServlet {
            
          case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기
         	 String rID = request.getParameter("rID");   
-        	 String cID2 = request.getParameter("cID2");  
+        	 String cID2 = request.getParameter("cID");  
         	 ad[ID].callSaveDBData(rID, cID2);
         	 out.print("1");
         	 break;
@@ -234,8 +235,8 @@ public class AddressDataServlet extends HttpServlet {
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
          	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
-         	break;
-         	
+         	break;    
+         
       }               
    }
 }

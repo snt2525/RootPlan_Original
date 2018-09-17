@@ -58,7 +58,7 @@ function killSession(){
 	$.ajax({
 		url:"/RootPlan/LoginServlet",
 		dataType: "text",
-		data: "menuIndex=1&customerID="+customerID 
+		data: "menuIndex=1&cID="+id
 	});
 }
 

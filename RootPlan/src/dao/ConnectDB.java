@@ -1,51 +1,49 @@
 package dao;
-
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import dto.Address;
 import dto.CustomerInfo;
 import dto.DBRouteData;
 
 public class ConnectDB {
+	static DataSource ds;
 	static Connection connection;
-	static Statement st;	
+	static Statement st;
 	static ResultSet rs;
-	static PreparedStatement ps;
-	public ConnectDB() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/rootplan","root", "rootplan");
-			st = (Statement) connection.createStatement();
-			rs = st.executeQuery("SHOW TABLES;");
-			while (rs.next()) {
-				String str = rs.getNString(1);
-				System.out.println(str);
-			}
-		} catch (SQLException SQLex) {
-			System.out.println("SQLException: " + SQLex.getMessage());
-			System.out.println("SQLState: " + SQLex.getSQLState());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+	public ConnectDB(){
+		try {	
+			InitialContext ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysqldb");
+		} catch (Exception e) {
+			
 		}
 	}
 	public void CheckID(CustomerInfo info) {
-		try {
-			rs = st.executeQuery("SELECT * FROM customer where id='"+ info.getId()+"'");
+		try {			
+			connection = ds.getConnection();
+			st = connection.createStatement();
+			rs = st.executeQuery("SELECT * FROM customer where id='"+ info.getId()+"'");			
 			if(rs.next()) { //이미 있는 아이디
 				System.out.println("이미 있는 아이디입니다.");
-				return;
-			}else {
+			}else{
 				System.out.println("없는 아이디입니다.");
 				CreateDB(info); //없는 아이디
 				rs = st.executeQuery("SELECT * FROM customer");
+				while (rs.next()) {
+					String str = rs.getNString(1);
+					System.out.println(str);
+				}
 			}
+			rs.close();
+			st.close();
+			connection.close();
 		} catch (SQLException SQLex) {
 			
 		}
@@ -54,15 +52,20 @@ public class ConnectDB {
 		System.out.println("DB를 생성합니다");
 		int result = 0;
 		try {
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			int Query = st.executeUpdate("INSERT INTO customer " +
 					"VALUES('"+info.getId()+"','"+info.getEmail()
-					+"',"+info.getGender()+","+info.getAge()+");");			
+					+"',"+info.getGender()+","+info.getAge()+");");
+			System.out.println("DB가 저장되었습니다.");
+			rs.close();
+			st.close();
+			connection.close();
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
 			System.out.println("SQLState: " + SQLex.getSQLState());
-		}
+		}		
 	}
-	
 	private String makeRID(LinkedList<Address> ad) {
 		String result = "";
 		int size = ad.size();
@@ -74,18 +77,30 @@ public class ConnectDB {
 	}
 	
 	public String CheakSameData(LinkedList<Address> ad,String cID) { //저장 -> 중복되는 애가 있는지 검사
+		System.out.print("cID"+cID);
 		//rID를 만든다
 		String rID =  makeRID(ad);
 		try {
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			rs = st.executeQuery("SELECT * FROM route where rid='"+rID+"' AND cid='"+cID+"'");
 			if(rs.next()) { //이미 있는 아이디
 				System.out.println("이미 있는 경로");
+				rs.close();
+				st.close();
 				return "0";
 			}else {
 				System.out.println("없는 저장 정보 입니다."); 
 				DBRouteData data = DataIntoDBRouteData(ad, rID ,cID); //리스트에 있는 데이터를 dto에 넣어준다
 				SaveData(data); //중복되는 데이터가 없으면 저장 한다.
 				rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다
+				while (rs.next()) {
+					String str = rs.getNString(1);
+					System.out.println(str);
+				}
+				rs.close();
+				st.close();
+				connection.close();
 			}
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
@@ -107,9 +122,19 @@ public class ConnectDB {
 	}
 	
 	public void SaveData(DBRouteData data) { //데이터 저장		
-		System.out.println("Route DB에 데이터를 삽입합니다.");
+		System.out.println("Route DB에 데이터를 삽입합니다.: "
+		        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"
+		        +data.getAddress(0)+"',"+ data.getLat(0) +","+data.getLng(0)+",'"
+		        +data.getAddress(1)+"',"+ data.getLat(1) +","+data.getLng(1)+",'"
+		        +data.getAddress(2)+"',"+ data.getLat(2) +","+data.getLng(2)+",'"
+		        +data.getAddress(3)+"',"+ data.getLat(3) +","+data.getLng(3)+",'"
+		        +data.getAddress(4)+"',"+ data.getLat(4) +","+data.getLng(4)+",'"
+		        +data.getAddress(5)+"',"+ data.getLat(5) +","+data.getLng(5)+",'"
+		        +data.getAddress(6)+"',"+ data.getLat(6) +","+data.getLng(6)+")");
 		int result = 0;
 		try {
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			int Query = st.executeUpdate("INSERT INTO route VALUES('"
 					        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"
 					        +data.getAddress(0)+"',"+ data.getLat(0) +","+data.getLng(0)+",'"
@@ -119,6 +144,9 @@ public class ConnectDB {
 					        +data.getAddress(4)+"',"+ data.getLat(4) +","+data.getLng(4)+",'"
 					        +data.getAddress(5)+"',"+ data.getLat(5) +","+data.getLng(5)+",'"
 					        +data.getAddress(6)+"',"+ data.getLat(6) +","+data.getLng(6)+")");
+			rs.close();
+			st.close();
+			connection.close();
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
 			System.out.println("SQLState: " + SQLex.getSQLState());
@@ -127,8 +155,9 @@ public class ConnectDB {
 	
 	public String GetAllData(String cID) { //모든 데이터 넘겨주기
 		String result = "<SaveData>";
-		try {				
-			// ' 왠지 이거 없애야될거같음
+		try {	
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			rs = st.executeQuery("SELECT * FROM route WHERE cid='"+cID+"'");
 			
 			while(rs.next()) {
@@ -148,6 +177,9 @@ public class ConnectDB {
 				}
 				result += "</Data>";
 			}			
+			rs.close();
+			st.close();
+			connection.close();
 			result = "</SaveData>";
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
@@ -159,9 +191,14 @@ public class ConnectDB {
 	public void DeleteData(String rID,String cID) { //삭제
 		System.out.println("DB삭제");
 		int result = 0;
-		try {				
+		try {		
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			int Query = st.executeUpdate("DELETE FROM route WHERE rid='"+rID+"' AND cid='"+cID+"'");	
 			rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다 삭제 됬는지 검사
+			rs.close();
+			st.close();
+			connection.close();
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
 			System.out.println("SQLState: " + SQLex.getSQLState());
@@ -170,7 +207,9 @@ public class ConnectDB {
 	 //rid로 찾아서 넘길때 - > AddressDataManager에 list에 데이터를 삽입해주기 위해 DBRouteData에 데이터를 넣어 return;
 	public DBRouteData CallDBData_INDEX(String rID,String cID) {		
 		DBRouteData tmpIndex = new DBRouteData(rID, cID);
-		try {			
+		try {	
+			connection = ds.getConnection();
+			st = connection.createStatement();
 			rs = st.executeQuery("SELECT * FROM route WHERE cid='"+cID+"' AND rid='"+rID+"'");		
 			int size = rs.getInt(2);
 			tmpIndex.setDataSize(size);
@@ -184,9 +223,12 @@ public class ConnectDB {
 				latCnt += 3;
 				lngCnt += 3;			
 			}			
+			rs.close();
+			st.close();
+			connection.close();
 		}catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
 		}					
 		return tmpIndex;
-	}
+	}	
 }
