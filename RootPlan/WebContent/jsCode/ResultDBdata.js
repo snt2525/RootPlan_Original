@@ -15,59 +15,6 @@ var imgIconUrl = [
 	'img/subway.png' // 7 : 지하철 아이콘
 ]
 
-function checkSave(){
-	var id = sessionStorage.getItem("id");
-	$.ajax({
-		url:"/RootPlan/AddressDataServlet",
-		dataType: "text",
-		data: "menuIndex=0&customerID="+customerID+"&cID="+id+"&what=0",
-		success: function(data){
-			if(data==0){ // 이미 저장되있음 
-				state=1;
-				console.log("이미 저장된 데이터");
-				document.saveBtn.src="img/star_orange.png";
-			}
-		}, 		
-	    error: function (data) {
-	    	console.log("경로 저장되있는지 확인 실패");
-    	}				
-	});
-}
-
-var state=0;
-function ChangeImage(check){ //  저장 버튼 클릭시 변신
-	if(state==1) return;
-	if(check=='0'){ // onmouseover event
-		document.saveBtn.src="img/star_yellow.png";	
-	}else if(check=='1'){ // onmouseout
-		document.saveBtn.src="img/star_gray.png";
-	}else if(check='2'){ // 아예 바뀜 onclick
-		save();
-	}
-}
-
-
-function save(){
-	var id = sessionStorage.getItem("id");
-	$.ajax({
-		url:"/RootPlan/AddressDataServlet",
-		dataType: "text",
-		data: "menuIndex=0&customerID="+customerID+"&cID="+id+"&what=1",
-		success: function(data){
-			if(data==1){
-				state=1;
-				alert("경로가 저장되었습니다.");
-				document.saveBtn.src="img/star_orange.png";
-			}else if(data==0){
-				alert("이미 저장되어 있습니다.");
-			}
-		}, 		
-	    error: function (data) {
-	    	alert("저장에 실패했습니다.");
-    	}				
-	});
-}
-
 function tabClick(title){
 	if(title=="대중교통+도보"){ 
 		document.resultPoly.how.value = "0";
@@ -89,7 +36,7 @@ function showResultPT(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showPT").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#showPT").serialize()+"&customerID="+customerID+"&flag=1",
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0;
@@ -199,7 +146,7 @@ function showResultCar(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showCar").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#showCar").serialize()+"&customerID="+customerID+"&flag=1",
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0, wayCount=0, count=0, cycle=0;
@@ -263,7 +210,7 @@ function callPolyLine(title){ // 0:pt, 1:car
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultPoly").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#resultPoly").serialize()+"&customerID="+customerID+"&flag=1",
 	       success: function(data){
 	    	   lineArray = null;
 	    	   lineArray = new Array();
@@ -304,7 +251,7 @@ function callResult(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultLatLng").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#resultLatLng").serialize()+"&customerID="+customerID+"&flag=1",
 	       success: function(data){
 	    	   var i = 0;
 				$(data).find("Data").each(function(){

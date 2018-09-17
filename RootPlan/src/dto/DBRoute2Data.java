@@ -1,16 +1,16 @@
 package dto;
 
 public class DBRoute2Data {
-	String rid;
-	String cid;
-	String car_html;
-	String car_xml;
-	String car_mark;
-	String pt_html;
-	String pt_xml;
-	String pt_mark;
+	private String rid;
+	private String cid;
+	private String car_html;
+	private String car_xml;
+	private String car_mark;
+	private String pt_html;
+	private String pt_xml;
+	private String pt_mark;
 	
-	DBRoute2Data(String cid,String rid){
+	public DBRoute2Data(String cid,String rid){
 		this.cid = cid;
 		this.rid = rid;
 	}
@@ -61,6 +61,14 @@ public class DBRoute2Data {
 
 	public void setPt_mark(String pt_mark) {
 		this.pt_mark = pt_mark;
+	}
+
+	public String getRid() {
+		return rid;
+	}
+
+	public String getCid() {
+		return cid;
 	}
 		
 }

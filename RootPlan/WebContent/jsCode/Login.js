@@ -7,60 +7,55 @@ $.ajaxSetup({
 var customerID = sessionStorage.getItem("customerID");
 
 function print(){
-	console.log("email : " + sessionStorage.getItem("email"));
-	console.log("id : " + sessionStorage.getItem("id"));
-	console.log("gender : " + sessionStorage.getItem("gender"));
-	console.log("age : " + sessionStorage.getItem("age"));
+   console.log("email : " + sessionStorage.getItem("email"));
+   console.log("id : " + sessionStorage.getItem("id"));
+   console.log("gender : " + sessionStorage.getItem("gender"));
+   console.log("age : " + sessionStorage.getItem("age"));
 }
 function sessionCheck(i){
-	// 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
-	if(sessionStorage.getItem('id')==null){
-		alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-		location.href="indexLogin.html";
-		return 0;
-	}else{
-		print();
-		
-		if(i == 0){ // 2번쨰 페이지에서 호출
-			sendCustomerInfo();
-		}
-		
-		// customerID 계속 들고다니면서 모든 폼에 추가로 전송하기
-		customerID = sessionStorage.getItem("customerID"); 
-		return 1;
-	}	
+   // 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
+   if(sessionStorage.getItem('id')==null){
+      alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      location.href="indexLogin.html";
+      return 0;
+   }else{
+      print();
+      
+      if(i == 0){ // 2번쨰 페이지에서 호출
+         sendCustomerInfo();
+      }
+      
+      // customerID 계속 들고다니면서 모든 폼에 추가로 전송하기
+      customerID = sessionStorage.getItem("customerID"); 
+      return 1;
+   }   
 }
 
-var email, id, gender, age;
-
+var email = sessionStorage.getItem("email");
+var id = sessionStorage.getItem("id");
+var gender = sessionStorage.getItem("gender");
+var age = sessionStorage.getItem("age");
 function sendCustomerInfo(){
-	email = sessionStorage.getItem("email");
-	id = sessionStorage.getItem("id");
-	gender = sessionStorage.getItem("gender");
-	age = sessionStorage.getItem("age");
-	$.ajax({
-		url:"/RootPlan/LoginServlet",
-		dataType: "text",
-		async: false,
-		data:"menuIndex=0&email="+email+"&cID="+id+"&gender="+gender+"&age="+age,
-		success: function(data){
-			console.log("customerID 번호 : " + data);
-			sessionStorage.setItem("customerID", data); // customerID 입력
-		},error:function(data){
-			console.log("customerID 값 받아오기 실패"); 
-		}
-	});
+   $.ajax({
+      url:"/RootPlan/LoginServlet",
+      dataType: "text",
+      async: false,
+      data:"menuIndex=0&email="+email+"&cID="+id+"&gender="+gender+"&age="+age,
+      success: function(data){
+         console.log("customerID 번호 : " + data);
+         sessionStorage.setItem("customerID", data); // customerID 입력
+      },error:function(data){
+         console.log("customerID 값 받아오기 실패"); 
+      }
+   });
 }
 
 
 function killSession(){ 
-	sessionStorage.clear();
-	$.ajax({
-		url:"/RootPlan/LoginServlet",
-		dataType: "text",
-		data: "menuIndex=1&cID="+id
-	});
+   sessionStorage.clear();
+   $.ajax({
+      url:"/RootPlan/LoginServlet",
+      dataType: "text",
+      data: "menuIndex=1&cID="+id
+   });
 }
-
-		
-		

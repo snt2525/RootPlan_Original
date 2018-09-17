@@ -13,6 +13,7 @@ import dao.AddressDataManager;
 import dao.ConnectDB;
 import dao.Route;
 import dto.Address;
+import dto.DBRoute2Data;
 import dto.SetData;
 
 @WebServlet("/AddressDataServlet")
@@ -22,7 +23,7 @@ public class AddressDataServlet extends HttpServlet {
     AddressDataManager[] ad = new AddressDataManager[20];  
     SetData[] sd = new SetData[20];
     Route[] r = new Route[20];
-    Address[] aTmp = new Address[20];
+    Address[] aTmp = new Address[20];    		
     boolean[] apiFlag = new boolean[20]; // 로그아웃시 or session죽을 떄 자원해제해야하니까 apiFlag 변경해야함 
    
     public AddressDataServlet() {
@@ -53,10 +54,17 @@ public class AddressDataServlet extends HttpServlet {
          case 0: //경로 데이터 저장
         	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
+        	 String what2 = request.getParameter("what"); //저장된거 단순 검사인지, 저장하려는건지
+        	 
         	 System.out.println("cID(서블렛) : "+cID);
-        	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
-        	 if(resultFlag.equals("1")) { // 저장됫으면 route2에 데이터를 저장해줘야한다.
-        		 
+        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2);
+        	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
+        		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
+        		 //데이터를 dto에 넣는다.
+        		 DBRoute2Data tmpDB = new DBRoute2Data(cID, rID2);
+        		 DBRoute2Data route2data = r[ID].putDBRoute2Data(tmpDB, ad[ID], sd[ID] ); //DTO에 넣어준다       		 
+        		 //Route2 테이블에 데이터를 넣는다.
+        		 db.SaveRoute2Data(route2data);
         	 }
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -217,29 +225,49 @@ public class AddressDataServlet extends HttpServlet {
          
          case 17:  //마크를 위한 호출
            int how2 = Integer.parseInt(request.getParameter("how")); 
-           System.out.println("17번 연결");           
-           String result11 = r[ID].orderResult(how2, ad[ID]);
+           int flag = Integer.parseInt(request.getParameter("flag")); 
+           System.out.println("17번 연결");   
+           String result11 = "";
+           if(flag == 0) {
+        	   result11 = r[ID].orderResult(how2, ad[ID]);
+           }else if(flag == 1) {
+        	   //디비에서 데이터 가져와서 보낸다.
+           }
            out.print(result11);
            break;
          
          case 18: //폴리라인 그리기 위한 latlng 데이터 호출
            int how3 =  Integer.parseInt(request.getParameter("how"));
-           out.print(r[ID].resultPoly(how3));
+           int flag2 = Integer.parseInt(request.getParameter("flag")); 
+           String result12 = "";
+           if(flag2 == 0) {
+        	   result12= r[ID].resultPoly(how3);
+           }else if(flag2 == 1) {
+        	   //디비에서 데이터 가져와서 보낸다.
+           }
+           out.print(result12);
            break;
            
-         case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기
-        	 String rID = request.getParameter("rID");   
-        	 String cID2 = request.getParameter("cID");  
-        	 ad[ID].callSaveDBData(rID, cID2);
-        	 out.print("1");
-        	 break;
+         case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기 
+     	   String rID = request.getParameter("rID");   
+     	   String cID2 = request.getParameter("cID");  
+     	   ad[ID].callSaveDBData(rID, cID2);        	
+     	   out.print("1");
+     	   break;
         	 
          case 20: // 대중교통 left 에 뿌려줌
-        	 int how4 = Integer.parseInt(request.getParameter("how"));
-        	 System.out.println("서블렛 20번 들어옴");
-         	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
-         	break; 
-         
+    	   int how4 = Integer.parseInt(request.getParameter("how"));
+    	   int flag3 = Integer.parseInt(request.getParameter("flag")); 
+    	   System.out.println("서블렛 20번 들어옴");
+    	   String result15 = "";
+    	   if(flag3 == 0) {
+    		   result15 = r[ID].resultList(how4, ad[ID], sd[ID]);
+    	   }else if(flag3 == 1) {
+    		   //디비에서 데이터 가져와서 보낸다.
+    	   }
+     	   out.print(result15);
+           break; 
+     
          
       }               
    }

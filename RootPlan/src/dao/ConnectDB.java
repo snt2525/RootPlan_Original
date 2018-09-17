@@ -46,7 +46,7 @@ public class ConnectDB {
 			st.close();
 			connection.close();
 		} catch (SQLException SQLex) {
-			
+			System.out.println("db에러 발생");
 		}
 	}
 	private void CreateDB(CustomerInfo info) {
@@ -67,7 +67,7 @@ public class ConnectDB {
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}		
 	}
-	private String makeRID(LinkedList<Address> ad) {
+	public String makeRID(LinkedList<Address> ad) {
 		String result = "";
 		int size = ad.size();
 		for(int i = 0;i<size;i++) {
@@ -77,7 +77,7 @@ public class ConnectDB {
 		return result;
 	}
 	
-	public String CheakSameData(LinkedList<Address> ad,String cID) { //저장 -> 중복되는 애가 있는지 검사
+	public String CheakSameData(LinkedList<Address> ad, String cID, String what) { //저장 -> 중복되는 애가 있는지 검사
 		System.out.print("cID"+cID);
 		//rID를 만든다
 		String rID =  makeRID(ad);
@@ -92,12 +92,14 @@ public class ConnectDB {
 				return "0";
 			}else {
 				System.out.println("없는 저장 정보 입니다."); 
-				DBRouteData data = DataIntoDBRouteData(ad, rID ,cID); //리스트에 있는 데이터를 dto에 넣어준다
-				SaveData(data); //중복되는 데이터가 없으면 저장 한다.
-				rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다
-				while (rs.next()) {
-					String str = rs.getNString(1);
-					System.out.println(str);
+				if(what.equals("1")) {
+					DBRouteData data = DataIntoDBRouteData(ad, rID ,cID); //리스트에 있는 데이터를 dto에 넣어준다
+					SaveData(data); //중복되는 데이터가 없으면 저장 한다.					
+					rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다
+					while (rs.next()) {
+						String str = rs.getNString(1);
+						System.out.println(str);
+					}
 				}
 				rs.close();
 				st.close();
@@ -154,12 +156,18 @@ public class ConnectDB {
 		}	
 	}
 	
-	public void SaveRoute2Data(DBRoute2Data data) { //car_html, car_xml, car_mark... pt등등의 데이터 저장		
+	public void SaveRoute2Data(DBRoute2Data data) { //car_html, car_xml, car_mark... pt등등의 데이터 저장	
+		System.out.println("Route2 DB에 데이터를 삽입합니다.: "+data.getRid()+"','"+data.getCid()+"','"
+				+data.getCar_html()+"','"+data.getCar_xml()+"','"+data.getCar_mark()+"','"
+				+data.getPt_html()+"','"+ data.getPt_xml()+"','"+data.getPt_mark()+"')");
+		
 		int result = 0;
 		try {
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			int Query = st.executeUpdate("INSERT INTO route2 VALUES()");
+			int Query = st.executeUpdate("INSERT INTO route2 VALUES('"+data.getRid()+"','"+data.getCid()+"','"
+										+data.getCar_html()+"','"+data.getCar_xml()+"','"+data.getCar_mark()+"','"
+										+data.getPt_html()+"','"+ data.getPt_xml()+"','"+data.getPt_mark()+"')");
 					       
 			rs.close();
 			st.close();
@@ -169,7 +177,6 @@ public class ConnectDB {
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}	
 	}
-	
 	
 	public String GetAllData(String cID) { //모든 데이터 넘겨주기
 		String result = "<SaveData>";
