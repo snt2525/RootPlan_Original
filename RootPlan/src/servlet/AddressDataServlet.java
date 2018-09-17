@@ -53,6 +53,7 @@ public class AddressDataServlet extends HttpServlet {
          case 0: //경로 데이터 저장
         	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
+        	 System.out.println("cID(서블렛) : "+cID);
         	 String resultFlag = db.CheakSameData(ad[ID].addressData,cID);
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -233,7 +234,8 @@ public class AddressDataServlet extends HttpServlet {
         	 int how4 = Integer.parseInt(request.getParameter("how"));
         	 System.out.println("서블렛 20번 들어옴");
          	out.print(r[ID].resultList(how4, ad[ID], sd[ID], r[ID]));
-         	break;       	
+         	break;    
+         
       }               
    }
 }

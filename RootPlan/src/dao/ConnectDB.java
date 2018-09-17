@@ -80,6 +80,7 @@ public class ConnectDB {
 	}
 	
 	public String CheakSameData(LinkedList<Address> ad,String cID) { //저장 -> 중복되는 애가 있는지 검사
+		System.out.print("cID"+cID);
 		//rID를 만든다
 		String rID =  makeRID(ad);
 		try {
@@ -124,7 +125,15 @@ public class ConnectDB {
 	}
 	
 	public void SaveData(DBRouteData data) { //데이터 저장		
-		System.out.println("Route DB에 데이터를 삽입합니다.");
+		System.out.println("Route DB에 데이터를 삽입합니다.: "
+		        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"
+		        +data.getAddress(0)+"',"+ data.getLat(0) +","+data.getLng(0)+",'"
+		        +data.getAddress(1)+"',"+ data.getLat(1) +","+data.getLng(1)+",'"
+		        +data.getAddress(2)+"',"+ data.getLat(2) +","+data.getLng(2)+",'"
+		        +data.getAddress(3)+"',"+ data.getLat(3) +","+data.getLng(3)+",'"
+		        +data.getAddress(4)+"',"+ data.getLat(4) +","+data.getLng(4)+",'"
+		        +data.getAddress(5)+"',"+ data.getLat(5) +","+data.getLng(5)+",'"
+		        +data.getAddress(6)+"',"+ data.getLat(6) +","+data.getLng(6)+")");
 		int result = 0;
 		try {
 			connection = ds.getConnection();

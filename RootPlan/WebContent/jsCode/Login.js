@@ -19,11 +19,10 @@ function sessionCheck(i){
 		console.log("gender : " + sessionStorage.getItem("gender"));
 		console.log("age : " + sessionStorage.getItem("age"));
 
-		// index이면 server로 보내기
+		//index이면 server로 보내기
 		if(i == 0){ 
 			sendCustomerInfo();
 		}
-		
 		// customerID 계속 들고다니기
 		customerID = sessionStorage.getItem("customerID"); // 이걸 모든 폼에 추가로 전송하기
 		return 1;
@@ -32,7 +31,7 @@ function sessionCheck(i){
 
 function sendCustomerInfo(){
 	document.loginData.email.value = sessionStorage.getItem("email");
-	document.loginData.cid.value = sessionStorage.getItem("id");
+	document.loginData.cID.value = sessionStorage.getItem("id");
 	document.loginData.gender.value = sessionStorage.getItem("gender");
 	document.loginData.age.value = sessionStorage.getItem("age");
 	$.ajax({

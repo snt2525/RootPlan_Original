@@ -16,7 +16,7 @@
     	<div style="position:absolute;text-align:center;width:100%;height:100%;top:30%;">
 		     	<div>
 					<a href="Second.html" id="btn-scroll"> 
-							<img src="img/logo_white.png" onmouseover="this.src='img/logo_orange.png';"	onmouseout="this.src='img/logo_white.png';" alt="goRoutePlan" />			
+							<img src="img/logo_white.png" onClick="sendCustomerInfo();" onmouseover="this.src='img/logo_orange.png';"	onmouseout="this.src='img/logo_white.png';" alt="goRoutePlan" />			
 					</a> 
 				</div>
 		        <div class='title_message'>루트플랜으로 더 편리하고 빠르게 여행을 즐기세요</div>
@@ -36,7 +36,6 @@
       </div>
    </div> 
    <script>
-
    if(sessionStorage.getItem('id')==null){ // session이 살아있으면
 	   // 아이디 창 보여주기
 	   document.getElementById("naver_id_login").style.display="block"; // 보이기
