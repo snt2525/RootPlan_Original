@@ -27,6 +27,7 @@ public class ConnectDB {
 		}
 	}
 	public void CheckID(CustomerInfo info) {
+		System.out.println("checkID");
 		try {			
 			connection = ds.getConnection();
 			st = connection.createStatement();
@@ -46,7 +47,10 @@ public class ConnectDB {
 			st.close();
 			connection.close();
 		} catch (SQLException SQLex) {
-			System.out.println("db에러 발생");
+			// 나중에 문제 발생하면 여기 보기
+			//System.out.println("DB입력 에러 발생");
+			//System.out.println("SQLException: " + SQLex.getMessage());
+			//System.out.println("SQLState: " + SQLex.getSQLState());
 		}
 	}
 	private void CreateDB(CustomerInfo info) {

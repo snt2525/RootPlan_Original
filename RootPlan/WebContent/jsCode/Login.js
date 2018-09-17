@@ -12,6 +12,7 @@ function print(){
    console.log("gender : " + sessionStorage.getItem("gender"));
    console.log("age : " + sessionStorage.getItem("age"));
 }
+
 function sessionCheck(i){
    // 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
    if(sessionStorage.getItem('id')==null){
@@ -36,18 +37,18 @@ var id = sessionStorage.getItem("id");
 var gender = sessionStorage.getItem("gender");
 var age = sessionStorage.getItem("age");
 function sendCustomerInfo(){
-   $.ajax({
-      url:"/RootPlan/LoginServlet",
-      dataType: "text",
-      async: false,
-      data:"menuIndex=0&email="+email+"&cID="+id+"&gender="+gender+"&age="+age,
-      success: function(data){
-         console.log("customerID 번호 : " + data);
-         sessionStorage.setItem("customerID", data); // customerID 입력
-      },error:function(data){
-         console.log("customerID 값 받아오기 실패"); 
-      }
-   });
+	$.ajax({
+		url:"/RootPlan/LoginServlet",
+		dataType: "text",
+		async: false,
+		data:"menuIndex=0&email="+email+"&cID="+id+"&gender="+gender+"&age="+age,
+		success: function(data){
+			console.log("customerID 번호 : " + data);
+			sessionStorage.setItem("customerID", data); // customerID 입력
+		},error:function(data){
+			console.log("customerID 값 받아오기 실패"); 
+		}
+	});
 }
 
 

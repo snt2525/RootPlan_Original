@@ -47,24 +47,23 @@ public class LoginServlet extends HttpServlet {
          String age = request.getParameter("age");
          System.out.println("이메일= "+email+", cid= "+cid+" , gender= "+gender+" , age=" + age);
          CustomerInfo tmp = new CustomerInfo(cid, email, gender, age);
-         db.CheckID(tmp);   //아이디 있으면 pass; 있으면 생성   
-         if(customerSize == customerCnt && log[customerCnt] == 0) { //사이즈랑 주소가 같으면
-            log[customerCnt] = 1;
-            out.print(customerCnt);
-            logCheck.put(cid, customerCnt);
-            customerSize++;
-            customerCnt++;
+         
+         if(logCheck.containsKey(cid)) {
+        	 System.out.println("이미 해시에 아이디 있음 ");
+        	 out.print(logCheck.get(cid));
          }else{
+        	 System.out.println("해시에 아이디 없음 ");
             for(int i =0;i<20;i++) { //빈곳을 찾아 할당 해준다.
                if(log[i] == 0) {
                   log[i] = 1;
                   customerSize++;
                   logCheck.put(cid, i);
                   out.print(i);
+                  break;
                }
             }
          }
-         
+         db.CheckID(tmp);   //아이디 있으면 pass; 있으면 생성   
          break;
          
       case 1: //주소 해제, 수정해야함
