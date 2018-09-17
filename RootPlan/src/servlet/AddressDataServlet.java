@@ -232,6 +232,7 @@ public class AddressDataServlet extends HttpServlet {
         	   result11 = r[ID].orderResult(how2, ad[ID]);
            }else if(flag == 1) {
         	   //디비에서 데이터 가져와서 보낸다.
+        	   
            }
            out.print(result11);
            break;
@@ -244,6 +245,7 @@ public class AddressDataServlet extends HttpServlet {
         	   result12= r[ID].resultPoly(how3);
            }else if(flag2 == 1) {
         	   //디비에서 데이터 가져와서 보낸다.
+        	   
            }
            out.print(result12);
            break;
@@ -264,6 +266,7 @@ public class AddressDataServlet extends HttpServlet {
     		   result15 = r[ID].resultList(how4, ad[ID], sd[ID]);
     	   }else if(flag3 == 1) {
     		   //디비에서 데이터 가져와서 보낸다.
+    		   
     	   }
      	   out.print(result15);
            break; 
