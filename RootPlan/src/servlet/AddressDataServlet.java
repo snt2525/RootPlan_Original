@@ -44,9 +44,9 @@ public class AddressDataServlet extends HttpServlet {
       
       PrintWriter out = response.getWriter();
       System.out.println("연결: "+ request.getParameter("menuIndex"));
-      int optionNum = Integer.parseInt(request.getParameter("menuIndex"));   
+      int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
+      System.out.println("customerID : "+request.getParameter("customerID"));
       int ID = Integer.parseInt(request.getParameter("customerID"));
-      //System.out.println("customerID : "+ID);
       
       
       switch(optionNum) {

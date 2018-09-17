@@ -15,8 +15,8 @@
     	<div class="overTitle">
     	<div style="position:absolute;text-align:center;width:100%;height:100%;top:30%;">
 		     	<div>
-						<a href="Second.html" id="btn-scroll"> 
-								<img src="img/logo_white.png" onmouseover="this.src='img/logo_orange.png';"	onmouseout="this.src='img/logo_white.png';" alt="goRoutePlan" />
+		     			<a href="#" id='btnLogoA' name='btnLogoA' onmouseover="ChangeLogo(0)" onmouseout="ChangeLogo(1)" onclick="ChangeLogo(2)"> 
+								<img  id='btnLogo' name='btnLogo' src="img/logo_white.png"/>
 						</a> 
 				</div>
 		        <div class='title_message'>루트플랜으로 더 편리하고 빠르게 여행을 즐기세요</div>
@@ -46,6 +46,19 @@
 	   document.getElementById("naver_id_logout").style.display="block"; // 보이기
    }
    
+   function ChangeLogo(check){
+	   if(sessionStorage.getItem('id')==null){
+		   if(check=='2') alert("로그인이 필요합니다.");
+		   $("#btnLogoA").attr("href", "#")
+		 	document.btnLogo.src = "img/logo_white.png";
+	   }else if(check=='0'){
+		   $("#btnLogoA").attr("href", "Second.html")
+		   document.btnLogo.src = "img/logo_orange.png";
+	   }else if(check=='1'){
+		   $("#btnLogoA").attr("href", "Second.html")
+		   document.btnLogo.src = "img/logo_white.png";
+	   }
+   }
   
    $(function(){
 	   $('#btn-logout').click(function(){

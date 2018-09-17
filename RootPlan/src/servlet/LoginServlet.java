@@ -36,9 +36,8 @@ public class LoginServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");         
       PrintWriter out = response.getWriter();
       System.out.println("사용자주소할당");      
-      String ID="";
+      String ID=request.getParameter("customerID");   
       int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
-      if(menuIndex!=0)  ID = request.getParameter("customerID");   
       
       switch(menuIndex){
       case 0: //주소할당 받기
@@ -65,13 +64,14 @@ public class LoginServlet extends HttpServlet {
          break;
          
       case 1: //주소 해제, 수정해야함
-         int IDaddress = Integer.parseInt(request.getParameter("IDaddress"));
+         int IDaddress = Integer.parseInt(request.getParameter("customerID"));
          log[IDaddress] = 0;
          if(customerSize == customerCnt)
             customerCnt--;
          customerSize--;
          //해쉬 해제도 해줘야함
          logCheck.remove(ID);
+         System.out.println("customerID 해제 완료");
          break;      
       }
 
