@@ -32,14 +32,10 @@ public class ConnectDB {
 		try {			
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			rs = st.executeQuery("SELECT * FROM customer where id='"+ info.getId()+"'");
-			while (rs.next()) {
-				String str = rs.getNString(1);
-				System.out.println(str);
-			}
+			rs = st.executeQuery("SELECT * FROM customer where id='"+ info.getId()+"'");			
 			if(rs.next()) { //이미 있는 아이디
 				System.out.println("이미 있는 아이디입니다.");
-			}else {
+			}else{
 				System.out.println("없는 아이디입니다.");
 				CreateDB(info); //없는 아이디
 				rs = st.executeQuery("SELECT * FROM customer");
@@ -63,7 +59,8 @@ public class ConnectDB {
 			st = connection.createStatement();
 			int Query = st.executeUpdate("INSERT INTO customer " +
 					"VALUES('"+info.getId()+"','"+info.getEmail()
-					+"',"+info.getGender()+","+info.getAge()+");");	
+					+"',"+info.getGender()+","+info.getAge()+");");
+			System.out.println("DB가 저장되었습니다.");
 			rs.close();
 			st.close();
 			connection.close();
