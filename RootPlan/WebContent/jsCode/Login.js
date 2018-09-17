@@ -6,7 +6,6 @@ $.ajaxSetup({
 
 var customerID = sessionStorage.getItem("customerID");
 console.log("customerID : " + customerID);
-
 function sessionCheck(i){
 	// 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
 	if(sessionStorage.getItem('id')==null){
@@ -32,7 +31,7 @@ function sessionCheck(i){
 
 function sendCustomerInfo(){
 	document.loginData.email.value = sessionStorage.getItem("email");
-	document.loginData.cid.value = sessionStorage.getItem("id");
+	document.loginData.cID.value = sessionStorage.getItem("id");
 	document.loginData.gender.value = sessionStorage.getItem("gender");
 	document.loginData.age.value = sessionStorage.getItem("age");
 	$.ajax({
@@ -40,7 +39,7 @@ function sendCustomerInfo(){
 		dataType: "text",
 		data: $("#loginData").serialize(),
 		success: function(data){
-			console.log("customerID : " + data);
+			console.log("customerID입력됨 " );
 			sessionStorage.setItem("customerID", data); // customerID 입력
 		},error:function(data){
 			console.log("customerID 값 받아오기 실패"); 
@@ -49,6 +48,26 @@ function sendCustomerInfo(){
 }
 
 
+//브라우저 창 그냥 닫아버릴때 이벤트
+var flag=false;
+window.onbeforeunload = function(){
+	if(!flag){
+		alert("bye!!브라우저 닫히고 세션 죽인다");
+		killSession();
+	}
+}
+
+function killSession(){ 
+	// 로그아웃 시 and 브라우저 창 그냥 닫을때 발생 
+	alert("killSession");
+	//sessionStorage.clear();
+	// ajax로 customerID 넘겨서 해당 번호 false로 처리하기
+	$.ajax({
+		url:"/RootPlan/LoginServlet", // 어디 서블렛으로 가야하지..?
+		dataType: "text",
+		data: "menuIndex=1&customerID="+customerID // 나중에 번호 바꿔야함 
+	});
+}
 
 		
 		

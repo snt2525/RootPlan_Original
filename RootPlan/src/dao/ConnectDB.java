@@ -128,6 +128,7 @@ public class ConnectDB {
 	public String GetAllData(String cID) { //모든 데이터 넘겨주기
 		String result = "<SaveData>";
 		try {				
+			// ' 왠지 이거 없애야될거같음
 			rs = st.executeQuery("SELECT * FROM route WHERE cid='"+cID+"'");
 			
 			while(rs.next()) {

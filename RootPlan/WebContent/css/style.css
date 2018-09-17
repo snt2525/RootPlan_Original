@@ -161,7 +161,8 @@ blockquote strong {
    font-size: 30px;
    font-weight: 700;
    text-align: center;
-   margin: 15%;
+   margin-top: 16%;
+   margin-bottom:10%;
    line-height: 40px;
 }
 
@@ -203,19 +204,21 @@ blockquote strong {
 }
 
 
-.left-content1 {
-   font-size: 10px;
-   font-weight: 500;
-   margin-bottom: 5%;
+.left-content-second {
    display: inline-block;
-   width: 5%;
    float: left;
+}
+
+.right-content-second{
+	display: inline-block;
+   float: right;
 }
 
 .middle-content1 {
    font-size: 10px;
    font-weight: 500;
    margin-bottom: 5%;
+   margin-left:20%;
    display: inline-block;
    width: 60%;
    word-break: break-all;

@@ -20,12 +20,16 @@
             <!--  frameLeft -->
             <div id="asideTop">
                <form name="addressBasket" id="addressBasket" method="post">
-                  <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn">
-               	<input type="hidden" id="IDNum" name="IDNum" value="0"> 
-                  <input type="hidden" class="btn btn-skin" value="Reset"
-                     id="resetBtn" name="resetBtn">
-                  <h3 class='headline'>여행지 선택</h3>
-                  <div id="list" name="list"></div>   <!-- 검색 결과 리스트 출력 -->
+                  	<div  id="btnMainList" class="left-content-second"><a href="#" >
+		        		<img  src="img/list_gray.png" onmouseover="this.src='img/list_yellow.png';" onmouseout="this.src='img/list_gray.png';" />
+		        	</a></div>              
+                  	<div  id="btnSaveList" class="left-content-second"><a href="#" >
+		        		<img  src="img/saveListGray.png" onmouseover="this.src='img/saveListYellow.png';" onmouseout="this.src='img/saveListGray.png';" />
+		        	</a></div>
+		        	<div class="right-content-second"> <input type="hidden" class="btn btn-skin" value="Reset"  id="resetBtn" name="resetBtn"> </div>
+		        	
+               	  <input type="hidden" id="IDNum" name="IDNum" value="0"> 
+                  <div id="list" name="list"><h3 class='headline'>여행지 선택</h3></div>   <!-- 검색 결과 리스트 출력 -->
                </form>
             </div>
      
@@ -178,6 +182,7 @@
   		 if(sessionCheck(1)==1){
 	  		 getData(); //초기화init()
 	    	 getLocalSearchData();
+	    	 document.getElementById("btnMainList").style.display="none";
   		 }
     </script>
 </body>
