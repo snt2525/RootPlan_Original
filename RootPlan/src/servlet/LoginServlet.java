@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
       switch(menuIndex){
       case 0: //주소할당 받기
          String email = request.getParameter("email");
-         String cid = request.getParameter("cid");
+         String cid = request.getParameter("cID");
          String gender = request.getParameter("gender");
          String age = request.getParameter("age");
          System.out.println("이메일= "+email+", cid= "+cid+" , gender= "+gender+" , age=" + age);
@@ -78,6 +78,5 @@ public class LoginServlet extends HttpServlet {
          logCheck.remove(cID);
          break;      
       }
-
    }
 }
