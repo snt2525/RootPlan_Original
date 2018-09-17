@@ -232,7 +232,9 @@ public class AddressDataServlet extends HttpServlet {
         	   result11 = r[ID].orderResult(how2, ad[ID]);
            }else if(flag == 1) {
         	   //디비에서 데이터 가져와서 보낸다.
-        	   
+        	   String rid = request.getParameter("rID");
+        	   String cid = request.getParameter("cID"); 
+        	   result11 = db.getMARKdata(how2, rid, cid);
            }
            out.print(result11);
            break;
@@ -245,15 +247,17 @@ public class AddressDataServlet extends HttpServlet {
         	   result12= r[ID].resultPoly(how3);
            }else if(flag2 == 1) {
         	   //디비에서 데이터 가져와서 보낸다.
-        	   
+        	   String cid = request.getParameter("cID"); 
+        	   String rid = request.getParameter("rID");
+        	   result12 = db.getXMLdata(how3, rid, cid);
            }
-           out.print(result12);
+           out.print(result12);       
            break;
            
          case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기 
-     	   String rID = request.getParameter("rID");   
      	   String cID2 = request.getParameter("cID");  
-     	   ad[ID].callSaveDBData(rID, cID2);        	
+     	   String rID2 = request.getParameter("rID");
+     	   ad[ID].callSaveDBData(cID2, rID2);        	
      	   out.print("1");
      	   break;
         	 
@@ -265,13 +269,13 @@ public class AddressDataServlet extends HttpServlet {
     	   if(flag3 == 0) {
     		   result15 = r[ID].resultList(how4, ad[ID], sd[ID]);
     	   }else if(flag3 == 1) {
+        	   String cid = request.getParameter("cID"); 
+        	   String rid = request.getParameter("rID");
     		   //디비에서 데이터 가져와서 보낸다.
-    		   
+    		   result15 = db.getHTMLdata(how4, rid, cid);
     	   }
      	   out.print(result15);
-           break; 
-     
-         
+           break;          
       }               
    }
 }

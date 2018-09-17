@@ -194,8 +194,8 @@ public class ConnectDB {
 				int latCnt = 5, lngCnt = 6;
 				for(int i = 0;i<size;i++) {
 					result += "<address"+Integer.toString(i)+">"+ rs.getString(addressCnt) +"</address"+Integer.toString(i)+">";
-					result +=  "<lat"+Integer.toString(i)+">"+ rs.getString(latCnt) +"</lat"+Integer.toString(i)+">";
-					result +=  "<lng"+Integer.toString(i)+">"+ rs.getString(lngCnt) +"</lng"+Integer.toString(i)+">";
+					//result +=  "<lat"+Integer.toString(i)+">"+ rs.getString(latCnt) +"</lat"+Integer.toString(i)+">";
+					//result +=  "<lng"+Integer.toString(i)+">"+ rs.getString(lngCnt) +"</lng"+Integer.toString(i)+">";
 					addressCnt += 3;
 					latCnt += 3;
 					lngCnt += 3;
@@ -255,5 +255,24 @@ public class ConnectDB {
 			System.out.println("SQLException: " + SQLex.getMessage());
 		}					
 		return tmpIndex;
-	}	
+	}
+	
+	public String getHTMLdata(int how,String rid,String cid) {   //0번이 pt 1번이 car
+		String result = "";
+		
+		return result;
+	}
+	
+	public String getXMLdata(int how,String rid,String cid) {
+		String result = "";
+		
+		return result;
+	}
+	
+	public String getMARKdata(int how,String rid,String cid) {
+		String result = "";
+		
+		return result;
+	}
+	
 }

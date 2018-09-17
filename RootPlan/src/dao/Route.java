@@ -17,15 +17,18 @@ public class Route {
     ApiCarSearch cs;
     Shortpath sp;
     int listSize;
-    String[] result_html = new String[2]; //DB에 넣어줄 데이터
-    String[] result_xml = new String[2];
-    String[] result_mark = new String[2];
+    String[] result_html; //DB에 넣어줄 데이터
+    String[] result_xml;
+    String[] result_mark;
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
     public DataTotal dataTotal;
     
     public Route(int listSize){
+    	result_html = new String[2];
+    	result_xml = new String[2];
+    	result_mark = new String[2];
     	Arrays.fill(result_html, "");
     	Arrays.fill(result_xml, "");
     	Arrays.fill(result_mark, "");
@@ -35,6 +38,9 @@ public class Route {
     }
     
     public void Clear() {
+    	Arrays.fill(result_html, "");
+    	Arrays.fill(result_xml, "");
+    	Arrays.fill(result_mark, "");
     	dataTotal.carList.clear();
     	dataTotal.ptList.clear();
         carFlag = 0;
