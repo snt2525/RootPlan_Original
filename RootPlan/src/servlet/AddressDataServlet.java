@@ -14,6 +14,7 @@ import dao.ConnectDB;
 import dao.Route;
 import dto.Address;
 import dto.DBRoute2Data;
+import dto.Route2DataCall;
 import dto.SetData;
 
 @WebServlet("/AddressDataServlet")
@@ -63,10 +64,9 @@ public class AddressDataServlet extends HttpServlet {
         	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
         		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
         		 //데이터를 dto에 넣는다.
-        		 DBRoute2Data tmpDB = new DBRoute2Data(cID, rID2);
-        		 DBRoute2Data route2data = r[ID].putDBRoute2Data(tmpDB, ad[ID], sd[ID] ); //DTO에 넣어준다       		 
-        		 //Route2 테이블에 데이터를 넣는다.
-        		 db.SaveRoute2Data(route2data);
+        		 DBRoute2Data tmp = new DBRoute2Data(cID, rID2);
+        		 DBRoute2Data tmpResult = r[ID].putRoute2Dto(tmp, sd[ID].GetStartData(), sd[ID].GetLastData());
+        	 	 db.SaveRoute2Data(tmpResult);
         	 }
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -223,38 +223,18 @@ public class AddressDataServlet extends HttpServlet {
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
            System.out.println("16번 연결");            
-           r[ID].callShortestPath(ad[ID], sd[ID].GetStartData(),sd[ID].GetLastData(), sd[ID].isSame(), how); // 자동차 1, 대중교통  0           
+           r[ID].callShortestPath(sd[ID].GetStartData(),sd[ID].GetLastData(), sd[ID].isSame(), how); // 자동차 1, 대중교통  0           
            break;
          
          case 17:  //마크를 위한 호출
            int how2 = Integer.parseInt(request.getParameter("how")); 
-           int flag = Integer.parseInt(request.getParameter("flag")); 
-           System.out.println("17번 연결");   
-           String result11 = "";
-           if(flag == 0) {
-        	   result11 = r[ID].orderResult(how2, ad[ID]);
-           }else if(flag == 1) {
-        	   //디비에서 데이터 가져와서 보낸다.
-        	   String rid = request.getParameter("rID");
-        	   String cid = request.getParameter("cID"); 
-        	   result11 = db.getMARKdata(how2, rid, cid);
-           }
-           out.print(result11);
+           System.out.println("17번 연결"); 
+           out.print(r[ID].orderResult(how2, ad[ID]));
            break;
          
          case 18: //폴리라인 그리기 위한 latlng 데이터 호출
            int how3 =  Integer.parseInt(request.getParameter("how"));
-           int flag2 = Integer.parseInt(request.getParameter("flag")); 
-           String result12 = "";
-           if(flag2 == 0) {
-        	   result12= r[ID].resultPoly(how3);
-           }else if(flag2 == 1) {
-        	   //디비에서 데이터 가져와서 보낸다.
-        	   String cid = request.getParameter("cID"); 
-        	   String rid = request.getParameter("rID");
-        	   result12 = db.getXMLdata(how3, rid, cid);
-           }
-           out.print(result12);       
+           out.print(r[ID].resultPoly(how3));       
            break;
            
          case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기 
@@ -266,19 +246,18 @@ public class AddressDataServlet extends HttpServlet {
         	 
          case 20: // 대중교통 left 에 뿌려줌
     	   int how4 = Integer.parseInt(request.getParameter("how"));
-    	   int flag3 = Integer.parseInt(request.getParameter("flag")); 
     	   System.out.println("서블렛 20번 들어옴");
-    	   String result15 = "";
-    	   if(flag3 == 0) {
-    		   result15 = r[ID].resultList(how4, ad[ID], sd[ID]);
-    	   }else if(flag3 == 1) {
-        	   String cid = request.getParameter("cID"); 
-        	   String rid = request.getParameter("rID");
-    		   //디비에서 데이터 가져와서 보낸다.
-    		   result15 = db.getHTMLdata(how4, rid, cid);
-    	   }
-     	   out.print(result15);
-           break;          
+    	   out.print(r[ID].resultList(how4, ad[ID], sd[ID]));
+           break;   
+           
+         case 21: //여기서 DB데이터를 DataTotal저장하는 곳에 전부 넣어준다.
+        	 String rID = request.getParameter("rID");
+        	 String cID3 = request.getParameter("cID");  
+        	 Route2DataCall resultRoute2 = db.GetSavedRoute2Data(cID3, rID);     
+        	 this.r[ID] = new Route(ad[ID].addressData.size()); //할당
+        	 //여기서 재호출도 해준다.
+        	 r[ID].putDTO_AND_reCall(resultRoute2, ad[ID]);
+        	 break;
       }               
    }
 }

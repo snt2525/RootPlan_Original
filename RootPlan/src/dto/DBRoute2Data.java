@@ -1,74 +1,52 @@
 package dto;
 
 public class DBRoute2Data {
-	private String rid;
-	private String cid;
-	private String car_html;
-	private String car_xml;
-	private String car_mark;
-	private String pt_html;
-	private String pt_xml;
-	private String pt_mark;
-	
-	public DBRoute2Data(String cid,String rid){
+	String cid;
+	String rid;
+	String pt_order;
+	String car_order;
+	int start;
+	int last;
+	int size;
+	public DBRoute2Data(String cid, String rid) {
 		this.cid = cid;
 		this.rid = rid;
 	}
-
-	public String getCar_html() {
-		return car_html;
-	}
-
-	public void setCar_html(String car_html) {
-		this.car_html = car_html;
-	}
-
-	public String getCar_xml() {
-		return car_xml;
-	}
-
-	public void setCar_xml(String car_xml) {
-		this.car_xml = car_xml;
-	}
-
-	public String getCar_mark() {
-		return car_mark;
-	}
-
-	public void setCar_mark(String car_mark) {
-		this.car_mark = car_mark;
-	}
-
-	public String getPt_html() {
-		return pt_html;
-	}
-
-	public void setPt_html(String pt_html) {
-		this.pt_html = pt_html;
-	}
-
-	public String getPt_xml() {
-		return pt_xml;
-	}
-
-	public void setPt_xml(String pt_xml) {
-		this.pt_xml = pt_xml;
-	}
-
-	public String getPt_mark() {
-		return pt_mark;
-	}
-
-	public void setPt_mark(String pt_mark) {
-		this.pt_mark = pt_mark;
-	}
-
+	public String getCid() {
+		return cid;
+	}	
 	public String getRid() {
 		return rid;
 	}
-
-	public String getCid() {
-		return cid;
+	public String getPt_order() {
+		return pt_order;
 	}
-		
+	public void setPt_order(String pt_order) {
+		this.pt_order = pt_order;
+	}
+	public String getCar_order() {
+		return car_order;
+	}
+	public void setCar_order(String car_order) {
+		this.car_order = car_order;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getLast() {
+		return last;
+	}
+	public void setLast(int last) {
+		this.last = last;
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
 }

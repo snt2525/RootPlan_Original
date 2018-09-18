@@ -10,6 +10,7 @@ import dto.DataTotal;
 import dto.InfoCar;
 import dto.InfoPT;
 import dto.InfoSectionPT;
+import dto.Route2DataCall;
 import dto.SetData;
 
 public class Route {
@@ -17,54 +18,82 @@ public class Route {
     ApiCarSearch cs;
     Shortpath sp;
     int listSize;
-    String[] result_html; //DB에 넣어줄 데이터
-    String[] result_xml;
-    String[] result_mark;
+
     public int carFlag = 0;
     public int ptFlag = 0;
     public int size = 0;
     public DataTotal dataTotal;
     
     public Route(int listSize){
-    	result_html = new String[2];
-    	result_xml = new String[2];
-    	result_mark = new String[2];
-    	Arrays.fill(result_html, "");
-    	Arrays.fill(result_xml, "");
-    	Arrays.fill(result_mark, "");
     	this.listSize = listSize;
     	dataTotal = new DataTotal(listSize);
         sp = new Shortpath();
     }
     
-    public void Clear() {
-    	Arrays.fill(result_html, "");
-    	Arrays.fill(result_xml, "");
-    	Arrays.fill(result_mark, "");
+    public void Clear() { 
     	dataTotal.carList.clear();
     	dataTotal.ptList.clear();
         carFlag = 0;
         ptFlag = 0;
         size = 0;     
     }
-   //DB에 저장 할때 데이터를 넣어준다
-   public DBRoute2Data putDBRoute2Data(DBRoute2Data tmp, AddressDataManager ad, SetData sd) {
-	   for(int i = 0; i<2;i++) {  //우선 데이터를 배열에 다 저장해둔다.
-		   if(result_html[i].equals("")) 
-			   resultList(i, ad, sd); 		   
-		   if(result_xml[i].equals("")) 
-			   resultPoly(i);		   
-		   if(result_mark[i].equals("")) 
-			   orderResult(i, ad);		   
+   //DB에 저장 할때 데이터를 DBRoute2Data안에 넣어준다
+   public DBRoute2Data putRoute2Dto(DBRoute2Data tmp,int start,int last) {
+	   String car = "";
+	   String pt = "";
+	   int carSize = dataTotal.carAns.length;
+	   for(int i = 0;i < carSize;i++) {
+		   car += Integer.toString(dataTotal.carAns[i])+",";
+		   pt += Integer.toString(dataTotal.ptAns[i])+",";
 	   }
-	   //dto에 넣주는 작업
-	    tmp.setPt_html(result_html[0]);
-	    tmp.setCar_html(result_html[1]);
-	    tmp.setPt_xml(result_xml[0]);
-	    tmp.setCar_xml(result_xml[1]);
-	    tmp.setPt_mark(result_mark[0]);
-	    tmp.setCar_mark(result_mark[1]);	   
+	   System.out.println("db에 들어가는 car_order: "+car+"  db에 들어가는 pt_order: "+pt);
+	   tmp.setCar_order(car);
+	   tmp.setPt_order(pt);
+	   tmp.setSize(carSize);
+	   tmp.setStart(start);
+	   tmp.setLast(last);	   
 	   return tmp;
+   }
+   
+   public void printAns(int size) {
+	   System.out.print("dataTotal.carAns: ");
+	   for(int i =0; i<size; i++) {
+		   System.out.print(dataTotal.carAns[i]+", ");
+	   }
+	   System.out.println();
+	   System.out.print("dataTotal.ptAns: ");
+	   for(int i =0; i<size; i++) {
+		   System.out.print(dataTotal.ptAns[i]+", ");
+	   }
+	   System.out.println();
+   }
+   
+   //여기서 dataTotal에 데이터도 넣고, recall도 해준다
+   public void putDTO_AND_reCall(Route2DataCall tmp, AddressDataManager ad) {
+	   int size = tmp.getSize();
+	   int start = tmp.getStart();
+	   int last = tmp.getLast();
+	   if(start == last) {
+		   for(int i = 0;i < size - 1; i++) {
+			   dataTotal.carAns[i] = tmp.getCar_order(i);
+			   dataTotal.ptAns[i] = tmp.getPt_order(i);
+		   }
+		   printAns(size - 1); //출력
+	   }else {
+		   for(int i = 0;i < size; i++) {
+			   dataTotal.carAns[i] = tmp.getCar_order(i);
+			   dataTotal.ptAns[i] = tmp.getPt_order(i); 
+		   }
+		   printAns(size); //출력
+	   }
+	   
+	   //recallApiData();얘를 호출 102번째 줄에 있음.	   
+	   pt = new ApiPTSearch(ad.getList(), dataTotal, size);
+	   cs = new ApiCarSearch(ad.getList(), dataTotal, size);
+	   
+	   //재호출
+	   recallApiData(0, start, last);
+	   recallApiData(1, start, last);
    }
     
    public boolean callAPIData(int a, int b, String car, AddressDataManager ad, SetData sd) {     
@@ -116,7 +145,7 @@ public class Route {
 	   
    }
    
-   public void callShortestPath(AddressDataManager ad,int start, int last, int isSame, int how) { 
+   public void callShortestPath(int start, int last, int isSame, int how) { 
 	   if(how == 1) {
          sp.callDFS(start, last, 1, isSame);
          recallApiData(1, start, last);  // 자동차 재호출
@@ -149,7 +178,6 @@ public class Route {
 		   }
 		   result += "</ResultData>";		   
 	   }
-	   result_mark[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }
    
@@ -219,7 +247,6 @@ public class Route {
 		   }
 		   result += "</carData>";
 	   }
-	   result_xml[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }   
    
@@ -368,7 +395,6 @@ public class Route {
 		   }
 		   result += "</resultCarList>";
 	   }
-	   result_html[how] = result; //DB에 넣어줄 데이터
 	   return result;
    }
    

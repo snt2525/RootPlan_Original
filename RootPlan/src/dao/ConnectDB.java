@@ -12,6 +12,7 @@ import dto.Address;
 import dto.CustomerInfo;
 import dto.DBRoute2Data;
 import dto.DBRouteData;
+import dto.Route2DataCall;
 
 public class ConnectDB {
 	static DataSource ds;
@@ -48,18 +49,17 @@ public class ConnectDB {
 			connection.close();
 		} catch (SQLException SQLex) {
 			// 나중에 문제 발생하면 여기 보기
-			//System.out.println("DB입력 에러 발생");
-			//System.out.println("SQLException: " + SQLex.getMessage());
-			//System.out.println("SQLState: " + SQLex.getSQLState());
+			System.out.println("DB입력 에러 발생");
+			System.out.println("SQLException: " + SQLex.getMessage());
+			System.out.println("SQLState: " + SQLex.getSQLState());
 		}
 	}
 	private void CreateDB(CustomerInfo info) {
 		System.out.println("DB를 생성합니다");
-		int result = 0;
 		try {
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			int Query = st.executeUpdate("INSERT INTO customer " +
+			st.executeUpdate("INSERT INTO customer " +
 					"VALUES('"+info.getId()+"','"+info.getEmail()
 					+"',"+info.getGender()+","+info.getAge()+");");
 			System.out.println("DB가 저장되었습니다.");
@@ -138,11 +138,10 @@ public class ConnectDB {
 		        +data.getAddress(4)+"',"+ data.getLat(4) +","+data.getLng(4)+",'"
 		        +data.getAddress(5)+"',"+ data.getLat(5) +","+data.getLng(5)+",'"
 		        +data.getAddress(6)+"',"+ data.getLat(6) +","+data.getLng(6)+")");
-		int result = 0;
 		try {
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			int Query = st.executeUpdate("INSERT INTO route VALUES('"
+			st.executeUpdate("INSERT INTO route VALUES('"
 					        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"
 					        +data.getAddress(0)+"',"+ data.getLat(0) +","+data.getLng(0)+",'"
 					        +data.getAddress(1)+"',"+ data.getLat(1) +","+data.getLng(1)+",'"
@@ -155,30 +154,26 @@ public class ConnectDB {
 			st.close();
 			connection.close();
 		} catch (SQLException SQLex) {
-			System.out.println("SQLException: " + SQLex.getMessage());
-			System.out.println("SQLState: " + SQLex.getSQLState());
+			//System.out.println("SQLException: " + SQLex.getMessage());
+			//System.out.println("SQLState: " + SQLex.getSQLState());
 		}	
 	}
 	
-	public void SaveRoute2Data(DBRoute2Data data) { //car_html, car_xml, car_mark... pt등등의 데이터 저장	
-		System.out.println("Route2 DB에 데이터를 삽입합니다.: "+data.getRid()+"','"+data.getCid()+"','"
-				+data.getCar_html()+"','"+data.getCar_xml()+"','"+data.getCar_mark()+"','"
-				+data.getPt_html()+"','"+ data.getPt_xml()+"','"+data.getPt_mark()+"')");
-		
-		int result = 0;
+	public void SaveRoute2Data(DBRoute2Data tmp) { //car_html, car_xml, car_mark... pt등등의 데이터 저장	
+		System.out.println("Route2 DB에 데이터를 삽입합니다.: +"+tmp.getRid()+"', '"+tmp.getCid()+"','"+ 
+							tmp.getPt_order()+"', '"+tmp.getCar_order()+"',"+tmp.getSize()+","+tmp.getStart()+","+tmp.getLast()+")");
 		try {
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			int Query = st.executeUpdate("INSERT INTO route2 VALUES('"+data.getRid()+"','"+data.getCid()+"','"
-										+data.getCar_html()+"','"+data.getCar_xml()+"','"+data.getCar_mark()+"','"
-										+data.getPt_html()+"','"+ data.getPt_xml()+"','"+data.getPt_mark()+"')");
+			int Query = st.executeUpdate("INSERT INTO route2 VALUES('"+tmp.getRid()+"', '"+tmp.getCid()+"','"+
+			tmp.getPt_order()+"', '"+tmp.getCar_order()+"',"+tmp.getSize()+","+tmp.getStart()+","+tmp.getLast()+")");
 					       
 			rs.close();
 			st.close();
 			connection.close();
 		} catch (SQLException SQLex) {
 			System.out.println("SQLException: " + SQLex.getMessage());
-			System.out.println("SQLState: " + SQLex.getSQLState());
+			//System.out.println("SQLState: " + SQLex.getSQLState());
 		}	
 	}
 	
@@ -195,14 +190,14 @@ public class ConnectDB {
 				int size = rs.getInt(2); //사이즈
 				result += "<size>" + Integer.toString(size) + "</size>";
 				int addressCnt = 4;
-				int latCnt = 5, lngCnt = 6;
+				//int latCnt = 5, lngCnt = 6;
 				for(int i = 0;i<size;i++) {
 					result += "<address"+Integer.toString(i)+">"+ rs.getString(addressCnt) +"</address"+Integer.toString(i)+">";
 					//result +=  "<lat"+Integer.toString(i)+">"+ rs.getString(latCnt) +"</lat"+Integer.toString(i)+">";
 					//result +=  "<lng"+Integer.toString(i)+">"+ rs.getString(lngCnt) +"</lng"+Integer.toString(i)+">";
 					addressCnt += 3;
-					latCnt += 3;
-					lngCnt += 3;
+					//latCnt += 3;
+					//lngCnt += 3;
 				}
 				result += "</Data>";
 			}			
@@ -219,11 +214,10 @@ public class ConnectDB {
 	
 	public void DeleteData(String rID,String cID) { //삭제
 		System.out.println("DB삭제");
-		int result = 0;
 		try {		
 			connection = ds.getConnection();
 			st = connection.createStatement();
-			int Query = st.executeUpdate("DELETE FROM route WHERE rid='"+rID+"' AND cid='"+cID+"'");	
+			st.executeUpdate("DELETE FROM route WHERE rid='"+rID+"' AND cid='"+cID+"'");	
 			rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다 삭제 됬는지 검사
 			rs.close();
 			st.close();
@@ -261,22 +255,22 @@ public class ConnectDB {
 		return tmpIndex;
 	}
 	
-	public String getHTMLdata(int how,String rid,String cid) {   //0번이 pt 1번이 car
-		String result = "";
-		
+	public Route2DataCall GetSavedRoute2Data(String cID,String rID) { //로딩 페이지에서 route2에 있는 모든 데이터 DATATOAL DTO로 넘겨주기		
+		Route2DataCall result = new Route2DataCall();
+		try {	
+			connection = ds.getConnection();
+			st = connection.createStatement();
+			rs = st.executeQuery("SELECT * FROM route2 WHERE cid='"+cID+"' AND rid='"+ rID+"'");			
+			result.pushData(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
+			rs.close();
+			st.close();
+			connection.close();
+		} catch (SQLException SQLex) {
+			System.out.println("SQLException: " + SQLex.getMessage());
+			System.out.println("SQLState: " + SQLex.getSQLState());
+		}
 		return result;
 	}
 	
-	public String getXMLdata(int how,String rid,String cid) {
-		String result = "";
-		
-		return result;
-	}
-	
-	public String getMARKdata(int how,String rid,String cid) {
-		String result = "";
-		
-		return result;
-	}
 	
 }
