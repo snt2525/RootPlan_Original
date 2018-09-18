@@ -58,9 +58,9 @@ public class AddressDataServlet extends HttpServlet {
         	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
         	 String what2 = request.getParameter("what"); //저장된거 단순 검사인지, 저장하려는건지
-        	 
+        	 String name = request.getParameter("name");
         	 System.out.println("cID(서블렛) : "+cID);
-        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2);
+        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2, name);
         	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
         		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
         		 //데이터를 dto에 넣는다.
@@ -121,9 +121,8 @@ public class AddressDataServlet extends HttpServlet {
             
          case 6: //DB의 사용자 저장한  데이터  모두 호출
         	 cID = request.getParameter("customerID");
-        	// String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
-        	 //out.print(resultDB);
-        	 out.print(0);
+        	 String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
+        	 out.print(resultDB);
         	 break;
             
          case 7: //reset

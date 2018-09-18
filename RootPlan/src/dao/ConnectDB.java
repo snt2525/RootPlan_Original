@@ -81,7 +81,7 @@ public class ConnectDB {
 		return result;
 	}
 	
-	public String CheakSameData(LinkedList<Address> ad, String cID, String what) { //저장 -> 중복되는 애가 있는지 검사
+	public String CheakSameData(LinkedList<Address> ad, String cID, String what, String name) { //저장 -> 중복되는 애가 있는지 검사
 		System.out.print("cID"+cID);
 		//rID를 만든다
 		String rID =  makeRID(ad);
@@ -97,7 +97,7 @@ public class ConnectDB {
 			}else {
 				System.out.println("없는 저장 정보 입니다."); 
 				if(what.equals("1")) {
-					DBRouteData data = DataIntoDBRouteData(ad, rID ,cID); //리스트에 있는 데이터를 dto에 넣어준다
+					DBRouteData data = DataIntoDBRouteData(ad, rID ,cID, name); //리스트에 있는 데이터를 dto에 넣어준다
 					SaveData(data); //중복되는 데이터가 없으면 저장 한다.					
 					rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다
 					while (rs.next()) {
@@ -116,9 +116,10 @@ public class ConnectDB {
 	}
 	
 	//리트스에 있는 데이터를 DTO에 넣어준다. CheakSameData - >DataIntoDBRouteData -> SaveData 순서로
-	private DBRouteData DataIntoDBRouteData(LinkedList<Address> ad,String rID,String cID) {
+	private DBRouteData DataIntoDBRouteData(LinkedList<Address> ad,String rID,String cID, String name) {
 		int size = ad.size();
 		DBRouteData tmpData = new DBRouteData(rID, cID);
+		tmpData.setName(name);
 		tmpData.setDataSize(size);
 		for(int i =0;i<size;i++) {
 			tmpData.setAddress(i,ad.get(i).getAddress());
@@ -142,7 +143,7 @@ public class ConnectDB {
 			connection = ds.getConnection();
 			st = connection.createStatement();
 			st.executeUpdate("INSERT INTO route VALUES('"
-					        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"
+					        +data.getRid()+"',"+data.getDatasize()+",'"+data.getCid()+"','"+",'"+data.getName()+"'"
 					        +data.getAddress(0)+"',"+ data.getLat(0) +","+data.getLng(0)+",'"
 					        +data.getAddress(1)+"',"+ data.getLat(1) +","+data.getLng(1)+",'"
 					        +data.getAddress(2)+"',"+ data.getLat(2) +","+data.getLng(2)+",'"
@@ -189,7 +190,8 @@ public class ConnectDB {
 				result += "<rID>" + rs.getString(1) + "</rID>";
 				int size = rs.getInt(2); //사이즈
 				result += "<size>" + Integer.toString(size) + "</size>";
-				int addressCnt = 4;
+				result += "<name>" + rs.getString(4) + "</name>";
+				int addressCnt = 5;
 				//int latCnt = 5, lngCnt = 6;
 				for(int i = 0;i<size;i++) {
 					result += "<address"+Integer.toString(i)+">"+ rs.getString(addressCnt) +"</address"+Integer.toString(i)+">";
@@ -236,8 +238,8 @@ public class ConnectDB {
 			rs = st.executeQuery("SELECT * FROM route WHERE cid='"+cID+"' AND rid='"+rID+"'");		
 			int size = rs.getInt(2);
 			tmpIndex.setDataSize(size);
-			int addressCnt = 4;
-			int latCnt = 5, lngCnt = 6;
+			int addressCnt = 5;
+			int latCnt = 6, lngCnt = 7;
 			for(int i =0;i<size;i++) {
 				tmpIndex.setAddress(i, rs.getString(addressCnt));
 				tmpIndex.setLat(i, Double.parseDouble(rs.getString(latCnt)));
