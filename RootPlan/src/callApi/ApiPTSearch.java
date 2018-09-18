@@ -52,15 +52,17 @@ public class ApiPTSearch {
    public void callTransportApi(int a, int b) {
       for (int i = a; i < b; i++) {
          for (int j = 0; j < listSize; j++) {
-            if (dataTotal.ptDist[i][j].getMethod())
-               continue; // 걷기데이터가 호출되었었기 때문에
-            else if (i == j)
+            if (dataTotal.ptDist[i][j].getMethod()) {
+            	continue; // 걷기데이터가 호출되었었기 때문에
+            }else if (i == j)
             	dataTotal.ptDist[i][j] = new TimeMethod(Integer.MAX_VALUE, false);
-            else
+            else {
                callPTApi( ad.get(i).getLat(),  ad.get(i).getLng(), ad.get(j).getLat(), ad.get(j).getLng(),i ,j );
+            }
          }
       }
-      System.out.println("대중교통끝");
+     // ptPrint(listSize);
+     // System.out.println("대중교통끝"+", 리스트 사이즈"+ listSize);
    }
  
    // callTransportApi 호출당해, 대중교통 호출
@@ -95,10 +97,9 @@ public class ApiPTSearch {
 
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if (responseCode == 200) {
+            if (responseCode == 200) {         
                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {
-               br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                //에러가 발생하면 걷기로 대체
                int tmpTime = 0;
                if (flag == true) {
@@ -122,21 +123,39 @@ public class ApiPTSearch {
 
             while ((line = br.readLine()) != null) {
                sb.append(line + "\n");
-            }
-
-            br.close();
-            con.disconnect();
+            }         
 
             String data = sb.toString();
             String[] array;
             array = data.split("\"");
-            
             for (int k = 0; k < array.length; k++) {
+               if(array[k].equals("code")) {     //700m 이하로 문제 발생
+            	   System.out.println("문제있음=============="); 
+                   //에러가 발생하면 걷기로 대체 
+                   int tmpTime = 0;
+                   if (flag == true) {
+                      try {
+                         Thread.sleep(550);
+                         tmpTime = ws.walkApi(i, j, sx, sy, ex, ey)/60;  // 60 없애고 분으로 해야할듯
+                      } catch (Exception e) {}
+                   } else {
+                      tmpTime = ws.walkApi(i, j, sx, sy, ex, ey) / 60;
+                   }
+                   
+                   // 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
+                   dataTotal.ptDist[i][j] = new TimeMethod(tmpTime, true);
+                   dataTotal.ptDist[j][i] = new TimeMethod(tmpTime, true);
+                   flag = true;
+
+                   return ;
+               }
                if (array[k].equals("totalTime")) {
             	   dataTotal.ptDist[i][j] = new TimeMethod(Integer.parseInt(array[k + 1].substring(1, array[k + 1].length() - 1)), false);
                   break;
-               }
+               }              
             }
+            br.close();
+            con.disconnect();
          } catch (Exception e) { }
       }
    }
@@ -146,22 +165,22 @@ public class ApiPTSearch {
 	  //System.out.println("result 길이 : " + result.length);
       for(int i =0; i < listSize-1; i++) {
     	  dataTotal.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
-               ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
+               ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng(), result[i],result[i+1]));
       }
   }
   
   // 대중교통 재호출할 때, 마지막에 결과 한노드에서 한 노드로 총 정보 가져오기 
-  public InfoPT callResultPT(double sx, double sy, double ex, double ey) {
+  public InfoPT callResultPT(double sx, double sy, double ex, double ey,int a, int b) {
       InfoPT infopt = new InfoPT(); // 1-2 지점 이동시
       InfoSectionPT infoSec = new InfoSectionPT();
       CalculateDist calDist = new CalculateDist();
       double distanceMeter = calDist.distance(sx, sy, ex, ey, "meter");
-      if (distanceMeter <= 800) {
+      if (dataTotal.ptDist[a][b].getMethod() || distanceMeter <= 800) {
     	  System.out.println("걷기 호출");
          // 이전에 있던 애가 걷기 호출을 했었는지
          if (flag == true) {
             try {
-               Thread.sleep(550);
+               Thread.sleep(1200);
                infopt = ws.resultWalkPTApi(sx, sy, ex, ey); 
             } catch (Exception e) {}
          } else {

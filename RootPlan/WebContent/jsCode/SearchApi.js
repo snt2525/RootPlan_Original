@@ -35,7 +35,7 @@ function getLocalSearchData(){
        dataType: "xml",
        data: $("#SiData").serialize()+"&customerID="+customerID,
        success: function(data){
-    	   console.log("크롤링 js 들어옴");
+    	  //console.log("크롤링 js 들어옴");
           var htmlStr = "";
           htmlStr += "<div id='box'>";
           $(data).find("CityData").each(function(){
@@ -113,7 +113,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
              
                   latlngTmp2 = new naver.maps.TransCoord.fromTM128ToLatLng(tm128);
                   infoWindow.setContent([
-                	  '<div style="position:relative;padding:20px;width:620px;height:200px;">',
+                	  '<div style="position:relative;padding:20px;width:620px;height:210px;">',
        	              '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
        	              '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
        	              '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
@@ -158,7 +158,7 @@ function getImg(no , i){
 	infoWindow.close();
 	  infoWindow.setContent([
     	  '<div style="position:relative;padding:20px;width:620px;height:200px;">',
-             '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
+             '<div style="float:left;position:relative;padding:10px;width:280px;height:210px;font-color:black">',    
              '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
              '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
              '<p style="color:black;">' + address[no] + roadaddress[no],

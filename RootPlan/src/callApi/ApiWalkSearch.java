@@ -17,6 +17,7 @@ public class ApiWalkSearch{
 
    // dfs를 위한 거리 값 가져올떄
    public int walkApi(int sno, int eno, double sx, double sy, double ex, double ey) {
+	   System.out.println("ddddddddddddd걷기");
       int findTime = 0;
       try {
           String apiURL = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&format=xml&startX="
@@ -83,7 +84,18 @@ public class ApiWalkSearch{
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				System.out.println("d실패");
+				sb = new StringBuilder();
+				String line;
+
+				while ((line = br.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+
+				br.close();
+				con.disconnect();
+				String data = sb.toString();
+
+				System.out.println("d실패" + data);
 			}
 			sb = new StringBuilder();
 			String line;
@@ -100,7 +112,10 @@ public class ApiWalkSearch{
 			array = data.split("<|>");
 
 			for (int i = 0; i < array.length; i++) {
-				if (array[i].equals("tmap:totalDistance")) {
+				if (array[i].equals("id")){
+					return resultWalkPTApi(sx, sy, ex, ey);
+				}
+				else if (array[i].equals("tmap:totalDistance")) {
 					infopt.setSx(sx);
 					infopt.setSy(sy);
 					infopt.setEx(ex);
