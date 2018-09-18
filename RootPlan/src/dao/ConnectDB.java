@@ -270,7 +270,5 @@ public class ConnectDB {
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}
 		return result;
-	}
-	
-	
+	}	
 }

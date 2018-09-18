@@ -36,7 +36,5 @@ public class DataTotal {
   			   carDist[i][j] = new TimeMethod(Integer.MAX_VALUE,false);
   		   }
   	   }
-    }
-    
-    
+    }  
 }
