@@ -14,6 +14,7 @@ import dao.ConnectDB;
 import dao.Route;
 import dto.Address;
 import dto.DBRoute2Data;
+import dto.Route2DataCall;
 import dto.SetData;
 
 @WebServlet("/AddressDataServlet")
@@ -57,16 +58,15 @@ public class AddressDataServlet extends HttpServlet {
         	 // 0: 데이터 이미 있어서 저장안함, 1 :  저장해서 완료
         	 String cID = request.getParameter("cID");   
         	 String what2 = request.getParameter("what"); //저장된거 단순 검사인지, 저장하려는건지
-        	 
+        	 String name = request.getParameter("name");
         	 System.out.println("cID(서블렛) : "+cID);
-        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2);
+        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2, name);
         	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
         		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
         		 //데이터를 dto에 넣는다.
-        		 DBRoute2Data tmpDB = new DBRoute2Data(cID, rID2);
-        		 DBRoute2Data route2data = r[ID].putDBRoute2Data(tmpDB, ad[ID], sd[ID] ); //DTO에 넣어준다       		 
-        		 //Route2 테이블에 데이터를 넣는다.
-        		 db.SaveRoute2Data(route2data);
+        		 DBRoute2Data tmp = new DBRoute2Data(cID, rID2);
+        		 DBRoute2Data tmpResult = r[ID].putRoute2Dto(tmp, sd[ID].GetStartData(), sd[ID].GetLastData());
+        	 	 db.SaveRoute2Data(tmpResult);
         	 }
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -123,7 +123,6 @@ public class AddressDataServlet extends HttpServlet {
         	 cID = request.getParameter("customerID");
         	 String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
         	 out.print(resultDB);
-        	 //out.print(0);
         	 break;
             
          case 7: //reset
@@ -223,58 +222,41 @@ public class AddressDataServlet extends HttpServlet {
          case 16:  //대중교통 dfs or 마커 결과 재호출 
            int how = Integer.parseInt(request.getParameter("how"));
            System.out.println("16번 연결");            
-           r[ID].callShortestPath(ad[ID], sd[ID].GetStartData(),sd[ID].GetLastData(), sd[ID].isSame(), how); // 자동차 1, 대중교통  0           
+           r[ID].callShortestPath(sd[ID].GetStartData(),sd[ID].GetLastData(), sd[ID].isSame(), how); // 자동차 1, 대중교통  0           
            break;
          
          case 17:  //마크를 위한 호출
            int how2 = Integer.parseInt(request.getParameter("how")); 
-           int flag = Integer.parseInt(request.getParameter("flag")); 
-           System.out.println("17번 연결");   
-           String result11 = "";
-           if(flag == 0) {
-        	   result11 = r[ID].orderResult(how2, ad[ID]);
-           }else if(flag == 1) {
-        	   //디비에서 데이터 가져와서 보낸다.
-        	   
-           }
-           out.print(result11);
+           System.out.println("17번 연결"); 
+           out.print(r[ID].orderResult(how2, ad[ID]));
            break;
          
          case 18: //폴리라인 그리기 위한 latlng 데이터 호출
            int how3 =  Integer.parseInt(request.getParameter("how"));
-           int flag2 = Integer.parseInt(request.getParameter("flag")); 
-           String result12 = "";
-           if(flag2 == 0) {
-        	   result12= r[ID].resultPoly(how3);
-           }else if(flag2 == 1) {
-        	   //디비에서 데이터 가져와서 보낸다.
-        	   
-           }
-           out.print(result12);
+           out.print(r[ID].resultPoly(how3));       
            break;
            
          case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기 
-     	   String rID = request.getParameter("rID");   
      	   String cID2 = request.getParameter("cID");  
-     	   ad[ID].callSaveDBData(rID, cID2);        	
+     	   String rID2 = request.getParameter("rID");
+     	   ad[ID].callSaveDBData(cID2, rID2);        	
      	   out.print("1");
      	   break;
         	 
          case 20: // 대중교통 left 에 뿌려줌
     	   int how4 = Integer.parseInt(request.getParameter("how"));
-    	   int flag3 = Integer.parseInt(request.getParameter("flag")); 
     	   System.out.println("서블렛 20번 들어옴");
-    	   String result15 = "";
-    	   if(flag3 == 0) {
-    		   result15 = r[ID].resultList(how4, ad[ID], sd[ID]);
-    	   }else if(flag3 == 1) {
-    		   //디비에서 데이터 가져와서 보낸다.
-    		   
-    	   }
-     	   out.print(result15);
-           break; 
-     
-         
+    	   out.print(r[ID].resultList(how4, ad[ID], sd[ID]));
+           break;   
+           
+         case 21: //여기서 DB데이터를 DataTotal저장하는 곳에 전부 넣어준다.
+        	 String rID = request.getParameter("rID");
+        	 String cID3 = request.getParameter("cID");  
+        	 Route2DataCall resultRoute2 = db.GetSavedRoute2Data(cID3, rID);     
+        	 this.r[ID] = new Route(ad[ID].addressData.size()); //할당
+        	 //여기서 재호출도 해준다.
+        	 r[ID].putDTO_AND_reCall(resultRoute2, ad[ID]);
+        	 break;
       }               
    }
 }

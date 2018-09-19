@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class test {
-	static CustomerInfo info = new CustomerInfo("1231","test@mail.com","M","20-29");
+	static CustomerInfo info = new CustomerInfo("12312","test@mail.com","M","20-29");
 	static PreparedStatement ps;
 	static Connection connection;
 	static Statement st;

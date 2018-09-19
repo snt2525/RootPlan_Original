@@ -48,7 +48,9 @@ function ChangeImage(check){ //  저장 버튼 클릭시 변신
 
 
 function save(){
-	var id = sessionStorage.getItem("id");
+	var name = ""; 
+	name = prompt("저장할 경로의 이름을 입력해 주세요.");
+	var id = sessionStorage.getItem("id","");
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
 		dataType: "text",
@@ -66,6 +68,7 @@ function save(){
 	    	alert("저장에 실패했습니다.");
     	}				
 	});
+	alert("'"+name+"' 이 성공적으로 저장 되었습니다.")
 }
 
 function tabClick(title){
@@ -89,7 +92,7 @@ function showResultPT(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showPT").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#showPT").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0;
@@ -199,7 +202,7 @@ function showResultCar(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "xml",
-	       data:  $("#showCar").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#showCar").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var htmlStr ="";
 	    	   var totalDistance=0, totalTime=0, totalFare=0, now=0, wayCount=0, count=0, cycle=0;
@@ -263,7 +266,7 @@ function callPolyLine(title){ // 0:pt, 1:car
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultPoly").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#resultPoly").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   lineArray = null;
 	    	   lineArray = new Array();
@@ -304,7 +307,7 @@ function callResult(){
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
-	       data:  $("#resultLatLng").serialize()+"&customerID="+customerID+"&flag=0",
+	       data:  $("#resultLatLng").serialize()+"&customerID="+customerID,
 	       success: function(data){
 	    	   var i = 0;
 				$(data).find("Data").each(function(){

@@ -122,7 +122,7 @@ public class ApiCarSearch {
 		   for(int i =0; i < listSize-1; i++) {
 			   dataTotal.carList.add(callResultCar( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
 					   ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
-			   Thread.sleep(550);
+			   Thread.sleep(700);
 		   }
 		} catch (Exception e) {
 			System.out.println("문제발생쓰");

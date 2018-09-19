@@ -6,6 +6,8 @@ public class DBRouteData {
 	private String rid; //몇번째 사이즈 인지
 	private String cid; //사용자 id;
 	private int datasize; //경로가 몇개 저장되어 있는지
+	private String name; 
+
 	private String[] address = new String[8];
 	private double[] lat = new double[8];
 	private double[] lng = new double[8];
@@ -16,6 +18,14 @@ public class DBRouteData {
 	     Arrays.fill(lng, 0);
 	     this.rid = rid;
 	     this.cid = cid;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void setDataSize(int size) {
