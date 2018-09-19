@@ -60,7 +60,7 @@ public class AddressDataServlet extends HttpServlet {
         	 String what2 = request.getParameter("what"); //저장된거 단순 검사인지, 저장하려는건지
         	 String name = request.getParameter("name");
         	 System.out.println("cID(서블렛) : "+cID);
-        	 String resultFlag = db.CheakSameData(ad[ID].addressData, cID, what2, name);
+        	 String resultFlag = db.CheckSameData(ad[ID].addressData, cID, what2, name);
         	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
         		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
         		 //데이터를 dto에 넣는다.
@@ -120,7 +120,7 @@ public class AddressDataServlet extends HttpServlet {
             break;      
             
          case 6: //DB의 사용자 저장한  데이터  모두 호출
-        	 cID = request.getParameter("customerID");
+        	 cID = request.getParameter("cID");
         	 String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
         	 out.print(resultDB);
         	 break;
@@ -236,10 +236,11 @@ public class AddressDataServlet extends HttpServlet {
            out.print(r[ID].resultPoly(how3));       
            break;
            
-         case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기 
+         case 19: //사용자가 선택한 저장된 DB데이터를 불러오고 list에 있는데이터 바꾸기
+        	System.out.println("19번 들어옴");
      	   String cID2 = request.getParameter("cID");  
      	   String rID2 = request.getParameter("rID");
-     	   ad[ID].callSaveDBData(cID2, rID2);        	
+     	   ad[ID].callSaveDBData(rID2, cID2);        	
      	   out.print("1");
      	   break;
         	 
@@ -252,10 +253,18 @@ public class AddressDataServlet extends HttpServlet {
          case 21: //여기서 DB데이터를 DataTotal저장하는 곳에 전부 넣어준다.
         	 String rID = request.getParameter("rID");
         	 String cID3 = request.getParameter("cID");  
-        	 Route2DataCall resultRoute2 = db.GetSavedRoute2Data(cID3, rID);     
+        	 Route2DataCall resultRoute2 = db.GetSavedRoute2Data(cID3, rID);
+        	 sd[ID].SetStartData(resultRoute2.getStart());
+        	 sd[ID].SetLastData(resultRoute2.getLast());
         	 this.r[ID] = new Route(ad[ID].addressData.size()); //할당
         	 //여기서 재호출도 해준다.
         	 r[ID].putDTO_AND_reCall(resultRoute2, ad[ID]);
+        	 break;
+        	 
+         case 22: // 저장된 것중에서 삭제하기
+        	 String rID4 = request.getParameter("rID");
+        	 String cID4 = request.getParameter("cID");
+        	 out.print(db.DeleteData(rID4, cID4)); // 0:삭제 실패, 1:삭제 성공
         	 break;
       }               
    }

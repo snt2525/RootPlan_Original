@@ -8,6 +8,7 @@ var customerID = sessionStorage.getItem("customerID");
 
 function print(){
    console.log("email : " + sessionStorage.getItem("email"));
+   //console.log("customerName : " + sessionStorage.getItem("name"));
    console.log("id : " + sessionStorage.getItem("id"));
    console.log("gender : " + sessionStorage.getItem("gender"));
    console.log("age : " + sessionStorage.getItem("age"));
@@ -22,7 +23,7 @@ function sessionCheck(i){
    }else{
       print();
       
-      if(i == 0){ // 2번쨰 페이지에서 호출
+      if(i == 0){ // index 페이지에서 호출
          sendCustomerInfo();
       }
       
@@ -33,10 +34,18 @@ function sessionCheck(i){
 }
 
 var email = sessionStorage.getItem("email");
+var customerName = sessionStorage.getItem("name");
 var id = sessionStorage.getItem("id");
 var gender = sessionStorage.getItem("gender");
 var age = sessionStorage.getItem("age");
+
 function sendCustomerInfo(){
+	email = sessionStorage.getItem("email");
+	customerName = sessionStorage.getItem("name");
+	id = sessionStorage.getItem("id");
+	gender = sessionStorage.getItem("gender");
+	age = sessionStorage.getItem("age");
+	
 	$.ajax({
 		url:"/RootPlan/LoginServlet",
 		dataType: "text",
@@ -54,6 +63,7 @@ function sendCustomerInfo(){
 
 function killSession(){ 
    sessionStorage.clear();
+   console.log("killSession");
    $.ajax({
       url:"/RootPlan/LoginServlet",
       dataType: "text",

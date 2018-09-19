@@ -127,10 +127,10 @@ public class AddressDataManager {
    }
   
    //저장에서 선택된 데이터를 list에 넣어준다.
-   public void callSaveDBData(String cID, String rID) {
+   public void callSaveDBData(String rID, String cID) {
 	   addressData.clear();
 	   //데이터를 DBRouteData에 넣어서 return 받는다.
-	   DBRouteData tmpDB = db.CallDBData_INDEX(cID, rID);
+	   DBRouteData tmpDB = db.CallDBData_INDEX(rID, cID);
 	   //리턴받은 데이터를 addressData에 넣어준다.
 	   int size = tmpDB.getDatasize();
 	   for(int i = 0;i < size;i++) {

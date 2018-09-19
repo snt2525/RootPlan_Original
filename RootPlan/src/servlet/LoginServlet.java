@@ -67,8 +67,12 @@ public class LoginServlet extends HttpServlet {
          break;
          
       case 1: //주소 해제, 수정해야함
-         int cID = Integer.parseInt(request.getParameter("cID"));
+         String cID = request.getParameter("cID");
+         System.out.println("cID : " + cID);
+         System.out.println("해시값 : " + logCheck.get(cID));
          int customerCnt =  logCheck.get(cID);
+         
+         System.out.println("customerCnt : " + customerCnt);
          log[customerCnt] = 0;
          if(customerSize == customerCnt)
             customerCnt--;

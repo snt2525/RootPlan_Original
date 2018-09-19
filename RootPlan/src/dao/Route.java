@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.Arrays;
-
 import callApi.ApiCarSearch;
 import callApi.ApiPTSearch;
 import dto.DBRoute2Data;
@@ -42,6 +40,7 @@ public class Route {
 	   String car = "";
 	   String pt = "";
 	   int carSize = dataTotal.carAns.length;
+	   if(start!=last)carSize--;
 	   for(int i = 0;i < carSize;i++) {
 		   car += Integer.toString(dataTotal.carAns[i])+",";
 		   pt += Integer.toString(dataTotal.ptAns[i])+",";
@@ -250,6 +249,15 @@ public class Route {
 	   return result;
    }   
    
+   void print(AddressDataManager ad, SetData sd) {
+	   System.out.println("처음, 끝 : " + sd.GetStartData() + " , " + sd.GetLastData());
+	   int listSize = ad.addressData.size();
+	   System.out.print("리스트 보여주기 : ");
+	   for(int i=0; i<listSize; i++) {
+		   System.out.print(ad.addressData.get(i).getAddress() + " , ");
+	   }
+	   System.out.println();
+   }
    public String resultList(int how, AddressDataManager ad, SetData sd) { // 0:pt, 1:car
 	   String result="";
 	   int adSize = ad.addressData.size();
@@ -257,6 +265,7 @@ public class Route {
 		   adSize++;
 	   }
 	   
+	   print(ad, sd);
 	   if(how==0) {
 		   result += "<resultPTList>";
 		   int sectionSize=0;
@@ -276,6 +285,7 @@ public class Route {
 			   result += "<title>" + ad.addressData.get(dataTotal.ptAns[k]).getAddress() + "</title>";
 			   result += "</Data>";
 		   }
+		   
 		   if(sd.GetStartData()==sd.GetLastData()) {
 			   result += "<Data>";
 			   result += "<check>0</check>";

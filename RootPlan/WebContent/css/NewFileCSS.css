@@ -124,3 +124,33 @@ div {
 	font-weight:800;
 	font-size:20px;
 }
+.save_subtitle{
+	font-weight:600;
+	font-size:18px;
+}
+
+.margin1{
+	margin-top:10px;
+	margin-bottom:10px;
+	margin: 20px;
+}
+
+a.no-uline { 
+	text-decoration:none;	
+}
+a.noul:hover { 
+	color:rgb(255, 153, 000);
+ }
+
+hr.one{
+	border: 1px double rgb(102,  102, 102);
+}
+hr.two{
+	border: 1px solid rgb(153, 153, 153);
+}
+hr.three{
+	border: 1px dashed rgb(197, 197, 197);
+}
+hr.lastHr{
+	border:  3px double gray;
+}

@@ -37,7 +37,7 @@
 	     </div>
       </div>
    </div>
-    <script type="text/javascript" src="jsCode/Login.js"></script>
+    <script type="text/javascript" src="jsCode/Login.js?ver=1"></script>
    <script>
    var naver_id_login = new naver_id_login("QUyHkL9SA1c0aTQjz197", "http://localhost:8090/RootPlan/index.html");
    //alert(naver_id_login.oauthParams.access_token); // 토큰 정보
@@ -48,8 +48,7 @@
 		 sessionStorage.setItem("id", naver_id_login.getProfileData('id'));
 		 sessionStorage.setItem("gender", naver_id_login.getProfileData('gender'));
 		 sessionStorage.setItem("age", naver_id_login.getProfileData('age'));
-		 //sessionStorage.setItem("birthday", naver_id_login.getProfileData('birthday'));
-		 sessionCheck(1);
+		 sessionCheck(0);
  	}
  	
    </script>

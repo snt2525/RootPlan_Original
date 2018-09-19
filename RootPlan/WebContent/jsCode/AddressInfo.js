@@ -19,42 +19,6 @@ $.ajaxSetup({
 	type:"post"
 });
 
-// 즐겨찾기 버튼 누르면 리스트 보여주는 함수로 가기
-$(function(){
-   $('#btnSaveList').click(function(){
-	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기 
-	   document.getElementById("btnMainList").style.display="block";
-	   document.getElementById("btnSaveList").style.display="none";
-       showSaveList();
-   });
-   $('#btnMainList').click(function(){
-	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기
-	   document.getElementById("btnMainList").style.display="none";
-	   document.getElementById("btnSaveList").style.display="block";
-	   getData(); // main으로 돌아가면 모든 리스트 다시 보여주기
-   });
- }); 
-
-function showSaveList(){
-	$("#resetBtn").attr("type","hidden");
-	
-	// addressServlet 6번으로 가기
-	$.ajax({
-		url:"/RootPlan/AddressDataServlet",
-		dataType: "text", // 나중에 xml로 바꿔야함 
-		data: "menuIndex=6&customerID="+customerID,
-		success: function(data){
-			// 모든 데이터 받아와서 매핑해야서 보여줘야함
-			var htmlStr ="";
-			
-			
-			$("#list").html(htmlStr);	
-		}, 		
-	    error: function (data) {
-	    	console.log("저장한 리스트 가져오기 실패");
-    	}				
-	});
-}
 
 //$("infoBtn").on("click", '#btn' , function(){
 function clickADDBtn(){

@@ -4,7 +4,6 @@ $.ajaxSetup({
 });
 
 var rID = sessionStorage.getItem("rID");
-var cID = sessionStorage.getItem("cID");
 
 function start() {
 	//여기서 db불러와서 데이터를 넣어놓는다.
@@ -12,7 +11,7 @@ function start() {
 		type : "POST",
 		url : "/RootPlan/AddressDataServlet",
 		dataType : "html",
-		data : $("#finish1").serialize()+"&customerID="+customerID+"&rID="+rID+"&cID="+cID, //0
+		data : $("#finish1").serialize()+"&customerID="+customerID+"&rID="+rID+"&cID="+id, //0
 		success : function() {
 			location.replace("Last.html");
 		}

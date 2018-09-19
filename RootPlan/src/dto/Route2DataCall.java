@@ -9,9 +9,13 @@ public class Route2DataCall {
 	public Route2DataCall() {
 		
 	}
-	public void pushData(String pt_order, String car_order, int size, int start, int last) {
-		String[] tmpPT = pt_order.split(",");
-		String[] tmpCar = car_order.split(",");
+	public void pushData(String pt_order_str, String car_order_str, int size, int start, int last) {
+		String[] tmpPT = pt_order_str.split(",");
+		String[] tmpCar = car_order_str.split(",");
+		
+		pt_order = new int[size];
+		car_order = new int[size];
+		
 		for(int i =0;i<size;i++) {
 			this.pt_order[i] = Integer.parseInt(tmpPT[i]);
 			this.car_order[i] = Integer.parseInt(tmpCar[i]);			

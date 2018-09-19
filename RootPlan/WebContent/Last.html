@@ -79,15 +79,16 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="jsCode/Login.js"></script>
-	<script type="text/javascript" src="jsCode/Init.js"></script>
-	<script type="text/javascript" src="jsCode/Result.js"></script>
+	<script type="text/javascript" src="jsCode/Login.js?ver=1"></script>
+	<script type="text/javascript" src="jsCode/Init.js?ver=1"></script>
+	<script type="text/javascript" src="jsCode/Result.js?ver=1"></script>
 	<script>
 		sessionCheck(1);		
-		callResult();
-		callPolyLine(0); // 대중교통 그리기 
-		showResultPT();
 		checkSave();
+		callResult(); // 마커 그리기
+		callPolyLine(1); // 대중교통 폴리라인 그리기 
+		showResultPT(); // 왼쪽 자동차 뿌리기
+		
 		
 		function toggleLayer(layer)
 		{
