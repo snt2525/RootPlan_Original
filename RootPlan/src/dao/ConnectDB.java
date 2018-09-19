@@ -181,9 +181,12 @@ public class ConnectDB {
 	public String GetAllData(String cID) { //모든 데이터 넘겨주기
 		String result = "<SaveData>";
 		try {	
+			System.out.println("db 연동됨");
+			
 			connection = ds.getConnection();
 			st = connection.createStatement();
 			rs = st.executeQuery("SELECT * FROM route WHERE cid='"+cID+"'");
+			
 			
 			while(rs.next()) {
 				result += "<Data>";
@@ -207,7 +210,9 @@ public class ConnectDB {
 			st.close();
 			connection.close();
 			result = "</SaveData>";
+			System.out.println("result : " + result);
 		} catch (SQLException SQLex) {
+			System.out.println("DB 연동 안됨");
 			System.out.println("SQLException: " + SQLex.getMessage());
 			System.out.println("SQLState: " + SQLex.getSQLState());
 		}
