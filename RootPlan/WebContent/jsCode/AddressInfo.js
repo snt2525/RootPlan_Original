@@ -25,21 +25,19 @@ $(function(){
 	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기 
 	   document.getElementById("btnMainList").style.display="block";
 	   document.getElementById("btnSaveList").style.display="none";
-	   //document.getElementById("headlineID").style.display="block";
        showSaveList();
-       alert("showSaveList");
    });
    $('#btnMainList').click(function(){
 	   // 즐겨찾기 버튼 감추고 새로운 버튼 보이게 하기
 	   document.getElementById("btnMainList").style.display="none";
 	   document.getElementById("btnSaveList").style.display="block";
-	  // document.getElementById("headlineID").style.display="none";
 	   getData(); // main으로 돌아가면 모든 리스트 다시 보여주기
-	   alert("main으로");
    });
  }); 
 
 function showSaveList(){
+	$("#resetBtn").attr("type","hidden");
+	
 	// addressServlet 6번으로 가기
 	$.ajax({
 		url:"/RootPlan/AddressDataServlet",
@@ -47,8 +45,9 @@ function showSaveList(){
 		data: "menuIndex=6&customerID="+customerID,
 		success: function(data){
 			// 모든 데이터 받아와서 매핑해야서 보여줘야함
-			$("#resetBtn").attr("type","hidden");
-			var htmlStr = "<h4>저장한 모든 데이터 보여주기</h4>";
+			var htmlStr ="";
+			
+			
 			$("#list").html(htmlStr);	
 		}, 		
 	    error: function (data) {

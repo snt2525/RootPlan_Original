@@ -46,7 +46,7 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
-      System.out.println("customerID : " + request.getParameter("customerID"));
+      //System.out.println("customerID : " + request.getParameter("customerID"));
       int ID = 0;
       //int ID = Integer.parseInt(request.getParameter("customerID"));
       //System.out.println("customerID : "+ID);
@@ -121,9 +121,9 @@ public class AddressDataServlet extends HttpServlet {
             
          case 6: //DB의 사용자 저장한  데이터  모두 호출
         	 cID = request.getParameter("customerID");
-        	// String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
-        	 //out.print(resultDB);
-        	 out.print(0);
+        	 String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
+        	 out.print(resultDB);
+        	 //out.print(0);
         	 break;
             
          case 7: //reset
