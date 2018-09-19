@@ -50,7 +50,7 @@ public class Route {
 	   tmp.setPt_order(pt);
 	   tmp.setSize(carSize);
 	   tmp.setStart(start);
-	   tmp.setLast(last);	   
+	   tmp.setLast(last);	
 	   return tmp;
    }
    
@@ -158,6 +158,7 @@ public class Route {
    
    public String orderResult(int how, AddressDataManager ad) { //결과 데이터 보내기 
 	   String  result = "";
+	   size =  ad.addressData.size();
 	   if(how == 0) { 
 		   result += "<ResultData>";
 		   for(int i = 0;i<size;i++) {
@@ -177,6 +178,7 @@ public class Route {
 		   }
 		   result += "</ResultData>";		   
 	   }
+	   System.out.println("사이즈: "+size+"마크 : "+result);
 	   return result;
    }
    

@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
          db.CheckID(tmp);   //아이디 있으면 pass; 있으면 생성   
          break;
          
-      case 1: //주소 해제, 수정해야함
+      case 1: //주소 
          String cID = request.getParameter("cID");
          System.out.println("cID : " + cID);
          System.out.println("해시값 : " + logCheck.get(cID));
