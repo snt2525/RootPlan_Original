@@ -30,6 +30,7 @@ public class SearchAPIServlet extends HttpServlet {
 	      response.setContentType("text/html;charset=UTF-8");	      
 	      PrintWriter out = response.getWriter();
 	      System.out.println("검색api호출");
+	      System.out.println("test");
 	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));      
 		  switch(menuIndex) {
 			  case 1:  //지도 클릭, 검색
