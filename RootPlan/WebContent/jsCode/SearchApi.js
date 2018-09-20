@@ -113,20 +113,22 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
              
                   latlngTmp2 = new naver.maps.TransCoord.fromTM128ToLatLng(tm128);
                   infoWindow.setContent([
-                	  '<div style="position:relative;padding:20px;width:720px;height:220px;">',
+                	  '<div style="position:relative;padding:20px;width:750px;height:220px;">',
        	              '<div class="info-second">',    
        	              '<h6 class="info-h6">' + title[no] +'</h6>',
-       	              '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+       	              '<a href="#" name="btn" onClick="clickADDBtn();">',
+       	              '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+       	              //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
        	              '<p class="info-p">' + address[no] + roadaddress[no],
-       	                tp[no] + category[no] +'</p>',                                                                     
+       	              tp[no] + category[no] +'</p>',                                                                     
        	               '<p class="info-second-p">' + description[no],         
        	               '<a href="'+ link[no] +'" class="info-first-a"  target="_blank">'+ link2[no],
        	              '</a> </br> </p>',
        	           '</div>',
        	              '<div class="info-image1" >',
-       	              '<input type="button" class= "info-left-button" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
+       	              '<a href="#" onClick="getImg('+no+', 0);"><img src="img/imageLeftButton.png" class="info-left-button"/></a>',
        	              '<img src="'+ LocationImg[cntNow] +'" width="250px" height="200px" style= "float:left;"/>',
-       	              '<input type="button" name="btn" class= "info-right-button" value=">" onClick="getImg('+no+', 1);"/>',
+       	              '<a href="#" onClick="getImg('+no+', 1);"><img src="img/imageRightButton.png" class="info-right-button"/></a>',
        	              '</div></div>'
        	         ].join('\n'));
        	         infoWindow.open(map, latlngTmp2);   
@@ -157,20 +159,22 @@ function getImg(no , i){
 	}
 	infoWindow.close();
 	  infoWindow.setContent([
-    	  '<div style="position:relative;padding:20px;width:720px;height:220px;">',
+    	  '<div style="position:relative;padding:20px;width:750px;height:220px;">',
              '<div class="info-second">',    
              '<h6 class="info-h6">' + title[no] +'</h6>',
-             '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+             '<a href="#" name="btn" onClick="clickADDBtn();">',
+	         '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+             //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
              '<p class="info-p">' + address[no] + roadaddress[no],
                tp[no] + category[no] +'</p>',                                                                     
               '<p class="info-second-p">' + description[no],         
               '<a href="'+ link[no] +'" class="info-first-a"  target="_blank">'+ link2[no],
              '</a> </br> </p>',
           '</div>',
-             '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
-             '<input type="button" class= "info-left-button" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
-             '<img src="'+ LocationImg[cntNow] +'" width="250px" height="200px" style= "float:left;"/>',
-             '<input type="button" name="btn" class="info-right-button" value=">" onClick="getImg('+no+', 1);"/>',
+             '<div class="info-image1" >',
+             	'<a href="#" onClick="getImg('+no+', 0);"><img src="img/imageLeftButton.png" class="info-left-button"/></a>',
+	              '<img src="'+ LocationImg[cntNow] +'" width="250px" height="200px" style= "float:left;"/>',
+	              '<a href="#" onClick="getImg('+no+', 1);"><img src="img/imageRightButton.png" class="info-right-button"/></a>',
              '</div></div>'
         ].join('\n'));
         infoWindow.open(map, latlngTmp2);   
@@ -246,7 +250,9 @@ function makeInfo(flag){
    infoWindow.setContent([ 
        '<div style="position:relative;padding:20px;width:300px;height:50px;font-color:black">',
        '<h6 class="info-h6">' + title2 +'</h6>',
-       '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+       '<a href="#" name="btn" onClick="clickADDBtn();">',
+          '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+       //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
        '<p class="info-p">' + address2 + roadAddress2,
         tp2 + category2 +'</p>',                                                                 
        '<p>' + description2,         
