@@ -40,8 +40,9 @@ function showList(){ // 저장된 데이터 리스트 보여주는 함수
 		data: "menuIndex=6&customerID="+customerID+"&cID="+sessionStorage.getItem("id"),
 		success: function(data){
 			var htmlStr ="<h3 class='headline'>저장된 경로</h3>";
-			var size=0, tmpId=0;
+			var size=0, tmpId=0, check=0;
 			$(data).find("Data").each(function(){
+				check=1;
 				htmlStr += "<div><hr class='two'></div>"
 				htmlStr += "<div>";
 				size = $(this).find('size').text();
@@ -60,7 +61,7 @@ function showList(){ // 저장된 데이터 리스트 보여주는 함수
 				htmlStr += "</div></div>";
 				tmpId++;
 			}) 
-	
+			if(check==0) htmlStr += "<div><h5>저장된 경로가 없습니다.</h5></div>";
 			$("#list").html(htmlStr);
 		}, 		
 	    error: function (data) {

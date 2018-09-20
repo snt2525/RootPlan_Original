@@ -20,7 +20,7 @@ import dto.SetData;
 @WebServlet("/AddressDataServlet")
 public class AddressDataServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    ConnectDB db = new ConnectDB();
+    ConnectDB[] db = new ConnectDB[20];
     AddressDataManager[] ad = new AddressDataManager[20];  
     SetData[] sd = new SetData[20];
     Route[] r = new Route[20];
@@ -32,6 +32,7 @@ public class AddressDataServlet extends HttpServlet {
         for(int i=0; i<20; i++) {
             ad[i]=new AddressDataManager();
             sd[i] = new SetData();
+            db[i] = new ConnectDB();
          }
     }
     
@@ -60,13 +61,13 @@ public class AddressDataServlet extends HttpServlet {
         	 String what2 = request.getParameter("what"); //저장된거 단순 검사인지, 저장하려는건지
         	 String name = request.getParameter("name");
         	 System.out.println("cID(서블렛) : "+cID);
-        	 String resultFlag = db.CheckSameData(ad[ID].addressData, cID, what2, name);
+        	 String resultFlag = db[ID].CheckSameData(ad[ID].addressData, cID, what2, name);
         	 if(resultFlag.equals("1") && what2.equals("1")) { //리스트에 내용이 저장됬어, 그리고 route2에서 데이터 가져오기
-        		 String rID2 = db.makeRID(ad[ID].addressData); //rid만들어오기
+        		 String rID2 = db[ID].makeRID(ad[ID].addressData); //rid만들어오기
         		 //데이터를 dto에 넣는다.
         		 DBRoute2Data tmp = new DBRoute2Data(cID, rID2);
         		 DBRoute2Data tmpResult = r[ID].putRoute2Dto(tmp, sd[ID].GetStartData(), sd[ID].GetLastData());
-        	 	 db.SaveRoute2Data(tmpResult);
+        	 	 db[ID].SaveRoute2Data(tmpResult);
         	 }
         	 out.print(resultFlag); //1이면 저장 된거고,0이면 저장 중복
         	 break;
@@ -121,7 +122,7 @@ public class AddressDataServlet extends HttpServlet {
             
          case 6: //DB의 사용자 저장한  데이터  모두 호출
         	 cID = request.getParameter("cID");
-        	 String resultDB = db.GetAllData(cID); // 모든 데이터 파싱해서 가져옴
+        	 String resultDB = db[ID].GetAllData(cID); // 모든 데이터 파싱해서 가져옴
         	 out.print(resultDB);
         	 break;
             
@@ -253,7 +254,7 @@ public class AddressDataServlet extends HttpServlet {
          case 21: //여기서 DB데이터를 DataTotal저장하는 곳에 전부 넣어준다.
         	 String rID = request.getParameter("rID");
         	 String cID3 = request.getParameter("cID");  
-        	 Route2DataCall resultRoute2 = db.GetSavedRoute2Data(cID3, rID);
+        	 Route2DataCall resultRoute2 = db[ID].GetSavedRoute2Data(cID3, rID);
         	 sd[ID].SetStartData(resultRoute2.getStart());
         	 sd[ID].SetLastData(resultRoute2.getLast());
         	 this.r[ID] = new Route(ad[ID].addressData.size()); //할당
@@ -264,7 +265,7 @@ public class AddressDataServlet extends HttpServlet {
          case 22: // 저장된 것중에서 삭제하기
         	 String rID4 = request.getParameter("rID");
         	 String cID4 = request.getParameter("cID");
-        	 out.print(db.DeleteData(rID4, cID4)); // 0:삭제 실패, 1:삭제 성공
+        	 out.print(db[ID].DeleteData(rID4, cID4)); // 0:삭제 실패, 1:삭제 성공
         	 break;
       }               
    }

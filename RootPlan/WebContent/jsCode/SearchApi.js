@@ -113,20 +113,20 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
              
                   latlngTmp2 = new naver.maps.TransCoord.fromTM128ToLatLng(tm128);
                   infoWindow.setContent([
-                	  '<div style="position:relative;padding:20px;width:620px;height:210px;">',
-       	              '<div style="float:left;position:relative;padding:10px;width:280px;height:180px;font-color:black">',    
-       	              '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
-       	              '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
-       	              '<p style="color:black;">' + address[no] + roadaddress[no],
+                	  '<div style="position:relative;padding:20px;width:720px;height:220px;">',
+       	              '<div class="info-second">',    
+       	              '<h6 class="info-h6">' + title[no] +'</h6>',
+       	              '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+       	              '<p class="info-p">' + address[no] + roadaddress[no],
        	                tp[no] + category[no] +'</p>',                                                                     
-       	               '<p>' + description[no],         
-       	               '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
+       	               '<p class="info-second-p">' + description[no],         
+       	               '<a href="'+ link[no] +'" class="info-first-a"  target="_blank">'+ link2[no],
        	              '</a> </br> </p>',
        	           '</div>',
-       	              '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
-       	              '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
-       	              '<img src="'+ LocationImg[cntNow] +'" width="230px" height="180px" style= "float:left;"/>',
-       	              '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+', 1);"/>',
+       	              '<div class="info-image1" >',
+       	              '<input type="button" class= "info-left-button" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
+       	              '<img src="'+ LocationImg[cntNow] +'" width="250px" height="200px" style= "float:left;"/>',
+       	              '<input type="button" name="btn" class= "info-right-button" value=">" onClick="getImg('+no+', 1);"/>',
        	              '</div></div>'
        	         ].join('\n'));
        	         infoWindow.open(map, latlngTmp2);   
@@ -157,20 +157,20 @@ function getImg(no , i){
 	}
 	infoWindow.close();
 	  infoWindow.setContent([
-    	  '<div style="position:relative;padding:20px;width:620px;height:200px;">',
-             '<div style="float:left;position:relative;padding:10px;width:280px;height:210px;font-color:black">',    
-             '<h6 style="font-weight:bold; color:black; float:left;">' + title[no] +'</h6>',
-             '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
-             '<p style="color:black;">' + address[no] + roadaddress[no],
+    	  '<div style="position:relative;padding:20px;width:720px;height:220px;">',
+             '<div class="info-second">',    
+             '<h6 class="info-h6">' + title[no] +'</h6>',
+             '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+             '<p class="info-p">' + address[no] + roadaddress[no],
                tp[no] + category[no] +'</p>',                                                                     
-              '<p>' + description[no],         
-              '<a href="'+ link[no] +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link2[no],
+              '<p class="info-second-p">' + description[no],         
+              '<a href="'+ link[no] +'" class="info-first-a"  target="_blank">'+ link2[no],
              '</a> </br> </p>',
           '</div>',
              '<div style="position:relative;width:280px;height:200px;float:right;padding:10px;" >',
-             '<input type="button" style= "float:left;top:100px;" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
-             '<img src="'+ LocationImg[cntNow] +'" width="230px" height="180px" style= "float:left;"/>',
-             '<input type="button" name="btn" style= "float:left;top:100px;" value=">" onClick="getImg('+no+', 1);"/>',
+             '<input type="button" class= "info-left-button" name="btn" value="<" onClick="getImg('+no+', 0);"/>',
+             '<img src="'+ LocationImg[cntNow] +'" width="250px" height="200px" style= "float:left;"/>',
+             '<input type="button" name="btn" class="info-right-button" value=">" onClick="getImg('+no+', 1);"/>',
              '</div></div>'
         ].join('\n'));
         infoWindow.open(map, latlngTmp2);   
@@ -245,12 +245,12 @@ function callSearchApi(num){
 function makeInfo(flag){
    infoWindow.setContent([ 
        '<div style="position:relative;padding:20px;width:300px;height:50px;font-color:black">',
-       '<h6 style="font-weight:bold; color:black; float:left;">' + title2 +'</h6>',
-       '<input type="button" name="btn" style="float:right;" value="담기" onClick="clickADDBtn();"/></br>',
-       '<p style="color:black;">' + address2 + roadAddress2,
+       '<h6 class="info-h6">' + title2 +'</h6>',
+       '<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
+       '<p class="info-p">' + address2 + roadAddress2,
         tp2 + category2 +'</p>',                                                                 
        '<p>' + description2,         
-       '<a href="'+ link3 +'" style="color:blue;text-decoration:none;"  target="_blank">'+ link4,
+       '<a href="'+ link3 +'" class="info-first-a"  target="_blank">'+ link4,
        '</br> </p>',
       '</div>'
    ].join('\n'));
