@@ -57,10 +57,10 @@ function getData(){
 		success: function(data){
 			var htmlStr = "<h3 class='headline'>여행지 선택</h3>";
 			if(data!= null){
-				$("#resetBtn").attr("type","button");  //초기화 버튼 활성화
+				jQuery('#resetBtn').show();   //초기화 버튼 활성화
 			}
 			else{
-				$("#resetBtn").attr("type","hidden");  // 값이 없으면 버튼 감추기
+				jQuery('#resetBtn').hide();  // 값이 없으면 버튼 감추기
 			}
 			
 			$(data).find("Address").each(function(){
@@ -104,7 +104,8 @@ $("#addressBasket").on("click", '#resetBtn' , function(){
 				if(data>0){
 					clean();
 					var htmlStr = "<h3 class='headline'>여행지 선택</h3>";
-					$("#resetBtn").attr("type","hidden");  //초기화 버튼 hidden
+					//$("#resetBtn").attr("type","hidden");  //초기화 버튼 hidden
+					jQuery('#resetBtn').hide();  
 					$("#list").html(htmlStr); 
 					getDataSize(1);
 				}
