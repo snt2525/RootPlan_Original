@@ -30,7 +30,7 @@ public class SearchAPIServlet extends HttpServlet {
 	      response.setContentType("text/html;charset=UTF-8");	      
 	      PrintWriter out = response.getWriter();
 	      System.out.println("검색api호출");
-	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));      
+	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
 		  switch(menuIndex) {
 			  case 1:  //지도 클릭, 검색
 				  String result = "";
@@ -59,7 +59,6 @@ public class SearchAPIServlet extends HttpServlet {
 				  String result2 = "";
 				  LocalSearchImg img = new LocalSearchImg();
 				  String localName = request.getParameter("localName");
-				  System.out.println("호출된 로컬 타이틀:" + localName);
 				  result2 = img.getImage(localName, 1);
 				  //System.out.println(result2);
 				  out.print(result2);

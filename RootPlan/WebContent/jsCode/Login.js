@@ -5,6 +5,7 @@ $.ajaxSetup({
 });
 var checkflag = sessionStorage.getItem("checkflag");
 var customerID = sessionStorage.getItem("customerID");
+
 function print(){
    console.log("email : " + sessionStorage.getItem("email"));
    //console.log("customerName : " + sessionStorage.getItem("name"));
@@ -12,6 +13,7 @@ function print(){
    console.log("gender : " + sessionStorage.getItem("gender"));
    console.log("age : " + sessionStorage.getItem("age"));
 }
+
 
 function sessionCheck(i){
    // 만약 로그인 안되어있으면 로그인 페이지로 무조건 가기
@@ -63,7 +65,7 @@ function ListInit(){
    $.ajax({
       url:"/RootPlan/AddressDataServlet",
       dataType: "text",
-      data: "menuIndex=23&ID="+customerID,
+      data: "menuIndex=24&ID="+customerID,
       success: function(data){
     	  sessionStorage.setItem("checkflag", 1); 
       }
@@ -78,4 +80,9 @@ function killSession(){
       dataType: "text",
       data: "menuIndex=1&cID="+id
    });
+   $.ajax({
+	      url:"/RootPlan/AddressDataServlet",
+	      dataType: "text",
+	      data: "menuIndex=23&cID="+id+"&customerID="+customerID
+	   });
 }

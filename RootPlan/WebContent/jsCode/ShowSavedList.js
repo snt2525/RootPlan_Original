@@ -8,14 +8,12 @@ $.ajaxSetup({
 $(function(){
    $('#btnSaveList').click(function(){
 	   // 즐겨찾기 버튼 감추고 리스트 버튼 보이게 하기 
-	   alert("save 버튼");
 	   document.getElementById("btnMainList").style.display="block";
 	   document.getElementById("btnSaveList").style.display="none";
 	   showList();
    });
    $('#btnMainList').click(function(){
 	   // 리스트 버튼 감추고 즐겨찾기 버튼 보여주기
-	   alert("main 버튼");
 	   document.getElementById("btnMainList").style.display="none";
 	   document.getElementById("btnSaveList").style.display="block";
 	   getData(); // main으로 돌아가면 모든 리스트 다시 보여주기

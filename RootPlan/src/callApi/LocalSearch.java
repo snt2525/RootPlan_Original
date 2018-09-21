@@ -15,7 +15,7 @@ public class LocalSearch {
 	   public String clientSecret = "d4nYetPHwT";	   
 	   
 	   public String mapLocalSearch(int num,String findLocation, String address) { 		 
-		  String result = "";
+		   String result = "";
 		  String[] tmp = address.trim().split(" "); //도로명 주소 분리
 		  
 		  if(num == 1) {
@@ -62,7 +62,8 @@ public class LocalSearch {
 		            br.close();
 		            con.disconnect();
 		            
-		           //System.out.println(sb); 
+		           //System.out.println(sb);
+		           
 		        String data = sb.toString();
 		        String[] array;
 		        array = data.split("\"");   

@@ -32,10 +32,9 @@ function getLocalSearchData(){
 	var word = keyword;
    $.ajax({
        url:"/RootPlan/CallSearchLocalApi",
-       dataType: "xml",
+       dataType: "text",
        data: $("#SiData").serialize()+"&customerID="+customerID,
        success: function(data){
-    	  //console.log("크롤링 js 들어옴");
           var htmlStr = "";
           htmlStr += "<div id='box'>";
           $(data).find("CityData").each(function(){
@@ -97,7 +96,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
    
    $.ajax({
        url:"/RootPlan/CallSearchLocalApi",
-       dataType: "xml",
+       dataType: "text",
        type : "post",
        data: $("#getImgURL").serialize()+"&customerID="+customerID,
        success: function(data){
