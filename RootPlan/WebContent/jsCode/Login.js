@@ -3,9 +3,8 @@ $.ajaxSetup({
    contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
    type:"post"
 });
-
+var checkflag = sessionStorage.getItem("checkflag");
 var customerID = sessionStorage.getItem("customerID");
-
 function print(){
    console.log("email : " + sessionStorage.getItem("email"));
    //console.log("customerName : " + sessionStorage.getItem("name"));
@@ -21,12 +20,10 @@ function sessionCheck(i){
       location.href="indexLogin.html";
       return 0;
    }else{
-      print();
-      
+      print();     
       if(i == 0){ // index 페이지에서 호출
          sendCustomerInfo();
       }
-      
       // customerID 계속 들고다니면서 모든 폼에 추가로 전송하기
       customerID = sessionStorage.getItem("customerID"); 
       return 1;
@@ -40,6 +37,7 @@ var gender = sessionStorage.getItem("gender");
 var age = sessionStorage.getItem("age");
 
 function sendCustomerInfo(){
+	sessionStorage.setItem("checkflag", 0);
 	email = sessionStorage.getItem("email");
 	customerName = sessionStorage.getItem("name");
 	id = sessionStorage.getItem("id");
@@ -54,12 +52,23 @@ function sendCustomerInfo(){
 		success: function(data){
 			console.log("customerID 번호 : " + data);
 			sessionStorage.setItem("customerID", data); // customerID 입력
+			ListInit();
 		},error:function(data){
 			console.log("customerID 값 받아오기 실패"); 
 		}
 	});
 }
 
+function ListInit(){ 
+   $.ajax({
+      url:"/RootPlan/AddressDataServlet",
+      dataType: "text",
+      data: "menuIndex=23&ID="+customerID,
+      success: function(data){
+    	  sessionStorage.setItem("checkflag", 1); 
+      }
+   });
+}
 
 function killSession(){ 
    sessionStorage.clear();

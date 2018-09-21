@@ -267,6 +267,12 @@ public class AddressDataServlet extends HttpServlet {
         	 String cID4 = request.getParameter("cID");
         	 out.print(db[ID].DeleteData(rID4, cID4)); // 0:삭제 실패, 1:삭제 성공
         	 break;
+         case 23:
+        	 System.out.println("리스트 초기화");
+        	 	db = new ConnectDB[ID];
+        	    ad = new AddressDataManager[ID];  
+        	    sd = new SetData[ID];
+        	 break;
       }               
-   }
+   }  
 }
