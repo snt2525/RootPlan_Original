@@ -173,7 +173,8 @@ hr.lastHr{
 	padding-left:10px;
 	width:350px;
 	height:210px;
-	font-color:black
+	font-color:black;
+	overflow: auto;
 }
 .info-first-a{
 	color:blue;

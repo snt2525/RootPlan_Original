@@ -191,41 +191,33 @@ public class Route {
 		   for(int i=0; i<dataTotal.ptList.size();i++) {
 			   int InfoPTSize = dataTotal.ptList.get(i).getLineListSize();
 			   boolean isWalk = dataTotal.ptList.get(i).isWalk();
-			  
+			   
 			   result += "<Data>";
-			   if(isWalk) {
-				   result += "<walk>0</walk>";
-			   }else {
-				   result += "<walk>1</walk>";
-			   }
+			   result += "<lno>0</lno>";
+			   result += "<end>0</end>";
+			   if(isWalk)  result += "<walk>0</walk>";
+			   else    result += "<walk>1</walk>";
 			   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getSx())+ "</lat>";
 			   result += "<lng>" +Double.toString(dataTotal.ptList.get(i).getSy())+ "</lng>";
 			   result += "</Data>";
 			   
 			   for(int j=0; j<InfoPTSize; j++) {
-				   result += "<Data>";
-				   if(isWalk) { // 도보
-					   result += "<walk>0</walk>";
-				   }else {
-					   result += "<walk>1</walk>";
-				   }
 				   DataPair pair = dataTotal.ptList.get(i).getLineList(j);
+				   result += "<Data>";
+				   result += "<end>0</end>";
+				   if(isWalk)  result += "<walk>0</walk>";
+				   else    result += "<walk>1</walk>";
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
 				   result += "</Data>";
 			   }
-			   
-			   if(i==dataTotal.ptList.size()-1) {
-				  result += "<Data>";
-				  if(isWalk) {
-					   result += "<walk>0</walk>";
-				   }else {
-					   result += "<walk>1</walk>";
-				   }
-				   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getEx())+ "</lat>";
-				   result += "<lng>" +Double.toString(dataTotal.ptList.get(i).getEy())+ "</lng>";
-				   result += "</Data>";
-			   }
+			   result += "<Data>";
+			   result += "<end>1</end>";
+			   if(isWalk)  result += "<walk>0</walk>";
+			   else    result += "<walk>1</walk>";
+			   result += "<lat>" +Double.toString(dataTotal.ptList.get(i).getEx())+ "</lat>";
+			   result += "<lng>" +Double.toString(dataTotal.ptList.get(i).getEy())+ "</lng>";
+			   result += "</Data>";
 		   }
 		   result += "</ptData>";
 		   
@@ -233,14 +225,18 @@ public class Route {
 		   result += "<carData>";
 		   for(int i=0; i<dataTotal.carList.size(); i++) {
 			   int lineListSize = dataTotal.carList.get(i).getLineListSize();
+			   result += "<Data>";
+			   result += "<end>1</end>";
+			   result += "<lat>" + Double.toString(dataTotal.carList.get(i).getSx())+"</lat>";
+			   result += "<lng>" + Double.toString(dataTotal.carList.get(i).getSy())+"</lat>";
+			   result += "</Data>";
+			   
 			   for(int j=0; j<lineListSize; j++) {
-				   result += "<Data>";
-				   if(dataTotal.carList.get(i).isWalk()) { // 도보
-					   result += "<walk>0</walk>";
-				   }else {
-					   result += "<walk>1</walk>";
-				   }
 				   DataPair pair = dataTotal.carList.get(i).getLineList(j);
+				   result += "<Data>";
+				   result += "<end>0</end>";
+				   if(dataTotal.carList.get(i).isWalk())  result += "<walk>0</walk>";
+				   else    result += "<walk>1</walk>";
 				   result += "<lat>" + Double.toString(pair.getX()) + "</lat>";
 				   result += "<lng>" + Double.toString(pair.getY()) + "</lng>";
 				   result += "</Data>";

@@ -25,8 +25,8 @@ public class AddressDataServlet extends HttpServlet {
     SetData[] sd = new SetData[20];
     Route[] r = new Route[20];
     Address[] aTmp = new Address[20];    		
-    boolean[] apiFlag = new boolean[20]; // 로그아웃시 or session죽을 떄 자원해제해야하니까 apiFlag 변경해야함 
-   
+    boolean[] apiFlag = new boolean[20];
+    
     public AddressDataServlet() {
         super();
         for(int i=0; i<20; i++) {
@@ -48,10 +48,8 @@ public class AddressDataServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       System.out.println("연결: "+ request.getParameter("menuIndex"));
       int optionNum = Integer.parseInt(request.getParameter("menuIndex"));
-      //System.out.println("customerID : " + request.getParameter("customerID"));
-      int ID = 0;
-      //int ID = Integer.parseInt(request.getParameter("customerID"));
-      //System.out.println("customerID : "+ID);
+      //System.out.println("customerID : "+request.getParameter("customerID"));
+      int ID = Integer.parseInt(request.getParameter("customerID"));
       
       
       switch(optionNum) {
@@ -267,6 +265,11 @@ public class AddressDataServlet extends HttpServlet {
         	 String cID4 = request.getParameter("cID");
         	 out.print(db[ID].DeleteData(rID4, cID4)); // 0:삭제 실패, 1:삭제 성공
         	 break;
+        	 
+         case 23: // 세션 죽일 때
+        	 ad[ID].addressData.clear();
+        	 System.out.println(ID + "세션 청소완료");
+        	 break; 
       }               
    }
 }

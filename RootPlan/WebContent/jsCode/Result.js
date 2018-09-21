@@ -11,8 +11,9 @@ var imgIconUrl = [
 	'img/way4.png',
 	'img/way5.png',
 	'img/way6.png',
-	'img/bus.png', // 6 : 버스아이콘
-	'img/subway.png' // 7 : 지하철 아이콘
+	'img/wayLast.png', // 6 : 사이클 생성시
+	'img/bus.png', // 7 : 버스아이콘
+	'img/subway.png' // 8 : 지하철 아이콘
 ]
 
 function checkSave(){
@@ -73,18 +74,16 @@ function tabClick(title){
 	if(title=="li-tab1"){ 
 		document.resultPoly.how.value = "0";
 		document.resultLatLng.how.value="0";
-		document.tabPT.src = "img/tab_pt_pressed.png";
-		document.tabCar.src = "img/tab_car.png";
-		//console.log(document.tabPT.src + " , " + document.tabCar.src);
+		document.getElementById('tabPT').setAttribute('src', 'img/tab_pt_pressed.png');
+		document.getElementById('tabCar').setAttribute('src', 'img/tab_car.png');
 		callResult();
 		callPolyLine(0);
 		showResultPT();
 	}else{
 		document.resultPoly.how.value = "1";
 		document.resultLatLng.how.value="1";
-		document.tabCar.src="img/tab_car_pressed.png";
-		document.tabPT.src="img/tab_pt.png";
-		//console.log(document.tabPT.src + " , " + document.tabCar.src);
+		document.getElementById('tabCar').setAttribute('src', 'img/tab_car_pressed.png');
+		document.getElementById('tabPT').setAttribute('src', 'img/tab_pt.png');
 		callResult(); // 결과 부르기
 		callPolyLine(1); // 그리기
 		showResultCar(); // 옆에 결과 보여주기 
@@ -111,7 +110,7 @@ function showResultPT(){
 	    			   wayCount =$(this).find('wayCount').text();
 	    			   cycle = $(this).find('cycle').text();
 	    		   }else if($(this).find('check').text()=='0'){
-	    			 if(wayCount-1!=count){
+	    			 if(wayCount-1!=count){ // 사이클 체크해서 하기 
 	    				 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
 		    			 count = count+1;
 	    				 htmlStr += "<img class='iconImg' src='img/arrow_right.png' />";
@@ -122,14 +121,20 @@ function showResultPT(){
 	    				 else 
 	    					 htmlStr += "<img style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
 	    				 htmlStr += "</div>"; 
+	    				 count=0;
 	    			 }
 	    		   }else if($(this).find('check').text()=='1'){	   // 1번 지점
 	    			   now = now+1;
 	    			   cnt=0; 
 	    			   cnt1=0;
+	    			   count++;
 	    			   // 엔터 하려면 나중에 보고나서 
 	    			   htmlStr += "<div><hr class='one'>";
-	    			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
+	    			   if(cycle=='1' && wayCount-1==count){
+	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/> 약 ";
+	    			   }else{
+	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
+	    			   }
 	    			   if($(this).find('walk').text()=="true"){
 	    				   htmlStr += (Number($(this).find('totalTime').text())/60).toFixed(0) +"분  |  요금 "; 
 	    				   totalTime += Number($(this).find('totalTime').text())/60;
@@ -152,11 +157,11 @@ function showResultPT(){
 	    				   if($(this).find('stationName').text()=="null"){
 	    					   htmlStr += "해당 정보를 제공하지 않습니다.";
 	    				   }else{
-	    					   htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/>"+$(this).find('bus').text();
+	    					   htmlStr += "<img class='iconImg' src='"+imgIconUrl[7] +"'/>"+$(this).find('bus').text();
 		    				   htmlStr += "("+$(this).find('stationName').text()+")";   
 	    				   }
 	    			   }else{ // 지하철
-	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[7] +"'/>";
+	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[8] +"'/>";
 	    				   htmlStr += $(this).find('subwayLine').text()+"("+$(this).find('stationName').text()+")";
 	    			   }
 	    			   if(cnt!=sectionSize){ 
@@ -219,6 +224,7 @@ function showResultCar(){
 	    		   if($(this).find('check').text()=='-1'){
 	    			   wayCount = $(this).find('wayCount').text();
 	    			   cycle = $(this).find('cycle').text();
+	    			   console.log("cycle car : " + cycle);
 	    		   }else if($(this).find('check').text()=='0'){
 		    			if(wayCount-1!=count){
 		    				htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
@@ -231,10 +237,13 @@ function showResultCar(){
 		    				else
 		    					htmlStr += "<img  style='width:20px;margin-right:5px;' src=" + imgUrl[count] +" />" + $(this).find('title').text();
 		    				htmlStr += "</div>";
+		    				count=0;
 		    			}
 	    		   }else{
 	    			   htmlStr += "<hr class='one'><div>";
-	    			   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
+	    			   count++;
+	    			   if(cycle=='1' && wayCount-1 == count) htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/> 약 ";
+	    			   else htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
 	    			   htmlStr += (Number($(this).find('time').text())/60).toFixed(0).toString() +"분 | ";
 	    			   if($(this).find('walk').text()=="false"){
 	    				   totalFare += Number($(this).find('fare').text());
