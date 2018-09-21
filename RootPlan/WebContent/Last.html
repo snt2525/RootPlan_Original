@@ -18,36 +18,40 @@
 				<!--  frameLeft -->
 				<div id="asideTop" class="text-center">
 					<div class="title middle-content1">
-						<h3>최적 경로</h3>
+						<h3 style="margin-top:20px;font-weight:600;">최적 경로</h3>
 					</div>
 					<div class="right-content">
-						<a href="#" onmouseover="ChangeImage(0)" onmouseout="ChangeImage(1)" onclick="ChangeImage(2)">
+						<a href="#" title="저장버튼" onmouseover="ChangeImage(0)" onmouseout="ChangeImage(1)" onclick="ChangeImage(2)">
 						<img style="padding:20px;" id="saveBtn" name="saveBtn" src="img/star_gray.png" />
 						</a>
 					</div>
 					
 					<!-- tab으로 구성 -->
 					<ul class="tab">
-						<li class="current" data-tab="tab1"><a href="#">대중교통+도보</a></li>
-						<li data-tab="tab2"><a href="#">자동차+도보</a></li>
+						<li id="li-tab1" data-tab="tab1"> <a href="#">
+						<img id="tabPT" name="tabPT" style="width:220px;" src="img/tab_pt_pressed.png"/></a></li>
+						<li id="li-tab2" data-tab="tab2"><a href="#">
+						<img id="tabCar" name="tabCar" style="width:220px;" src="img/tab_car.png"/></a></li>
 					</ul>			
 					
-					<form id="showPT" name="showPT" method="post">
-						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
-						<input type="hidden" id="how" name="how" value="0">
-						<div id="tab1" class="tabcontent current">
-							<div id="resultPTList" name="resultPTList"></div><!-- 대중교통 정보 뿌려주기 -->
-						</div>
-					</form>
+					<!-- <ul class="tab">
+						<li class="current" data-tab="tab1"><a href="#">대중교통+도보</a></li>
+						<li data-tab="tab2"><a href="#">자동차+도보</a></li>
+					</ul> -->
 					
-					<form id="showCar" name="showCar" method="post">
-						<input type="hidden" id="menuIndex" name="menuIndex" value="20">
-						<input type="hidden" id="how" name="how" value="1">
-						<div id="tab2" class="tabcontent">
-							<div id="resultCarList" name="resultCarList"></div> <!-- 자동차 정보 뿌려주기 -->
-						</div>
-					</form>
-							
+					<div style="padding:20px;">
+						<form id="showPT" name="showPT" method="post">
+							<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+							<input type="hidden" id="how" name="how" value="0">
+								<div id="resultPTList" name="resultPTList"></div><!-- 대중교통 정보 뿌려주기 -->
+						</form>
+						
+						<form id="showCar" name="showCar" method="post">
+							<input type="hidden" id="menuIndex" name="menuIndex" value="20">
+							<input type="hidden" id="how" name="how" value="1">
+								<div id="resultCarList" name="resultCarList"></div> <!-- 자동차 정보 뿌려주기 -->
+						</form>
+					</div>
 				</div>
 				<div id="asideBottom" class="left-sidebar">
 					<a href="Third.html"><img src='img/click_left.png'/></a>
@@ -93,14 +97,28 @@
 		function toggleLayer(layer)
 		{
 		    var l = document.getElementById(layer);
-		    if(l.style.display == "")
+		    var tmp = layer+"img";
+		    var l_img = document.getElementById(tmp);
+		    if(l.style.display == ""){
 		        l.style.display = "none";
-		    else if(l.style.display == "none")
+		        l_img.src="img/arrow_down.png";
+		    }
+		    else if(l.style.display == "none"){
 		        l.style.display = "";
+		        l_img.src="img/arrow_up.png";
+		    }
 		}
 		
 		
-		$(function() {
+	 	$(function() {
+			$('ul.tab li').click(function() {
+				var title = $(this).attr("id");
+				var activeTab = $(this).attr('data-tab');
+				tabClick(title);
+			})
+		}); 
+		
+/* 		$(function() {
 			$('ul.tab li').click(function() {
 				var title = $(this).text();
 				var activeTab = $(this).attr('data-tab');
@@ -110,7 +128,7 @@
 				$('#' + activeTab).addClass('current');
 				tabClick(title);
 			})
-		});
+		}); */
 		
 		
 	</script>

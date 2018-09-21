@@ -8,12 +8,14 @@ $.ajaxSetup({
 $(function(){
    $('#btnSaveList').click(function(){
 	   // 즐겨찾기 버튼 감추고 리스트 버튼 보이게 하기 
+	   alert("save 버튼");
 	   document.getElementById("btnMainList").style.display="block";
 	   document.getElementById("btnSaveList").style.display="none";
 	   showList();
    });
    $('#btnMainList').click(function(){
 	   // 리스트 버튼 감추고 즐겨찾기 버튼 보여주기
+	   alert("main 버튼");
 	   document.getElementById("btnMainList").style.display="none";
 	   document.getElementById("btnSaveList").style.display="block";
 	   getData(); // main으로 돌아가면 모든 리스트 다시 보여주기
@@ -41,22 +43,25 @@ function showList(){ // 저장된 데이터 리스트 보여주는 함수
 		success: function(data){
 			var htmlStr ="<h3 class='headline'>저장된 경로</h3>";
 			var size=0, tmpId=0, check=0;
+			document.getElementById("resetBtn").style.display="block";
+			document.getElementById("resetBtn").style.display="none";
+			
 			$(data).find("Data").each(function(){
 				check=1;
 				htmlStr += "<div><hr class='two'></div>"
 				htmlStr += "<div>";
 				size = $(this).find('size').text();
 				htmlStr += "<div class='save_subtitle'><a class='no-uline noul' href=\"javascript:toggleLayer('"+tmpId+"');\">" +$(this).find('name').text()+"</a></div>";
-				htmlStr += "<div id='"+tmpId+"' style='display:none'><div><hr class='three'>";  
+				htmlStr += "<div id='"+tmpId+"' style='display:none'><hr class='three'><div class='detail-save'>";  
 				for(var idx=0; idx<size; idx++){
 					htmlStr += (idx+1) +". " + $(this).find('address'+idx).text();
 					if(idx==size-1) htmlStr += "</div>";
 					else htmlStr += " <img src=img/arrow_right.png /> "; 
 				}
-				htmlStr += "<div>"; 
-				htmlStr += "<a class='margin1' onclick=\"goLoading('"+$(this).find('rID').text()+"')\">바로경로보기</a>"; // css 적용하기 
-				htmlStr += "<a class='margin1' onclick=\"goMain('"+$(this).find('rID').text()+"')\">선택</a>";
-				htmlStr += "<a class='margin1' onclick=\"goDelete('"+$(this).find('name').text() +"','"+$(this).find('rID').text()+"')\">삭제</a>";
+				htmlStr += "<div id='containerBox'>"; 
+				htmlStr += "<a id='box-left' class='btn btn-skin' onclick=\"goLoading('"+$(this).find('rID').text()+"')\">바로경로보기</a>"; // css 적용하기 
+				htmlStr += "<a id='box-center' class='btn btn-skin' onclick=\"goMain('"+$(this).find('rID').text()+"')\">선택</a>";
+				htmlStr += "<a id='box-right' class='btn btn-skin' onclick=\"goDelete('"+$(this).find('name').text() +"','"+$(this).find('rID').text()+"')\">삭제</a>";
 				htmlStr += "</div>";	
 				htmlStr += "</div></div>";
 				tmpId++;

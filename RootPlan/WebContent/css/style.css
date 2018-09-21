@@ -175,7 +175,7 @@ blockquote strong {
    width: 100%;
 }
 
-.delete-factor {
+a.delete-factor {
    font-size: 20px;
    font-weight: 600;
 }
@@ -322,21 +322,46 @@ blockquote strong {
 	position: relative;
 	display: inline-block;
 	outline: none;
-	background-color: #ff5c0f;
-	color: #fff;
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-right:30px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color: rgb(255, 153, 051); 
+	color:white;
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 400;
 	text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
 	font-size: 14px;
+	cursor: pointer;
+}
+.btnSearch{
+	border-radius: 2px;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color: rgb(255, 153, 051); 
+	color:white;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 500;
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+	font-size: 14px;
+	cursor: pointer;
 }
 .btnKeyword {
 	border-radius: 10px;
 	position: relative;
 	display: inline-block;
 	outline: none;
-	background-color: #727272;
+	background-color: rgb(153,153,153);
 	color: #ffffff;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -344,6 +369,7 @@ blockquote strong {
 	font-weight: 400;
 	text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
 	font-size: 14px;
+	cursor:pointer;
 }
 .btn.btn-noradius {
 	border-radius: 0;
@@ -361,8 +387,8 @@ a.btn:focus {
 
 .btn-red:hover, .btn-red:focus, .btn-red:active, .btn-red.active {
 	color: #fff;
-	background-color: #666;
-	border-color: #666;
+	background-color: rgb(255, 153, 0);
+	border-color: rgb(255, 153, 0);
 }
 
 .btn-red:active {
@@ -371,14 +397,14 @@ a.btn:focus {
 
 .btn-skin:hover, .btn-skin:focus, .btn-skin:active, .btn-skin.active {
 	color: #fff;
-	background-color: #666;
-	border-color: #666;
+	background-color:  rgb(153,153,153);
+	border-color: rgb(153,153,153);
 }
 
 .btn-skin1:hover, .btn-skin1:focus, .btn-skin1:active, .btn-skin1.active {
 	color: #fff;
-	background-color: #ff8040;
-	border-color: #ff8040;
+	background-color: rgb(255, 153, 051);
+	border-color: rgb(255, 153, 051);
 }
 
 .btn-default:hover, .btn-default:focus {
@@ -397,99 +423,23 @@ a.btn:focus {
 	margin-top: 0;
 }
 
-/* Media queries */
-@media ( min-width :767px) {
-	.navbar {
-		padding: 20px 0;
-		border-bottom: 0;
-		letter-spacing: 1px;
-		background: 0 0;
-		-webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
-		-moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
-		transition: background .5s ease-in-out, padding .5s ease-in-out;
-	}
-	.top-nav-collapse {
-		padding: 0;
-		background-color: #000;
-	}
-	.navbar-custom.top-nav-collapse {
-		border-bottom: 1px solid rgba(255, 255, 255, .3);
-	}
-	.intro {
-		height: 100%;
-		padding: 0;
-	}
-	.brand-heading {
-		font-size: 100px;
-	}
-	.intro-text {
-		font-size: 25px;
-	}
+#containerBox {
+  display: flex;
+}
+#box-left {
+  flex: 2;
+  text-align: center;
+}
+#box-center {
+  flex: 1;
+  text-align: center;
+}
+#box-right {
+  flex: 1;
+  text-align: center;
 }
 
-@media ( max-width :768px) {
-	#navigation {
-		padding: 20px 0;
-	}
-	.site-logo {
-		margin: 0 0 0 30px;
-		float: none;
-	}
-	.navbar-custom ul.nav li a {
-		color: #eee;
-	}
-	.navbar-custom ul.nav ul.dropdown-menu li {
-		border-bottom: 1px solid #aaa;
-	}
-	.navbar-header {
-		margin-top: -40px;
-		padding: 0;
-	}
-	.navbar-header button {
-		background: #111;
-	}
-	.navbar-header button.navbar-toggle {
-		padding: 4px 15px;
-		font-size: 14px;
-		color: #fff;
-	}
-	.navbar-custom .nav {
-		background: #444;
-	}
-	.service-box {
-		margin-bottom: 50px;
-	}
-	.team-wrap {
-		margin-bottom: 30px;
-	}
-	form#contact-form {
-		margin-bottom: 50px;
-	}
-	.xs-marginbot-20 {
-		margin-bottom: 20px;
-	}
-}
-
-@media ( max-width :480px) {
-	.navbar-custom .nav.navbar-nav {
-		background-color: rgba(255, 255, 255, .4);
-	}
-	.navbar.navbar-custom.navbar-fixed-top {
-		margin-bottom: 30px;
-	}
-	.tp-banner-container {
-		padding-top: 40px;
-	}
-	.tp-caption .page-scroll a.btn-circle {
-		width: 40px;
-		height: 40px;
-		margin-top: 10px;
-		padding: 7px 0;
-		border: 2px solid #fff;
-		border-radius: 50%;
-		font-size: 20px;
-	}
-}
+<!-- -->
 
 .left-sidebar {
 	border-right: 1px solid #f5f5f5;
@@ -514,12 +464,8 @@ map design -->.left-box {
 }
 
 <!--
-search  --> /* .search {
-	position: absolute;
-	z-index: 1000;
-	top: 20px;
-	left: 20px;
-} */ .search {
+search  -->
+.search {
 	position: relative;
 	z-index: 1000;
 	top: 10%;

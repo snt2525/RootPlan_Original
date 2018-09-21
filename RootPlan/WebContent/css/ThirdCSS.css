@@ -145,9 +145,10 @@ tr {
 
 .tab {
 	list-style: none;
-	margin: 0;
+	margin-left: 20px;
+	margin-right:0px;
 	padding: 0;
-	width:100%;
+	width:95%;
 	overflow: hidden;
 	font-weight: 700;
 	font-family: sans-serif;
@@ -162,24 +163,20 @@ tr {
 	color: black;
 	text-align: center;
 	text-decoration: none;
-	padding: 14px 16px;
 	font-size: 17px;
 	transition: 0.3s;
 }
 /* Style the tab content */
 .tabcontent {
 	display: none;
-	background-color:white;
-	padding: 6px 12px;
-	color: black;
+	background-color:white; 
+	color: black; 
 }
 
 ul.tab li.current { 
- 	background-color: rgb(255, 229, 204); 
- 	/* border-left:1px solid gray;
- 	border-right:1px solid gray; */
-	border-top:3px solid red;
-	color: #222;
+  	background-color: rgb(255, 229, 204); 
+	border-bottom:3px solid rgb(255, 153, 051);
+	color: #222; 
 }
 
 .tabcontent.current {

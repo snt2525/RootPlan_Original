@@ -56,6 +56,8 @@ function getData(){
 		data: $("#getAddressData").serialize()+"&customerID="+customerID,
 		success: function(data){
 			var htmlStr = "<h3 class='headline'>여행지 선택</h3>";
+			document.getElementById("btnMainList").style.display="none";
+			document.getElementById("btnSaveList").style.display="block";
 			if(data!= null){
 				jQuery('#resetBtn').show();   //초기화 버튼 활성화
 			}
@@ -67,7 +69,7 @@ function getData(){
 				htmlStr += "<div>";
 				htmlStr += "<div class='left-content'>" + $(this).find('no').text()+". </div>";
 				htmlStr +=  "<div class='middle-content'>" + $(this).find('data').text() + "</div>";
-				htmlStr += "<div class='right-content'><a href='#' class='delete-factor' id='del', name='"+ $(this).find("no").text() +"'>X</a></div>";
+				htmlStr += "<div class='right-content'><a href='#' class='delete-factor no-uline noul' id='del', name='"+ $(this).find("no").text() +"'>X</a></div>";
 				htmlStr += "</div>";
 				
 				//마크 표시

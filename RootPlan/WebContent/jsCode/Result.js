@@ -70,15 +70,21 @@ function save(){
 }
 
 function tabClick(title){
-	if(title=="대중교통+도보"){ 
+	if(title=="li-tab1"){ 
 		document.resultPoly.how.value = "0";
 		document.resultLatLng.how.value="0";
+		document.tabPT.src = "img/tab_pt_pressed.png";
+		document.tabCar.src = "img/tab_car.png";
+		//console.log(document.tabPT.src + " , " + document.tabCar.src);
 		callResult();
 		callPolyLine(0);
 		showResultPT();
 	}else{
 		document.resultPoly.how.value = "1";
 		document.resultLatLng.how.value="1";
+		document.tabCar.src="img/tab_car_pressed.png";
+		document.tabPT.src="img/tab_pt.png";
+		//console.log(document.tabPT.src + " , " + document.tabCar.src);
 		callResult(); // 결과 부르기
 		callPolyLine(1); // 그리기
 		showResultCar(); // 옆에 결과 보여주기 
@@ -159,7 +165,7 @@ function showResultPT(){
 	    			   else{
 	    				   tmpId = "sectionDetail"+now.toString();
 	    				   htmlStr += "</div><div><a href=\"javascript:toggleLayer('"+tmpId+"');\">";
-		    			   htmlStr += "<img src='img/arrow_down.png'/></a></div>"; // 아래로 내리는 화살표 
+		    			   htmlStr += "<img id='" + tmpId+"img"+ "' src='img/arrow_down.png'/></a></div>"; // 아래로 내리는 화살표 
 		    			   htmlStr += "<div id='"+tmpId+"' style='display:none'>";  
 	    			   }
 	    		   }else if($(this).find('check').text() == '3'){ // 섹션 정보 
@@ -189,6 +195,7 @@ function showResultPT(){
 	    	   })
 	    	   // 여기있는 ht 두껍게 
 	    	   htmlStr += "<div><hr class='lastHr'>총 거리 : " + (totalDistance/1000).toFixed(2) + "km | 총 시간 : " +(totalTime).toFixed(0) + "분 | 총 교통요금 : " + totalFare + "원</div><br><br>";
+	    	   $("#resultCarList").html("");
 	    	   $("#resultPTList").html(htmlStr);
 	       }, error:function(request,status,error){
 	    	  console.log("대중교통 List 불러오기 실패");
@@ -247,6 +254,7 @@ function showResultCar(){
 	    	   htmlStr += "<hr class='lastHr'><div>총 거리 : " + (Number(totalDistance)/1000).toFixed(2) + "km | 총 시간 : " 
 	    	   			+totalTime.toFixed(0) + "분 | 총 택시요금 : " + totalFare + "원</div>";
 	    	   //console.log(htmlStr);
+	    	   $("#resultPTList").html("");
 	    	   $("#resultCarList").html(htmlStr);
 	       }, error:function(request,status,error){
 	    	  console.log("자동차 List 불러오기 실패");

@@ -46,11 +46,13 @@ function getLocalSearchData(){
              htmlStr += "<div class='wow fadeInLeft' data-wow-delay='0.2s'>";
              htmlStr += "<img class='image_container' src='"
                 + $(this).find('LocationImage').text()+"'></div>";   
-             htmlStr += "<div class='service-desc'>";
+             htmlStr += "<div>";
              htmlStr += "<h5 class='service-h5'>"+$(this).find('LocationTitle').text()+"</h5>";
-             htmlStr += "<input type='button' value ='위치 보기' name='"+$(this).find('no').text()+"' id='"+$(this).find('no').text()+"' " +
-                   " class='btn btn-skin' onClick ='showAddressData("
-                +$(this).find('LocationMapx').text()+","+$(this).find('LocationMapy').text()+","+$(this).find('no').text()+");'>";
+             htmlStr += "<a href='#' name='" + $(this).find('no').text()+"' id='"+$(this).find('no').text()+"' " +
+             "class='btnSearch btn-skin' onClick ='showAddressData("
+             +$(this).find('LocationMapx').text()+","+$(this).find('LocationMapy').text()+","+$(this).find('no').text()+");'>위치 보기</a>";
+           /*  htmlStr += "<img src='img/LocationButton.png' onmouseover='this.src=\"img/LocationButtonPressed.png\";'" +
+             		"onmouseout='this.src=\"img/LocationButton.png\";' onclick='this.src=\"img/LocationButtonPressed.png\";'/></a>";*/
              htmlStr += "<input type='hidden' id='"+$(this).find('no').text()+"' name='"+$(this).find('no').text()+"' value='"+$(this).find('LocationTitle').text()+"'/>";
              htmlStr += "</div></div>";
              
@@ -117,7 +119,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
        	              '<div class="info-second">',    
        	              '<h6 class="info-h6">' + title[no] +'</h6>',
        	              '<a href="#" name="btn" onClick="clickADDBtn();">',
-       	              '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+       	              '<img class="info-add-button" src="img/add_color.png" onmouseover="this.src=\'img/add_gray.png\';" onmouseout="this.src=\'img/add_color.png\';"/></a><br>',
        	              //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
        	              '<p class="info-p">' + address[no] + roadaddress[no],
        	              tp[no] + category[no] +'</p>',                                                                     
@@ -163,7 +165,7 @@ function getImg(no , i){
              '<div class="info-second">',    
              '<h6 class="info-h6">' + title[no] +'</h6>',
              '<a href="#" name="btn" onClick="clickADDBtn();">',
-	         '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+	         '<img class="info-add-button" src="img/add_color.png" onmouseover="this.src=\'img/add_gray.png\';" onmouseout="this.src=\'img/add_color.png\';"/></a><br>',
              //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
              '<p class="info-p">' + address[no] + roadaddress[no],
                tp[no] + category[no] +'</p>',                                                                     
@@ -251,7 +253,7 @@ function makeInfo(flag){
        '<div style="position:relative;padding:20px;width:300px;height:50px;font-color:black">',
        '<h6 class="info-h6">' + title2 +'</h6>',
        '<a href="#" name="btn" onClick="clickADDBtn();">',
-          '<img class="info-add-button" src="img/add_color.png"/></a><br>',
+       '<img class="info-add-button" src="img/add_color.png" onmouseover="this.src=\'img/add_gray.png\';" onmouseout="this.src=\'img/add_color.png\';"/></a><br>',
        //'<input type="button" name="btn" class="info-add-button" value="담기" onClick="clickADDBtn();"/></br>',
        '<p class="info-p">' + address2 + roadAddress2,
         tp2 + category2 +'</p>',                                                                 
