@@ -57,6 +57,15 @@ function sendCustomerInfo(){
 		success: function(data){
 			console.log("customerID 번호 : " + data);
 			sessionStorage.setItem("customerID", data); // customerID 입력
+			
+			customerID = data;
+			$.ajax({
+				url:"/RootPlan/AddressDataServlet",
+				dataType: "text",
+				async: false,
+				data:"menuIndex=23&customerID="+customerID
+			});
+			
 		},error:function(data){
 			console.log("customerID 값 받아오기 실패"); 
 		}

@@ -268,7 +268,7 @@ public class AddressDataServlet extends HttpServlet {
         	 
          case 23: // 세션 죽일 때
         	 ad[ID].addressData.clear();
-        	 System.out.println(ID + "세션 청소완료");
+        	 System.out.println(ID + "리스트 청소완료");
         	 break; 
       }               
    }
