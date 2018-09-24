@@ -226,6 +226,7 @@ public class Route {
 		   for(int i=0; i<dataTotal.carList.size(); i++) {
 			   int lineListSize = dataTotal.carList.get(i).getLineListSize();
 			   result += "<Data>";
+			   result += "<no>"+i+"</no>";
 			   result += "<end>1</end>";
 			   result += "<lat>" + Double.toString(dataTotal.carList.get(i).getSx())+"</lat>";
 			   result += "<lng>" + Double.toString(dataTotal.carList.get(i).getSy())+"</lat>";
@@ -234,6 +235,7 @@ public class Route {
 			   for(int j=0; j<lineListSize; j++) {
 				   DataPair pair = dataTotal.carList.get(i).getLineList(j);
 				   result += "<Data>";
+				   result += "<no>"+i+"</no>";
 				   result += "<end>0</end>";
 				   if(dataTotal.carList.get(i).isWalk())  result += "<walk>0</walk>";
 				   else    result += "<walk>1</walk>";
@@ -243,6 +245,8 @@ public class Route {
 			   }
 		   }
 		   result += "</carData>";
+		   System.out.println(result);
+		   
 	   }
 	   return result;
    }   

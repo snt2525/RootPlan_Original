@@ -3,7 +3,7 @@ $.ajaxSetup({
 	type:"post"
 });
 var lineArray;
-
+var lineArray2;
 var imgIconUrl = [
 	'img/way1.png',
 	'img/way2.png',
@@ -277,40 +277,65 @@ var polyline = new naver.maps.Polyline({
     strokeWeight: 3,
     strokeColor: '#003499' //처음 대중교통 색상 맞추기
 });
-
 function callPolyLine(title){ // 0:pt, 1:car
 	$.ajax({   //dfs, 결과 순서 다시 재 호출
 		   type: "POST",
 	       url:"/RootPlan/AddressDataServlet",
 	       dataType: "html",
 	       data:  $("#resultPoly").serialize()+"&customerID="+customerID,
-	       success: function(data){
+	       success: function(data){  		    	   
 	    	   lineArray = null;
 	    	   lineArray = new Array();
 	    	   
 	    	   polyline.setMap(null);
-	    	   delete polyline;
+	    	   delete polyline;	    	  
 	    	   
-	    	   $(data).find("Data").each(function(){
-	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
-	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
-	    	   })
-	    	   
-	    	   if(title==0){ // 대중교통일때
+	    	   if(title==0){ // 대중교통일때		    	   
+	    		   $(data).find("Data").each(function(){	    		  
+		    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
+		    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.	
+	    		   })
 	    	      polyline = new naver.maps.Polyline({
 					    map: map2,
 					    path: lineArray,
 					    strokeWeight: 3,
 					    strokeColor: '#003499' 
 					});   
-	    	   }else{ // 자동차일때
-	    		   polyline = new naver.maps.Polyline({
-					    map: map2,
-					    path: lineArray,
-					    strokeWeight: 3,
-					    strokeColor: '#ff0000'
-					});    
+	    	   }else{	    	  	    		      
+	    		   var no = 0;
+	    		   $(data).find("Data").each(function(){	    		  
+		    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
+		    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.	
+		    		   
+	    			   if(parseInt($(this).find('no').text()) != no){
+		    			   if(no == 0){		    				   
+		    				   polyline = new naver.maps.Polyline({
+		   					    map: map2,
+		   					    path: lineArray,
+		   					    strokeWeight: 3,
+		   					    strokeColor: '#ff0000'
+		   						});  
+		    			   }else if(no == 1){
+		    				   polyline = new naver.maps.Polyline({
+		   					    map: map2,
+		   					    path: lineArray,
+		   					    strokeWeight: 3,
+		   					    strokeColor: '#003499' 
+		   						});   
+		    			   }
+		    			   no++;
+		    			   lineArray = null;
+		    	    	   lineArray = new Array();
+	    			   }
+		    	   })
+		    	   	polyline = new naver.maps.Polyline({
+  					    map: map2,
+  					    path: lineArray,
+  					    strokeWeight: 3,
+  					    strokeColor: '#005511' 
+  					});   
 	    	   }
+	    	   
 	       }, error:function(request,status,error){
 	    	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	       }

@@ -38,7 +38,7 @@ html, body {
 #aisdeKeyword{
 	position:relative;
 	overflow:auto; 
-	height:15%;
+	height:20%;
 }
 
 
@@ -94,11 +94,11 @@ div {
 }
 
 .search {
-	position: absolute;
+	position:absolute;
 	float:right;
 	z-index: 1000;
-	top: 20px;
-	left: 20px;
+	top: 12px;
+	left: 70%;
 }
 
 .search #address {

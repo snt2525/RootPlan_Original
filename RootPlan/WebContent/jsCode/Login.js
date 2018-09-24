@@ -3,7 +3,6 @@ $.ajaxSetup({
    contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
    type:"post"
 });
-var checkflag = sessionStorage.getItem("checkflag");
 var customerID = sessionStorage.getItem("customerID");
 
 function print(){
@@ -39,7 +38,6 @@ var gender = sessionStorage.getItem("gender");
 var age = sessionStorage.getItem("age");
 
 function sendCustomerInfo(){
-	sessionStorage.setItem("checkflag", 0);
 	email = sessionStorage.getItem("email");
 	customerName = sessionStorage.getItem("name");
 	id = sessionStorage.getItem("id");
