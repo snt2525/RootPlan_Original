@@ -29,7 +29,7 @@ public class SearchAPIServlet extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      response.setContentType("text/html;charset=UTF-8");	      
 	      PrintWriter out = response.getWriter();
-	      System.out.println("검색api호출");
+	      //System.out.println("검색api호출");
 	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
 	      
 		  switch(menuIndex) {

@@ -326,7 +326,6 @@ function callPolyLine(title){ // 0:pt, 1:car
 	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
 	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
 	    		   lineArrayTmp[$(this).find('no').text()].push(new naver.maps.LatLng(Point.y, Point.x));
-	    		   console.log(lineArrayTmp[$(this).find('no').text()]);
 	    	   })
 	    	   
 	    	   if(title==0){ // 대중교통일때	    		   
@@ -351,6 +350,7 @@ function callPolyLine(title){ // 0:pt, 1:car
 }
 
 function showPolyLine_index(num){
+	alert(num + " 클릭 ");
 	polyline2.setMap(null);
 	delete polyline2;
 	
