@@ -304,7 +304,7 @@ function callPolyLine(title){ // 0:pt, 1:car
 					    map: map2,
 					    path: lineArray,
 					    strokeWeight: 3,
-					    strokeColor: '#003499' 
+					    strokeColor: '#ff3499' 
 					});   
 	    	   }else{ // 자동차일때	    		  
 	    		   polyline = new naver.maps.Polyline({
@@ -328,7 +328,7 @@ function showPolyLine_index(num){
 	    map: map2,
 	    path: lineArray[num],
 	    strokeWeight: 3,
-	    strokeColor: 'BLACK'
+	    strokeColor: '#000000'
 	}); 
 }
 

@@ -161,9 +161,9 @@ public class ApiPTSearch {
    }
 
   public void resultOrderCall(int[] result, int start, int end) {  //결과대로 호출
-	  //if(start==end) listSize++; // 이거 이상함... 원랜 있어야했는데 이젠 없어야함.. 
+	  //if(start == end) listSize++; // 이거 이상함... 원랜 있어야했는데 이젠 없어야함.. 
 	 
-      for(int i =0; i < listSize-1; i++) {
+      for(int i = 0; i < listSize-1; i++) {
     	  System.out.println("i:"+i);
     	  dataTotal.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng(), result[i],result[i+1]));
@@ -177,7 +177,7 @@ public class ApiPTSearch {
       CalculateDist calDist = new CalculateDist();
       double distanceMeter = calDist.distance(sx, sy, ex, ey, "meter");
       if (dataTotal.ptDist[a][b].getMethod() || distanceMeter <= 800) {
-    	  System.out.println("걷기 호출");
+    	  System.out.println("걷기 호출" + dataTotal.ptDist[a][b].getMethod());
          // 이전에 있던 애가 걷기 호출을 했었는지
          if (flag == true) {
             try {
@@ -186,8 +186,7 @@ public class ApiPTSearch {
             } catch (Exception e) {}
          } else {
             infopt = ws.resultWalkPTApi(sx, sy, ex, ey);
-         }
-         
+         }        
          // 걷기일 경우 양방향 같으니 같은 데이터 넣어주기
          flag = true;
       } else {

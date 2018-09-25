@@ -230,7 +230,7 @@ public class ConnectDB {
 			connection = ds.getConnection();
 			st = connection.createStatement();
 			st.executeUpdate("DELETE FROM route WHERE rid='"+rID+"' AND cid='"+cID+"'");	
-			rs = st.executeQuery("SELECT * FROM Route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다 삭제 됬는지 검사
+			rs = st.executeQuery("SELECT * FROM route where cid='"+cID+"'"); //회원의 전체 리스트를 봐본다 삭제 됬는지 검사
 			rs.close();
 			st.close();
 			connection.close();
