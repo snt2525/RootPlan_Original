@@ -23,6 +23,8 @@ public class ConnectDB {
 		try {	
 			InitialContext ct = new InitialContext();
 			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysqldb");
+			
+
 		} catch (Exception e) {
 			
 		}
@@ -32,6 +34,14 @@ public class ConnectDB {
 		try {			
 			connection = ds.getConnection();
 			st = connection.createStatement();
+			rs = st.executeQuery("show databases");	
+			if (st.execute("SHOW DATABASES")) {
+				rs = st.getResultSet();
+			}
+			while (rs.next()) {
+				String str = rs.getNString(1);
+				System.out.println(str);
+			}
 			rs = st.executeQuery("SELECT * FROM customer where id='"+ info.getId()+"'");			
 			if(rs.next()) { //이미 있는 아이디
 				System.out.println("이미 있는 아이디입니다.");

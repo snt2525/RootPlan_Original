@@ -268,9 +268,9 @@ public class AddressDataServlet extends HttpServlet {
 	 
          case 23: // 세션 죽일 때
         	System.out.println("리스트 초기화");
-     	 	db = new ConnectDB[ID];
+     	 	/*db = new ConnectDB[ID];
      	    ad = new AddressDataManager[ID];  
-     	    sd = new SetData[ID];
+     	    sd = new SetData[ID];*/
         	 break; 
 
       }               
