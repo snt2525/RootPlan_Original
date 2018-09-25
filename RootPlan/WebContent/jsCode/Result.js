@@ -309,57 +309,56 @@ var polyline2 = new naver.maps.Polyline({
 });
 
 function callPolyLine(title){ // 0:pt, 1:car
-   $.ajax({   //dfs, 결과 순서 다시 재 호출
-         type: "POST",
-          url:"/RootPlan/AddressDataServlet",
-          dataType: "html",
-          data:  $("#resultPoly").serialize()+"&customerID="+customerID,
-          success: function(data){
-             lineArray = null;
-             lineArray = new Array();
-             for(var i = 0; i< 7;i++)
-                lineArrayTmp[i] = new Array();
-             polyline.setMap(null);
-             delete polyline;
-             
-             $(data).find("Data").each(function(){                   
-                var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
-                lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
-                lineArrayTmp[$(this).find('no').text()].push(new naver.maps.LatLng(Point.y, Point.x));
-                console.log(lineArrayTmp[$(this).find('no').text()]);
-             })
-             
-             if(title==0){ // 대중교통일때                
-                polyline = new naver.maps.Polyline({
-                   map: map2,
-                   path: lineArray,
-                   strokeWeight: 5,
-                   strokeColor: 'green' 
-               });   
-             }else{ // 자동차일때               
-                polyline = new naver.maps.Polyline({
-                   map: map2,
-                   path: lineArray,
-                   strokeWeight: 5,
-                   strokeColor: '#ff0000'
-               });    
-             }
-          }, error:function(request,status,error){
-             console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-          }
-      });
+	$.ajax({   //dfs, 결과 순서 다시 재 호출
+		   type: "POST",
+	       url:"/RootPlan/AddressDataServlet",
+	       dataType: "html",
+	       data:  $("#resultPoly").serialize()+"&customerID="+customerID,
+	       success: function(data){
+	    	   lineArray = null;
+	    	   lineArray = new Array();
+	    	   for(var i = 0; i< 7;i++)
+	    		   lineArrayTmp[i] = new Array();
+	    	   polyline.setMap(null);
+	    	   delete polyline;
+	    	   
+	    	   $(data).find("Data").each(function(){	    			   
+	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
+	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
+	    		   lineArrayTmp[$(this).find('no').text()].push(new naver.maps.LatLng(Point.y, Point.x));
+	    	   })
+	    	   
+	    	   if(title==0){ // 대중교통일때	    		   
+	    	      polyline = new naver.maps.Polyline({
+					    map: map2,
+					    path: lineArray,
+					    strokeWeight: 5,
+					    strokeColor: 'green' 
+					});   
+	    	   }else{ // 자동차일때	    		  
+	    		   polyline = new naver.maps.Polyline({
+					    map: map2,
+					    path: lineArray,
+					    strokeWeight: 5,
+					    strokeColor: '#ff0000'
+					});    
+	    	   }
+	       }, error:function(request,status,error){
+	    	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	       }
+	   });
 }
 
 function showPolyLine_index(num){
-   polyline2.setMap(null);
-   delete polyline2;
-   
-   polyline2 = new naver.maps.Polyline({
-       map: map2,
-       path: lineArrayTmp[num],
-       strokeWeight: 5,
-       strokeColor: '#000000'
-   }); 
+	polyline2.setMap(null);
+	delete polyline2;
+	
+	polyline2 = new naver.maps.Polyline({
+	    map: map2,
+	    path: lineArrayTmp[num],
+	    strokeWeight: 5,
+	    strokeColor: '#000000'
+	}); 
 }
 
 var line = new Array(10000);
