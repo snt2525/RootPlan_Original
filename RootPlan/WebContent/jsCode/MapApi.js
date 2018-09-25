@@ -91,24 +91,23 @@ function makeList(xmlStr) { //umtk 좌표를 latlng로 변환하고, 변환한 i
             infoWindow.close();
          });
    var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlngTmp);
-   naver.maps.Service
-      .reverseGeocode(
-            {
-               location : tm128,
-               coordType : naver.maps.Service.CoordType.TM128
-            },
-            function(status, response) {
-               if (status === naver.maps.Service.Status.ERROR) {
-                  return alert('Something Wrong!');
-         }
-         //form에 위도 경도를 저장해둔다.
-         document.saveAddress.lat.value = latlngTmp.x;
-         document.saveAddress.lng.value = latlngTmp.y;
-         if(document.form.jibunAddr.value == "")
-            document.saveAddress.address.value = document.form.roadAddrPart1.value;
-         else
-            document.saveAddress.address.value = document.form.jibunAddr.value;
-      });
+   naver.maps.Service.reverseGeocode(
+        {
+           location : tm128,
+           coordType : naver.maps.Service.CoordType.TM128
+        },
+        function(status, response) {
+           if (status === naver.maps.Service.Status.ERROR) {
+              return alert('Something Wrong!');
+     }
+     //form에 위도 경도를 저장해둔다.
+     document.saveAddress.lat.value = latlngTmp.x;
+     document.saveAddress.lng.value = latlngTmp.y;
+     if(document.form.jibunAddr.value == "")
+        document.saveAddress.address.value = document.form.roadAddrPart1.value;
+     else
+        document.saveAddress.address.value = document.form.jibunAddr.value;
+  });
 
 }
 

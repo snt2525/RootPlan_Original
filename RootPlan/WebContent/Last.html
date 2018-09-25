@@ -114,6 +114,8 @@
 			$('ul.tab li').click(function() {
 				var title = $(this).attr("id");
 				var activeTab = $(this).attr('data-tab');
+				polyline2.setMap(null);
+				delete polyline2;
 				tabClick(title);
 			})
 		}); 

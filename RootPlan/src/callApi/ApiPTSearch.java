@@ -161,9 +161,9 @@ public class ApiPTSearch {
    }
 
   public void resultOrderCall(int[] result, int start, int end) {  //결과대로 호출
-	  //if(start == end) listSize++; // 이거 이상함... 원랜 있어야했는데 이젠 없어야함.. 
-	 
-      for(int i = 0; i < listSize-1; i++) {
+	  if(start==end) listSize++;  
+	  System.out.println("문제!!!!!!!!!!!!!!!!!!!!!!"+ listSize);
+      for(int i =0; i < listSize -1; i++) {
     	  System.out.println("i:"+i);
     	  dataTotal.ptList.add(callResultPT( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
                ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng(), result[i],result[i+1]));
@@ -181,7 +181,7 @@ public class ApiPTSearch {
          // 이전에 있던 애가 걷기 호출을 했었는지
          if (flag == true) {
             try {
-               Thread.sleep(1200);
+               Thread.sleep(1500);
                infopt = ws.resultWalkPTApi(sx, sy, ex, ey); 
             } catch (Exception e) {}
          } else {

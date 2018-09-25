@@ -35,50 +35,52 @@ function getLocalSearchData(){
        dataType: "text",
        data: $("#SiData").serialize()+"&customerID="+customerID,
        success: function(data){
-          var htmlStr = "";
-          htmlStr += "<div id='box'>";
-          $(data).find("CityData").each(function(){
-             htmlStr += "<h2 class='h2-style'>"+ $(this).find('LocationCity').text()+ " " + word +"</h2>";    
-          })
-          $(data).find("Data").each(function(){     
-             htmlStr += "<div class='item1'>";
-             htmlStr += "<div class='wow fadeInLeft' data-wow-delay='0.2s'>";
-             htmlStr += "<img class='image_container' src='"
-                + $(this).find('LocationImage').text()+"'></div>";   
-             htmlStr += "<div>";
-             htmlStr += "<h5 class='service-h5'>"+$(this).find('LocationTitle').text()+"</h5>";
-             htmlStr += "<a href='#' name='" + $(this).find('no').text()+"' id='"+$(this).find('no').text()+"' " +
-             "class='btnSearch btn-skin' onClick ='showAddressData("
-             +$(this).find('LocationMapx').text()+","+$(this).find('LocationMapy').text()+","+$(this).find('no').text()+");'>위치 보기</a>";
-           /*  htmlStr += "<img src='img/LocationButton.png' onmouseover='this.src=\"img/LocationButtonPressed.png\";'" +
-             		"onmouseout='this.src=\"img/LocationButton.png\";' onclick='this.src=\"img/LocationButtonPressed.png\";'/></a>";*/
-             htmlStr += "<input type='hidden' id='"+$(this).find('no').text()+"' name='"+$(this).find('no').text()+"' value='"+$(this).find('LocationTitle').text()+"'/>";
-             htmlStr += "</div></div>";
-             
-             var num = parseInt($(this).find('no').text());
-             link[num] = $(this).find('LocationLink').text();
-             if( link[num] != "" )
-                link2[num] =  $(this).find('LocationLink').text()+" </a></br>";
-             else
-                link2[num] = "";
-             title[num] = $(this).find('LocationTitle').text();
-             description[num] = $(this).find('LocationDescription').text();
-             if( description[num] != "" )
-                description[num] += "</br>";                       
-             if($(this).find('LocationRoadaddress').text() == "")
-                roadaddress[num] = $(this).find('LocationRoadaddress').text();
-             else
-                roadaddress[num] = $(this).find('LocationRoadaddress').text() +"</br>";
-             title[num] = $(this).find('LocationTitle').text();
-             category[num] = $(this).find('LocationCategory').text();
-             tp[num] = $(this).find('LocationTP').text();
-             if( tp[num] != "" )
-                tp[num] += " | ";
-             address[num] = $(this).find('LocationAddress').text() +"</br>";
-          });
-          htmlStr += "</div>";
-          
-          $("#crawlingData").html(htmlStr);
+    	   if(data!='0'){
+	    	   var htmlStr = "";
+	          htmlStr += "<div id='box'>";
+	          $(data).find("CityData").each(function(){
+	             htmlStr += "<h2 class='h2-style'>"+ $(this).find('LocationCity').text()+ " " + word +"</h2>";    
+	          })
+	          $(data).find("Data").each(function(){     
+	             htmlStr += "<div class='item1'>";
+	             htmlStr += "<div class='wow fadeInLeft' data-wow-delay='0.2s'>";
+	             htmlStr += "<img class='image_container' src='"
+	                + $(this).find('LocationImage').text()+"'></div>";   
+	             htmlStr += "<div>";
+	             htmlStr += "<h5 class='service-h5'>"+$(this).find('LocationTitle').text()+"</h5>";
+	             htmlStr += "<a href='#' name='" + $(this).find('no').text()+"' id='"+$(this).find('no').text()+"' " +
+	             "class='btnSearch btn-skin' onClick ='showAddressData("
+	             +$(this).find('LocationMapx').text()+","+$(this).find('LocationMapy').text()+","+$(this).find('no').text()+");'>위치 보기</a>";
+	           /*  htmlStr += "<img src='img/LocationButton.png' onmouseover='this.src=\"img/LocationButtonPressed.png\";'" +
+	             		"onmouseout='this.src=\"img/LocationButton.png\";' onclick='this.src=\"img/LocationButtonPressed.png\";'/></a>";*/
+	             htmlStr += "<input type='hidden' id='"+$(this).find('no').text()+"' name='"+$(this).find('no').text()+"' value='"+$(this).find('LocationTitle').text()+"'/>";
+	             htmlStr += "</div></div>";
+	             
+	             var num = parseInt($(this).find('no').text());
+	             link[num] = $(this).find('LocationLink').text();
+	             if( link[num] != "" )
+	                link2[num] =  $(this).find('LocationLink').text()+" </a></br>";
+	             else
+	                link2[num] = "";
+	             title[num] = $(this).find('LocationTitle').text();
+	             description[num] = $(this).find('LocationDescription').text();
+	             if( description[num] != "" )
+	                description[num] += "</br>";                       
+	             if($(this).find('LocationRoadaddress').text() == "")
+	                roadaddress[num] = $(this).find('LocationRoadaddress').text();
+	             else
+	                roadaddress[num] = $(this).find('LocationRoadaddress').text() +"</br>";
+	             title[num] = $(this).find('LocationTitle').text();
+	             category[num] = $(this).find('LocationCategory').text();
+	             tp[num] = $(this).find('LocationTP').text();
+	             if( tp[num] != "" )
+	                tp[num] += " | ";
+	             address[num] = $(this).find('LocationAddress').text() +"</br>";
+	          });
+	          htmlStr += "</div>";
+	          
+	          $("#crawlingData").html(htmlStr);
+    	   }
        }, error: function(data){
     	   //console.log(data);
             // alert("데이터 받기 실패");

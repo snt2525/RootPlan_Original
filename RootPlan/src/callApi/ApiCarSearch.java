@@ -42,7 +42,7 @@ public class ApiCarSearch {
 		   for(int i=0; i<len-1; i++) {
 			   for(int j=i+1; j<len; j++) {
 				   callApi(i, j, ad.get(i).getLat(), ad.get(i).getLng(), ad.get(j).getLat(), ad.get(j).getLng()); 
-				   Thread.sleep(550);
+				   Thread.sleep(500);
 			   }
 		   }
 		} catch (Exception e) {
@@ -122,7 +122,7 @@ public class ApiCarSearch {
 		   for(int i =0; i < listSize-1; i++) {
 			   dataTotal.carList.add(callResultCar( ad.get(result[i]).getLat(), ad.get(result[i]).getLng(),
 					   ad.get(result[i+1]).getLat(), ad.get(result[i+1]).getLng()));
-			   Thread.sleep(700);
+			   Thread.sleep(750);
 		   }
 		} catch (Exception e) {
 			System.out.println("문제발생쓰");
