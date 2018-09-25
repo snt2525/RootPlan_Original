@@ -13,7 +13,14 @@ var imgIconUrl = [
 	'img/way6.png',
 	'img/wayLast.png', // 6 : 사이클 생성시
 	'img/bus.png', // 7 : 버스아이콘
-	'img/subway.png' // 8 : 지하철 아이콘
+	'img/subway.png', // 8 : 지하철 아이콘
+	'img/way11.png', // 9 = original + 9
+	'img/way22.png',
+	'img/way33.png',
+	'img/way44.png',
+	'img/way55.png',
+	'img/way66.png',
+	'img/wayLast1.png' 
 ]
 
 function checkSave(){
@@ -133,7 +140,9 @@ function showResultPT(){
 	    			   if(cycle=='1' && wayCount-1==count){
 	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/> 약 ";
 	    			   }else{
-	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
+	    				   htmlStr += "<a href='#' title='부분경로보기'><img class='iconImg' src='"+imgIconUrl[now] 
+	    				   +"' onmouseover='this.src=\"img/" +imgIconUrl[now+9]+ "\";' onmouseover='this.src=\"img/" +imgIconUrl[now]
+	    				   + "\";' /></a> 약 ";
 	    			   }
 	    			   if($(this).find('walk').text()=="true"){
 	    				   htmlStr += (Number($(this).find('totalTime').text())/60).toFixed(0) +"분  |  요금 "; 
