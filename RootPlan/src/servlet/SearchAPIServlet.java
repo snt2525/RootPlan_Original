@@ -31,6 +31,7 @@ public class SearchAPIServlet extends HttpServlet {
 	      PrintWriter out = response.getWriter();
 	      System.out.println("검색api호출");
 	      int menuIndex = Integer.parseInt(request.getParameter("menuIndex"));
+	      
 		  switch(menuIndex) {
 			  case 1:  //지도 클릭, 검색
 				  String result = "";
@@ -45,13 +46,12 @@ public class SearchAPIServlet extends HttpServlet {
 				  String Si = request.getParameter("Si");
 		          String clickSi = request.getParameter("clickSi");
 		          String keywordVal = request.getParameter("keywordVal");
-		          //System.out.println("keyWordVal : " + keywordVal);
 	               if(!Si.equals(clickSi)) {
 	                  LocationDataManager l = new LocationDataManager();	                  
 	                  String  result1 = l.getLocation(clickSi, keywordVal);
 	                  out.print(result1);
 	               }else {
-	                  String  result1 = "null";
+	                  String  result1 = "0";
 	                  out.print(result1);
 	               }
 				  break;	

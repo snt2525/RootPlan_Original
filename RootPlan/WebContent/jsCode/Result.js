@@ -2,7 +2,7 @@ $.ajaxSetup({
 	contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
 	type:"post"
 });
-var polyline2;
+var polyline2 ;
 var lineArray;
 var lineArrayTmp = new Array();
 var imgIconUrl = [
@@ -138,13 +138,17 @@ function showResultPT(){
 	    			   count++;
 	    			   // 엔터 하려면 나중에 보고나서 
 	    			   htmlStr += "<div><hr class='one'>";
-	    			   if(cycle=='1' && wayCount-1==count){
-	    				   htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/> 약 ";
-	    			   }else{
-	    				   htmlStr += "<a href='#' title='부분경로보기'><img class='iconImg' src='"+imgIconUrl[now] 
-	    				   +"' onmouseover='this.src=\"img/" +imgIconUrl[now+9]+ "\";' onmouseover='this.src=\"img/" +imgIconUrl[now]
-	    				   + "\";' /></a> 약 ";
+	    			   if(cycle=='1' && wayCount-1 == count){
+	    				   htmlStr += "<a href='#' title='부분 경로보기'><img class='iconImg' src='"+imgIconUrl[6] 
+	    				   +"' onmouseover='this.src=\""+imgIconUrl[15]+ "\";' onmouseout='this.src=\""+imgIconUrl[6]
+	    				   + "\";' onclick='showPolyLine_index(" +(count-1)+ ");'/></a> 약 ";
 	    			   }
+	    			   else{
+	    				   htmlStr += "<a href='#' title='부분 경로보기'><img class='iconImg' src='"+imgIconUrl[now] 
+	    				   +"' onmouseover='this.src=\"" +imgIconUrl[now+9]+ "\";' onmouseout='this.src=\"" +imgIconUrl[now]
+	    				   + "\";' onclick='showPolyLine_index(" +now+ ");'/></a> 약 ";
+	    			   }
+	    			   
 	    			   if($(this).find('walk').text()=="true"){
 	    				   htmlStr += (Number($(this).find('totalTime').text())/60).toFixed(0) +"분  |  요금 "; 
 	    				   totalTime += Number($(this).find('totalTime').text())/60;
@@ -158,9 +162,9 @@ function showResultPT(){
 	    			   htmlStr += (Number($(this).find('totalDistance').text()/1000)).toFixed(2) + "km | ";
 	    			   htmlStr += $(this).find('totalStationCount').text() + "개 정류장 및 역";
 	    			   sectionSize = Number($(this).find('sectionSize').text());
-	    			   htmlStr += "</div><div class='iconImg'><hr class='two'>";
+	    			   htmlStr += "</div></div><div class='iconImg'><hr class='two'>";
 	    			   totalDistance += Number($(this) .find('totalDistance').text());
-	    		   		totalFare += Number($(this).find('totalFare').text());
+	    		   	   totalFare += Number($(this).find('totalFare').text());
 	    		   }else if($(this).find('check').text() == '2'){
 	    			   cnt = cnt+1;
 	    			   if($(this).find('trafficType').text()== "버스"){
@@ -210,6 +214,7 @@ function showResultPT(){
 	    	   })
 	    	   // 여기있는 ht 두껍게 
 	    	   htmlStr += "<div><hr class='lastHr'>총 거리 : " + (totalDistance/1000).toFixed(2) + "km | 총 시간 : " +(totalTime).toFixed(0) + "분 | 총 교통요금 : " + totalFare + "원</div><br><br>";
+	    	   //console.log(htmlStr);
 	    	   $("#resultCarList").html("");
 	    	   $("#resultPTList").html(htmlStr);
 	       }, error:function(request,status,error){
@@ -252,8 +257,16 @@ function showResultCar(){
 	    		   }else{
 	    			   htmlStr += "<hr class='one'><div>";
 	    			   count++;
-	    			   if(cycle=='1' && wayCount-1 == count) htmlStr += "<img class='iconImg' src='"+imgIconUrl[6] +"'/> 약 ";
-	    			   else htmlStr += "<img class='iconImg' src='"+imgIconUrl[now] +"'/> 약 ";
+	    			   if(cycle=='1' && wayCount-1 == count){
+	    				   htmlStr += "<a href='#' title='부분 경로보기'><img class='iconImg' src='"+imgIconUrl[6] 
+	    				   +"' onmouseover='this.src=\""+imgIconUrl[15]+ "\";' onmouseout='this.src=\""+imgIconUrl[6]
+	    				   + "\";' onclick='showPolyLine_index(" +(count-1)+ ");'/></a> 약 ";
+	    			   }
+	    			   else{
+	    				   htmlStr += "<a href='#' title='부분 경로보기'><img class='iconImg' src='"+imgIconUrl[now] 
+	    				   +"' onmouseover='this.src=\"" +imgIconUrl[now+9]+ "\";' onmouseout='this.src=\"" +imgIconUrl[now]
+	    				   + "\";' onclick='showPolyLine_index(" +now+ ");'/></a> 약 ";
+	    			   }
 	    			   htmlStr += (Number($(this).find('time').text())/60).toFixed(0).toString() +"분 | ";
 	    			   if($(this).find('walk').text()=="false"){
 	    				   totalFare += Number($(this).find('fare').text());
@@ -284,8 +297,15 @@ function showResultCar(){
 var polyline = new naver.maps.Polyline({
     map: map2,
     path: lineArray,
-    strokeWeight: 3,
-    strokeColor: '#003499' //처음 대중교통 색상 맞추기
+    strokeWeight: 5,
+    strokeColor: 'green' //처음 대중교통 색상 맞추기
+});
+
+var polyline2 = new naver.maps.Polyline({
+    map: map2,
+    path: lineArray,
+    strokeWeight: 5,
+    strokeColor: 'green' //처음 대중교통 색상 맞추기
 });
 
 function callPolyLine(title){ // 0:pt, 1:car
@@ -306,20 +326,21 @@ function callPolyLine(title){ // 0:pt, 1:car
 	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
 	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
 	    		   lineArrayTmp[$(this).find('no').text()].push(new naver.maps.LatLng(Point.y, Point.x));
+	    		   console.log(lineArrayTmp[$(this).find('no').text()]);
 	    	   })
 	    	   
 	    	   if(title==0){ // 대중교통일때	    		   
 	    	      polyline = new naver.maps.Polyline({
 					    map: map2,
 					    path: lineArray,
-					    strokeWeight: 3,
-					    strokeColor: '#003499' 
+					    strokeWeight: 5,
+					    strokeColor: 'green' 
 					});   
 	    	   }else{ // 자동차일때	    		  
 	    		   polyline = new naver.maps.Polyline({
 					    map: map2,
 					    path: lineArray,
-					    strokeWeight: 3,
+					    strokeWeight: 5,
 					    strokeColor: '#ff0000'
 					});    
 	    	   }
@@ -335,9 +356,9 @@ function showPolyLine_index(num){
 	
 	polyline2 = new naver.maps.Polyline({
 	    map: map2,
-	    path: lineArray[num],
-	    strokeWeight: 3,
-	    strokeColor: 'BLACK'
+	    path: lineArrayTmp[num],
+	    strokeWeight: 5,
+	    strokeColor: '#000000'
 	}); 
 }
 

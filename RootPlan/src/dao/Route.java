@@ -40,7 +40,7 @@ public class Route {
 	   String car = "";
 	   String pt = "";
 	   int carSize = dataTotal.carAns.length;
-	   if(start!=last)carSize--;
+	  // if(start!=last)carSize--;
 	   for(int i = 0;i < carSize;i++) {
 		   car += Integer.toString(dataTotal.carAns[i])+",";
 		   pt += Integer.toString(dataTotal.ptAns[i])+",";
