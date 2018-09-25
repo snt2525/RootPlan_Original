@@ -95,7 +95,7 @@ public class ApiWalkSearch{
 				con.disconnect();
 				String data = sb.toString();
 
-				System.out.println("d실패" + data);
+				System.out.println("d실패" + data);				
 			}
 			sb = new StringBuilder();
 			String line;
@@ -113,6 +113,7 @@ public class ApiWalkSearch{
 
 			for (int i = 0; i < array.length; i++) {
 				if (array[i].equals("id")){
+					Thread.sleep(550);
 					return resultWalkPTApi(sx, sy, ex, ey);
 				}
 				else if (array[i].equals("tmap:totalDistance")) {

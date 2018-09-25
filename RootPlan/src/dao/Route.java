@@ -40,7 +40,7 @@ public class Route {
 	   String car = "";
 	   String pt = "";
 	   int carSize = dataTotal.carAns.length;
-	  // if(start!=last)carSize--;
+	   if(start!=last)carSize--;
 	   for(int i = 0;i < carSize;i++) {
 		   car += Integer.toString(dataTotal.carAns[i])+",";
 		   pt += Integer.toString(dataTotal.ptAns[i])+",";
@@ -70,29 +70,23 @@ public class Route {
    //여기서 dataTotal에 데이터도 넣고, recall도 해준다
    public void putDTO_AND_reCall(Route2DataCall tmp, AddressDataManager ad) {
 	   int size = tmp.getSize();
-	   int start = tmp.getStart();
-	   int last = tmp.getLast();
-	   if(start == last) {
-		   for(int i = 0;i < size - 1; i++) {
-			   dataTotal.carAns[i] = tmp.getCar_order(i);
-			   dataTotal.ptAns[i] = tmp.getPt_order(i);
-		   }
-		   printAns(size - 1); //출력
-	   }else {
-		   for(int i = 0;i < size; i++) {
-			   dataTotal.carAns[i] = tmp.getCar_order(i);
-			   dataTotal.ptAns[i] = tmp.getPt_order(i); 
-		   }
-		   printAns(size); //출력
-	   }
-	   
-	   //recallApiData();얘를 호출 102번째 줄에 있음.	   
-	   pt = new ApiPTSearch(ad.getList(), dataTotal, size);
-	   cs = new ApiCarSearch(ad.getList(), dataTotal, size);
-	   
-	   //재호출
-	   recallApiData(0, start, last);
-	   recallApiData(1, start, last);
+	      int start = tmp.getStart();
+	      int last = tmp.getLast();
+	         for(int i = 0;i < size; i++) {
+	            dataTotal.carAns[i] = tmp.getCar_order(i);
+	            dataTotal.ptAns[i] = tmp.getPt_order(i); 
+	         }
+	         printAns(size); //출력
+	         System.out.println("ssssssssssss"+size);
+	      
+	      //recallApiData();얘를 호출 102번째 줄에 있음.   
+	       if(start == last) size--;
+	      pt = new ApiPTSearch(ad.getList(), dataTotal, size);
+	      cs = new ApiCarSearch(ad.getList(), dataTotal, size);
+	      
+	      //재호출
+	      recallApiData(0, start, last);
+	      recallApiData(1, start, last);
    }
     
    public boolean callAPIData(int a, int b, String car, AddressDataManager ad, SetData sd) {     
