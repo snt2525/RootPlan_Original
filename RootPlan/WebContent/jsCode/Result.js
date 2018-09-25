@@ -2,8 +2,9 @@ $.ajaxSetup({
 	contentType:'application/x-www-form-urlencoded;charset=UTF-8', 
 	type:"post"
 });
+var polyline2;
 var lineArray;
-
+var lineArrayTmp = new Array();
 var imgIconUrl = [
 	'img/way1.png',
 	'img/way2.png',
@@ -287,23 +288,25 @@ function callPolyLine(title){ // 0:pt, 1:car
 	       success: function(data){
 	    	   lineArray = null;
 	    	   lineArray = new Array();
-	    	   
+	    	   for(var i = 0; i< 7;i++)
+	    		   lineArrayTmp[i] = new Array();
 	    	   polyline.setMap(null);
 	    	   delete polyline;
 	    	   
-	    	   $(data).find("Data").each(function(){
+	    	   $(data).find("Data").each(function(){	    			   
 	    		   var Point = new naver.maps.Point($(this).find('lat').text(), $(this).find('lng').text());
 	    		   lineArray.push(new naver.maps.LatLng(Point.y, Point.x));  //이상하면 x와 y를 바꿔보기.
+	    		   lineArrayTmp[$(this).find('no').text()].push(new naver.maps.LatLng(Point.y, Point.x));
 	    	   })
 	    	   
-	    	   if(title==0){ // 대중교통일때
+	    	   if(title==0){ // 대중교통일때	    		   
 	    	      polyline = new naver.maps.Polyline({
 					    map: map2,
 					    path: lineArray,
 					    strokeWeight: 3,
 					    strokeColor: '#003499' 
 					});   
-	    	   }else{ // 자동차일때
+	    	   }else{ // 자동차일때	    		  
 	    		   polyline = new naver.maps.Polyline({
 					    map: map2,
 					    path: lineArray,
@@ -315,6 +318,18 @@ function callPolyLine(title){ // 0:pt, 1:car
 	    	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	       }
 	   });
+}
+
+function showPolyLine_index(num){
+	polyline2.setMap(null);
+	delete polyline2;
+	
+	polyline2 = new naver.maps.Polyline({
+	    map: map2,
+	    path: lineArray[num],
+	    strokeWeight: 3,
+	    strokeColor: 'BLACK'
+	}); 
 }
 
 var line = new Array(10000);
