@@ -7,33 +7,47 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<build>
+		<finalName>ROOTPLAN</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+ 				<configuration>
+					<release>9</release>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>openshift</groupId>
-				<artifactId>openshift-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.1</version>
 				<configuration>
-					<!-- this is example destination choose yours -->
-					<destination>app-root/data/wildfly-8.0.0.CR1/standalone/deployments/</destination>
-					<host>REMOTEHOST</host>
-					<!-- user name from the ssh -->
-					<user>52ed3d44d0b3cd44a0000513</user>
-					<!-- you can also run remote commands before and after files upload -->
-					<preCommand>touch $RFILE</preCommand>
-					<postCommand>touch $RFILE</postCommand>
-					<password></password>
-					<!-- path to your id_rsa file used by ssh to connect to openshift -->
-					<keyFilePath>/home/user/.ssh/id_rsa</keyFilePath>
+					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+
+	</dependencies>
 </project>

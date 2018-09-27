@@ -19,6 +19,7 @@ public class ConnectDB {
 	static Connection connection;
 	static Statement st;
 	static ResultSet rs;
+	
 	public ConnectDB(){
 		try {	
 			InitialContext ct = new InitialContext();
