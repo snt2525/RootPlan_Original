@@ -14,7 +14,7 @@ import callApi.LocalSearchImg;
 import dao.LocationDataManager;
 
 
-@WebServlet("/CallSearchLocalApi")
+@WebServlet("/SearchAPIServlet")
 public class SearchAPIServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public SearchAPIServlet() {     

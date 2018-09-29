@@ -31,7 +31,7 @@ var isStarted = 0;
 function getLocalSearchData(){
 	var word = keyword;
    $.ajax({
-       url:"/RootPlan/CallSearchLocalApi",
+       url:"/RootPlan/SearchAPIServlet",
        dataType: "text",
        data: $("#SiData").serialize()+"&customerID="+customerID,
        success: function(data){
@@ -95,7 +95,7 @@ function showAddressData(xData,yData,no){  //나중에 marker가 안나온다면
    var tm128 =  new naver.maps.Point(parseInt(xData),parseInt(yData));
    
    $.ajax({
-       url:"/RootPlan/CallSearchLocalApi",
+       url:"/RootPlan/SearchAPIServlet",
        dataType: "text",
        type : "post",
        data: $("#getImgURL").serialize()+"&customerID="+customerID,
@@ -207,7 +207,7 @@ function callSearchApi(num){
          makeInfo();
       }else{       
          $.ajax({
-            url:"/RootPlan/CallSearchLocalApi",
+            url:"/RootPlan/SearchAPIServlet",
             type : "post",
             dataType: "xml",
             data: $("#searchApi").serialize()+"&customerID="+customerID,
