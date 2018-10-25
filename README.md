@@ -1,6 +1,13 @@
 # 사용자 맞춤형 여행 Planner 루트플랜(RootPlan)
 
+<p align="center"><img src="readme_img/logo.JPG"></p>
+
+
+**Introduce**
+-------------
 루트 플랜은 사용자 맞춤형 여행 planner로 여행지 정보수집과 효율적인 여행 루트 설계를 도와 줌으로 써 여행 일정 동안의 불필요한 체력과 비용 그리고 시간이 소모되는 것을 방지해줍니다. 
+
+<br>
 
 **핵심 기능**
 -------------
@@ -12,12 +19,13 @@
 
 - 사용자 맞춤 최적 경로(자동차+걷기 / 대중교통+걷기) 
 
-
+<br>
 
 **Architecture**
 -------------
 ![Architecture](readme_img/architecture.jpg) 
 
+<br>
 
 **시연영상**
 -------------
@@ -46,6 +54,7 @@
 
 전라도 여수 투어: https://youtu.be/OoBfzJfIbhc
 
+<br>
 
 **개발환경&언어**
 -------------
