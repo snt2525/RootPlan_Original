@@ -1,9 +1,22 @@
-# RootPlan_Original
-Rootplan 웹 개발버전 입니다. 
+# 사용자 맞춤형 여행 Planner 루트플랜(RootPlan)
 
-자료와 시연영상 PDF파일을 포함하고 있습니다.
+루트 플랜은 사용자 맞춤형 여행 planner로 여행지 정보수집과 효율적인 여행 루트 설계를 도와 줌으로 써 여행 일정 동안의 불필요한 체력과 비용 그리고 시간이 소모되는 것을 방지해줍니다. 
+
+**핵심 기능**
+-------------
+- 사용자가 원하는 여행지 선택 가능
+
+- 지역 & 키워드 기반 여행 정보 제공
+
+- 여행 경로 저장
+
+- 사용자 맞춤 최적 경로(자동차+걷기 / 대중교통+걷기) 
 
 
+
+**Architecture**
+-------------
+![Architecture](readme_img/architecture.jpg) 
 
 
 **시연영상**
@@ -32,3 +45,8 @@ Rootplan 웹 개발버전 입니다.
 울산 투어: https://youtu.be/JhoYMeIObeg
 
 전라도 여수 투어: https://youtu.be/OoBfzJfIbhc
+
+
+**개발환경&언어**
+-------------
+![개발환경&언어](readme_img/skill.JPG) 
